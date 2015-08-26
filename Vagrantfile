@@ -22,6 +22,6 @@ Vagrant.configure(2) do |config|
     vb.gui = true
   end
 
-  config.vm.provision "shell", path: "compact.ps1"
+  config.vm.provision "shell", inline: "powershell -File C:\\vagrant\\compact.ps1"
 
 end
