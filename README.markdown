@@ -5,7 +5,8 @@ setup WinRM.
 
 # How do I use it?
 
-For Windows XP execute `xp-download-prerequisites.sh` on the host first.
+For Windows XP execute `download-prerequisites-xp.sh` on the host first.
+For the others execute `download-prerequisites.sh`.
 
 Then execute `vagrant up`.
 
