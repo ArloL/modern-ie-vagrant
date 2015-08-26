@@ -1,11 +1,10 @@
 function Unzip($zip, $destination) {
     $shell = New-Object -COMObject "Shell.Application"
     $zip = $shell.NameSpace($zip)
-    $destination = $shell.NameSpace($destination)
     foreach($item in $zip.items()) {
-        $target = $destination.ParseName($item.Path).Path
+        $target = "$($destination)\$($item.Path)"
         if (!(Test-Path $target)) {
-            $destination.CopyHere($item)
+            $shell.NameSpace($destination).CopyHere($item)
         }
     }
 }
