@@ -1,7 +1,7 @@
 function Unzip($zip, $destination) {
-    $shell = New-Object -com Shell.Application
+    $shell = New-Object -COMObject "Shell.Application"
     $zip = $shell.NameSpace($zip)
-    $destination = $shell.Namespace($destination)
+    $destination = $shell.NameSpace($destination)
     foreach($item in $zip.items()) {
         $target = $destination.ParseName($item.Path).Path
         if (!(Test-Path $target)) {
