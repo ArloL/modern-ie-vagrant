@@ -20,11 +20,6 @@ if ([IntPtr]::size -eq 4) {
 Unzip "$($scriptDir)\scripts\ultradefrag-portable-6.1.0.bin.$($architecture).zip" "C:\Windows\Temp"
 Unzip "$($scriptDir)\scripts\SDelete.zip" "C:\Windows\Temp"
 
-net stop wuauserv
-Remove-Item C:\Windows\SoftwareDistribution\Download -Recurse -Force
-mkdir C:\Windows\SoftwareDistribution\Download
-net start wuauserv
-
 & C:\Windows\Temp\ultradefrag-portable-6.1.0.$architecture\udefrag.exe --optimize --repeat C:
 
 reg add HKCU\Software\Sysinternals\SDelete /v EulaAccepted /t REG_DWORD /d 1 /f
