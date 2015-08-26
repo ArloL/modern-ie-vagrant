@@ -13,3 +13,6 @@ shasum --check WindowsXP-KB968930-x86-ENG.exe.sha1
 
 wget -N http://schinagl.priv.at/nt/hardlinkshellext/driver/symlink-1.06-x86.cab
 shasum --check symlink-1.06-x86.cab.sha1
+
+wget -N http://downloads.sourceforge.net/ultradefrag/ultradefrag-portable-6.1.0.bin.i386.zip
+shasum --check ultradefrag-portable-6.1.0.bin.i386.zip.sha1
