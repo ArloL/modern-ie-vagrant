@@ -27,3 +27,4 @@ sftp-config.json
 *.exe
 *.cab
 *.box
+*.zip
