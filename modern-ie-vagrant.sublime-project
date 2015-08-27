@@ -3,7 +3,7 @@
 	[
 		{
 			"path": ".",
-			"file_exclude_patterns": ["*.box", "*.cab", "*.exe"]
+			"file_exclude_patterns": ["*.box", "*.cab", "*.exe", "*.jar", "*.zip"]
 		}
 	]
 }
