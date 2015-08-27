@@ -26,6 +26,6 @@ Remove-Item C:\Windows\Temp\ultradefrag-portable-6.1.0.$architecture -Recurse -F
 Unzip "$($scriptDir)\scripts\SDelete.zip" "C:\Windows\Temp"
 reg add HKCU\Software\Sysinternals\SDelete /v EulaAccepted /t REG_DWORD /d 1 /f
 & C:\Windows\Temp\sdelete.exe -q -z C:
-reg delete HKCU\Software\Sysinternals\SDelete
+reg delete HKCU\Software\Sysinternals\SDelete /f
 Remove-Item C:\Windows\Temp\sdelete.exe
 Remove-Item C:\Windows\Temp\Eula.txt
