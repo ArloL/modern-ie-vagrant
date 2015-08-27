@@ -3,7 +3,7 @@ function Unzip($zip, $destination, $overwrite = $false) {
     $zip = $shell.NameSpace($zip)
     foreach($item in $zip.items()) {
         $target = "$($destination)\$($item.Path)"
-        if ($overwrite) {
+        if ((Test-Path $target) -And $overwrite) {
             Remove-Item $target -Recurse -Force
         }
         if (!(Test-Path $target)) {
