@@ -17,6 +17,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = true
+    vb.customize ["modifyvm", :id, "--vram", "64"]
   end
 
   config.vm.provision "shell", inline: "powershell -File C:\\vagrant\\compact.ps1"
