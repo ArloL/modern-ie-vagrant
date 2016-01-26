@@ -14,7 +14,7 @@ On first boot go to `\\vboxsvr\vagrant` and execute `provision-OS.bat`.
 
 Package the finished box for later using `vagrant package` e.g.
 
-    vagrant package --output "okeeffe-xp-ie6.box" --Vagrantfile Vagrantfile-package
+    vagrant package --output "okeeffe-win10-edge.box" --Vagrantfile Vagrantfile-package
 
 # Sources
 
