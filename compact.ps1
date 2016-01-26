@@ -19,9 +19,9 @@ if ([IntPtr]::size -eq 4) {
     $architecture = "i386"
 }
 
-Unzip "$($scriptDir)\scripts\ultradefrag-portable-6.1.0.bin.$($architecture).zip" "C:\Windows\Temp"
-& C:\Windows\Temp\ultradefrag-portable-6.1.0.$architecture\udefrag.exe --optimize --repeat C:
-Remove-Item C:\Windows\Temp\ultradefrag-portable-6.1.0.$architecture -Recurse -Force
+Unzip "$($scriptDir)\scripts\ultradefrag-portable-7.0.0.bin.$($architecture).zip" "C:\Windows\Temp"
+& C:\Windows\Temp\ultradefrag-portable-7.0.0.$architecture\udefrag.exe --optimize --repeat C:
+Remove-Item C:\Windows\Temp\ultradefrag-portable-7.0.0.$architecture -Recurse -Force
 
 Unzip "$($scriptDir)\scripts\SDelete.zip" "C:\Windows\Temp"
 reg add HKCU\Software\Sysinternals\SDelete /v EulaAccepted /t REG_DWORD /d 1 /f
