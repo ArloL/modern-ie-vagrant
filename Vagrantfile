@@ -3,7 +3,7 @@
 
 # box name into env var, same script can be used with different boxes. Defaults to win10-edge.
 box_name = ENV["box_name"] != nil ? ENV["box_name"].strip : "win10-edge"
-boot_timeout = ENV["boot_timeout"] != nil ? ENV["boot_timeout"] : 1200
+boot_timeout = ENV["boot_timeout"] != nil ? ENV["boot_timeout"].strip.to_i : 1200
 
 Vagrant.configure(2) do |config|
 
