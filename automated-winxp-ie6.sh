@@ -9,7 +9,7 @@ wait_for_guestcontrol() {
     while true ; do
         echo "Waiting for ${1} to be available for guestcontrol."
         eval "$(VBoxManage showvminfo "${1}" --machinereadable | grep 'GuestAdditionsRunLevel')"
-        if [ "${GuestAdditionsRunLevel}" -eq "3" ]; then
+        if [ "${GuestAdditionsRunLevel}" -eq "${2}" ]; then
             return 0;
         fi
         sleep 5
@@ -41,15 +41,22 @@ if [ "${VMState}" != 'running' ]; then
     exit 1;
 fi
 
-wait_for_guestcontrol "${VM}"
+wait_for_guestcontrol "${VM}" 2
+
+sleep 10
+
+# altPress, tabPress, tabRelease, altRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 38 0f 8f b8
+# tabPress, tabRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
+# enterPress, enterRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+wait_for_guestcontrol "${VM}" 3
 
 sleep 60
 
 VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password "Passw0rd!" run --exe "//VBOXSRV/vagrant/provision-${box_name}.bat"
-
-export boot_timeout=1200
-
-vagrant reload
 
 vagrant provision
 
