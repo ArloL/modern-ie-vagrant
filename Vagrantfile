@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
   config.winrm.password = "Passw0rd!"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.gui = true
+    vb.gui = false
     vb.customize ["modifyvm", :id, "--vram", "64"]
   end
 
