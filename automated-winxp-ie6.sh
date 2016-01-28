@@ -38,7 +38,7 @@ VMState=''
 eval "$(VBoxManage showvminfo "${VM}" --machinereadable | grep 'VMState')"
 if [ "${VMState}" != 'running' ]; then
     echo "The virtual machine ${VM} is not running."
-    exit 1;
+    exit 1
 fi
 
 wait_for_guestcontrol "${VM}" 2
