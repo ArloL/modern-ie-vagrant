@@ -72,10 +72,12 @@ wait_for_guestcontrol "${VM}" 0
 
 wait_for_guestcontrol "${VM}" 2
 
-sleep 25
+sleep 60
 
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+wait_for_guestcontrol "${VM}" 3
 
 sleep 60
 
