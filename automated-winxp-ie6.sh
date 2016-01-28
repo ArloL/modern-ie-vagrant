@@ -65,8 +65,19 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 sleep 1
 
-VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
+# enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+wait_for_guestcontrol "${VM}" 0
+
+wait_for_guestcontrol "${VM}" 2
+
+sleep 25
+
+# enterPress, enterRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+sleep 60
 
 VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password "Passw0rd!" run --exe "//VBOXSRV/vagrant/provision-${box_name}.bat"
 
