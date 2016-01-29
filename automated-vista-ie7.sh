@@ -64,7 +64,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 sleep 15
 
 # escPress, escRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 01 80
+VBoxManage controlvm "${VM}" keyboardputscancode 01 81
 
 sleep 30
 
