@@ -81,7 +81,7 @@ wait_for_guestcontrol "${VM}" 3
 
 sleep 60
 
-VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password "Passw0rd!" run --exe "//VBOXSRV/vagrant/provision-${box_name}.bat"
+VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/provision-${box_name}.bat"
 
 vagrant provision
 
