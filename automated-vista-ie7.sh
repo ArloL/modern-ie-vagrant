@@ -43,13 +43,42 @@ fi
 
 wait_for_guestcontrol "${VM}" 3
 
-exit 1
-
 sleep 60
 
-# copy vagrant-elevated-shell.ps1
-# call it in order to run provison-vista-ie7.ps1 as a privileged user
+# setup
 
-vagrant provision
+# upPress, upRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 48 c8
+# upPress, upRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 48 c8
+# enterPress, enterRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+sleep 15
+
+# leftPress, leftRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 4b cb
+# enterPress, enterRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+sleep 15
+
+# escPress, escRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 01 80
+
+sleep 5
+
+VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' start --exe "//VBOXSRV/vagrant/test.bat"
+
+sleep 5
+
+# leftPress, leftRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 4b cb
+# enterPress, enterRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+sleep 30
+
+vagrant reload --provision
 
 vagrant package --output "okeeffe-${box_name}.box" --Vagrantfile Vagrantfile-package
