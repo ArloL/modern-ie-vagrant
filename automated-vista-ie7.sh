@@ -66,8 +66,6 @@ sleep 15
 # escPress, escRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 01 81
 
-sleep 30
-
 { VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/elevate-provision-vista-ie7.bat"; } &
 
 sleep 15
@@ -79,6 +77,6 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait
 
-vagrant reload --provision
+vagrant provision
 
 vagrant package --output "okeeffe-${box_name}.box" --Vagrantfile Vagrantfile-package
