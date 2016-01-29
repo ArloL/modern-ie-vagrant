@@ -66,11 +66,11 @@ sleep 15
 # escPress, escRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 01 80
 
-sleep 5
+sleep 30
 
 VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' start --exe "//VBOXSRV/vagrant/elevate-provision-vista-ie7.bat"
 
-sleep 5
+sleep 15
 
 # leftPress, leftRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 4b cb
