@@ -43,8 +43,6 @@ fi
 
 wait_for_guestcontrol "${VM}" 3
 
-exit 1
-
 sleep 60
 
 # setup
