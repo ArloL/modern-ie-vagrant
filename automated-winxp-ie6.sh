@@ -56,7 +56,7 @@ wait_for_guestcontrol "${VM}" 3
 
 sleep 60
 
-VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' start --exe "//VBOXSRV/vagrant/removewga.exe"
+VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' start --exe "//VBOXSRV/vagrant/scripts/removewga.exe"
 
 sleep 5
 
