@@ -26,3 +26,6 @@ sftp-config.json
 *.cab
 *.box
 *.zip
+
+
+scripts/elevate-1.3.0-redist
