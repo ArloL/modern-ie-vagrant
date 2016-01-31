@@ -20,7 +20,7 @@ if ([IntPtr]::size -eq 4) {
 }
 
 Unzip "$($scriptDir)\scripts\ultradefrag-portable-7.0.0.bin.$($architecture).zip" "C:\Windows\Temp"
-& C:\Windows\Temp\ultradefrag-portable-7.0.0.$architecture\udefrag.exe --optimize --repeat C:
+& C:\Windows\Temp\ultradefrag-portable-7.0.0.$architecture\udefrag.exe --quick-optimize C:
 Remove-Item C:\Windows\Temp\ultradefrag-portable-7.0.0.$architecture -Recurse -Force
 
 Unzip "$($scriptDir)\scripts\SDelete.zip" "C:\Windows\Temp"
