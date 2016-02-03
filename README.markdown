@@ -6,7 +6,7 @@ Scripts for setting up [WinRM](https://msdn.microsoft.com/en-us/library/windows/
 
 * Bring the Vagrant box up
 * Setup WinRM
-* Run [UltraDefrag](http://ultradefrag.sourceforge.net/de/index.html)
+* Run [UltraDefrag](http://ultradefrag.sourceforge.net)
 * Run [SDelete](https://technet.microsoft.com/en-us/sysinternals/sdelete.aspx)
 * Package as a new Vagrant box
 
