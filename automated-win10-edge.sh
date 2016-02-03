@@ -43,10 +43,32 @@ fi
 
 wait_for_guestcontrol "${VM}" 3
 
-sleep 60
+sleep 45
+
+# leftWindowPress, rPress, rRelease, leftWindowRelease
+VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
+
+sleep 5
+
+#  Enter \\vboxsrv
+VBoxManage controlvm "${VM}" keyboardputscancode 2b ab
+VBoxManage controlvm "${VM}" keyboardputscancode 2b ab
+VBoxManage controlvm "${VM}" keyboardputscancode 2f af
+VBoxManage controlvm "${VM}" keyboardputscancode 30 b0
+VBoxManage controlvm "${VM}" keyboardputscancode 18 98
+VBoxManage controlvm "${VM}" keyboardputscancode 2d ad
+VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
+VBoxManage controlvm "${VM}" keyboardputscancode 13 93
+VBoxManage controlvm "${VM}" keyboardputscancode 2f af
+
+sleep 5
 
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+sleep 5
+
+VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' stat //VBOXSRV/vagrant
 
 { VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/elevate-provision-win10-edge.bat"; } &
 
