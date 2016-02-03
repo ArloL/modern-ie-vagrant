@@ -29,5 +29,3 @@ reg add HKCU\Software\Sysinternals\SDelete /v EulaAccepted /t REG_DWORD /d 1 /f
 reg delete HKCU\Software\Sysinternals\SDelete /f
 Remove-Item C:\Windows\Temp\sdelete.exe
 Remove-Item C:\Windows\Temp\Eula.txt
-
-(Get-Item "C:\vagrant").Delete()
