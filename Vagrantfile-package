@@ -8,9 +8,5 @@ Vagrant.configure(2) do |config|
   config.vm.communicator = "winrm"
   config.winrm.username = "IEUser"
   config.winrm.password = "Passw0rd!"
-  
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--vram", "64"]
-  end
 
 end
