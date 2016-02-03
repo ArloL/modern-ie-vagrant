@@ -30,7 +30,7 @@ sleep 60
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-{ VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/elevate-provision-win81-ie11.bat"; } &
+{ VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/elevate-provision-${box_name}.bat"; } &
 
 sleep 15
 
