@@ -34,6 +34,8 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 sleep 15
 
+# select Yes on UAC
+
 # leftPress, leftRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 4b cb
 # enterPress, enterRelease

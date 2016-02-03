@@ -38,23 +38,33 @@ wait_for_guestcontrol "${VM}" 3
 
 sleep 60
 
+# remove wga
+
 VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' start --exe "//VBOXSRV/vagrant/scripts/removewga.exe"
 
 sleep 5
+
+# confirm removal of wga
 
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 sleep 1
 
+# confirm restart for removal of wga
+
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+# wait for restart after executing removewga
 
 wait_for_guestcontrol "${VM}" 0
 
 wait_for_guestcontrol "${VM}" 2
 
 sleep 60
+
+# confirm removewga
 
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
