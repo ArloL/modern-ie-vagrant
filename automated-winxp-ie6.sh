@@ -40,6 +40,8 @@ wait_for_guestcontrol "${VM}" 3
 
 sleep 60
 
+VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/provision-${box_name}.bat"
+
 # remove wga
 
 VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' start --exe "//VBOXSRV/vagrant/scripts/removewga.exe"
@@ -72,10 +74,6 @@ sleep 60
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait_for_guestcontrol "${VM}" 3
-
-sleep 60
-
-VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/provision-${box_name}.bat"
 
 vagrant provision
 
