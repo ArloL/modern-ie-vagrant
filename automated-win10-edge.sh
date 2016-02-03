@@ -27,6 +27,8 @@ wait_for_guestcontrol "${VM}" 3
 
 sleep 45
 
+VBoxManage snapshot "${VM}" take "Snapshot $(date -u +"%Y-%m-%dT%H:%M:%SZ")" --live
+
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
 

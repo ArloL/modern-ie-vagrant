@@ -27,6 +27,8 @@ wait_for_guestcontrol "${VM}" 3
 
 sleep 60
 
+VBoxManage snapshot "${VM}" take "Snapshot $(date -u +"%Y-%m-%dT%H:%M:%SZ")" --live
+
 # select home network
 
 # upPress, upRelease
