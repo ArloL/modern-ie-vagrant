@@ -1,20 +1,27 @@
 # What is this?
 
-A Vagrantfile for the modern.ie Windows vagrant boxes and some scripts to
-setup WinRM.
+Scripts for setting up [WinRM](https://msdn.microsoft.com/en-us/library/windows/desktop/aa384426%28v=vs.85%29.aspx) in the [modern.ie](https://modern.ie/) Windows [Vagrant](https://www.vagrantup.com/) boxes.
+
+# What does it do?
+
+* Bring the Vagrant box up
+* Setup WinRM
+* Run [UltraDefrag](http://ultradefrag.sourceforge.net/de/index.html)
+* Run [SDelete](https://technet.microsoft.com/en-us/sysinternals/sdelete.aspx)
+* Package as a new Vagrant box
 
 # How do I use it?
 
 For Windows XP execute `download-prerequisites-xp.sh` on the host first.
 For the others execute `download-prerequisites.sh`.
 
-Then execute `vagrant up`.
+Download the Vagrant box from modern.ie and add it to Vagrant. Then execute the "automated" script for it.
 
-On first boot go to `\\vboxsvr\vagrant` and execute `provision-OS.bat`.
+An example for Windows 10 with Edge:
 
-Package the finished box for later using `vagrant package` e.g.
-
-    vagrant package --output "okeeffe-win10-edge.box" --Vagrantfile Vagrantfile-package
+    .\download-prerequisites.sh
+    vagrant box add modern.ie/win10-edge "MsEdge - Win10.box"
+    .\automated-win10-edge.sh
 
 # Sources
 
