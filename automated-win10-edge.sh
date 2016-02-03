@@ -83,4 +83,4 @@ wait
 
 vagrant provision
 
-vagrant package --output "okeeffe-${box_name}.box" --Vagrantfile Vagrantfile-package
+vagrant package --output "${box_name}.box" --Vagrantfile Vagrantfile-package

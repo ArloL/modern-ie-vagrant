@@ -85,4 +85,4 @@ VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd
 
 vagrant provision
 
-vagrant package --output "okeeffe-${box_name}.box" --Vagrantfile Vagrantfile-package
+vagrant package --output "${box_name}.box" --Vagrantfile Vagrantfile-package
