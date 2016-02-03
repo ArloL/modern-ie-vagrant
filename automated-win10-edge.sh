@@ -16,30 +16,12 @@ wait_for_guestcontrol() {
     done
 }
 
-wait_for_virtualbox_id() {
-    while true ; do
-        if [ -f .vagrant/machines/default/virtualbox/id ]; then
-            return 0;
-        fi
-        sleep 5
-    done
-}
-
 export box_name=win10-edge
 export boot_timeout=5
 
 vagrant up || true
 
-wait_for_virtualbox_id
-
 VM=$(cat .vagrant/machines/default/virtualbox/id)
-
-VMState=''
-eval "$(VBoxManage showvminfo "${VM}" --machinereadable | grep 'VMState')"
-if [ "${VMState}" != 'running' ]; then
-    echo "The virtual machine ${VM} is not running."
-    exit 1
-fi
 
 wait_for_guestcontrol "${VM}" 3
 
