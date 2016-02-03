@@ -1,3 +1,3 @@
 @echo on
 
-%~dp0provision-xp-ie6.bat
+%~dp0provision-winxp-ie6.bat
