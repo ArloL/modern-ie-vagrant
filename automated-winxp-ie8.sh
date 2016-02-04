@@ -53,7 +53,7 @@ sleep 5
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-sleep 1
+sleep 5
 
 # confirm restart for removal of wga
 
