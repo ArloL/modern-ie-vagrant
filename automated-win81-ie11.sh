@@ -27,7 +27,7 @@ wait_for_guestcontrol "${VM}" 3
 
 sleep 60
 
-VBoxManage snapshot "${VM}" take "Snapshot $(date -u +"%Y-%m-%dT%H:%M:%SZ")" --live
+VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
 
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
