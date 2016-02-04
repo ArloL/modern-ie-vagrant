@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo Sadly there is an issue with the 20150916 build. There are no guest additions installed. To make it easier for now this script does not work.
+exit 1
+
 set -o errexit
 set -o nounset
 set -o xtrace
