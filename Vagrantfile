@@ -21,6 +21,6 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--vram", "64"]
   end
 
-  config.vm.provision "shell", inline: "powershell -File \\\\VBOXSRV\\vagrant\\compact.ps1"
+  config.vm.provision "shell", inline: "powershell -File \\\\VBOXSRV\\vagrant\\hello.ps1"
 
 end
