@@ -68,6 +68,15 @@ wait_for_guestcontrol "${VM}" 2
 
 sleep 60
 
+# select Yes on running removewga
+
+# leftPress, leftRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 4b cb
+# enterPress, enterRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+sleep 5
+
 # confirm removewga
 
 # enterPress, enterRelease
