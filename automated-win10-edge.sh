@@ -19,6 +19,10 @@ wait_for_guestcontrol() {
 export box_name=win10-edge
 export boot_timeout=5
 
+if [ -f "${box_name}.box" ]; then
+    exit 1;
+fi
+
 vagrant up || true
 
 VM=$(cat .vagrant/machines/default/virtualbox/id)
