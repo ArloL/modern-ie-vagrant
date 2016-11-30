@@ -8,7 +8,7 @@ cd scripts
 wget --continue --timestamping https://download.sysinternals.com/files/SDelete.zip
 shasum --check SDelete.zip.sha1
 
-wget --continue --timestamping https://sourceforge.net/projects/ultradefrag/files/stable-release/7.0.0/ultradefrag-portable-7.0.0.bin.amd64.zip/download
-shasum --check ultradefrag-portable-7.0.0.bin.amd64.zip.sha1
+wget --continue --timestamping --output-document ultradefrag-portable-7.0.1.bin.amd64.zip https://sourceforge.net/projects/ultradefrag/files/stable-release/7.0.1/ultradefrag-portable-7.0.1.bin.amd64.zip/download
+shasum --check ultradefrag-portable-7.0.1.bin.amd64.zip.sha1
 
 wget --continue --timestamping http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z
