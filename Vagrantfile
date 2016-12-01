@@ -21,9 +21,16 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--vram", "64"]
   end
 
+  config.vm.provision "file", source: "scripts/provision-network-private.ps1", destination: "C:\\Users\\IEUser\\provision-network-private.ps1"
+  config.vm.provision "file", source: "scripts/provision-network-private.cmd", destination: "C:\\Users\\IEUser\\provision-network-private.cmd"
+
   config.vm.provision "shell", inline: <<-SHELL
 powershell -File \\\\VBOXSRV\\vagrant\\hello.ps1
+
+schtasks /Create /SC ONSTART /TN "private network" /TR "C:\Users\IEUser\provision-network-private.cmd" /F
+
 D:\\VBoxWindowsAdditions.exe /S
+
 $Eject = New-Object -ComObject "Shell.Application"
 $Eject.Namespace(17).Items() |
     Where-Object { $_.Type -eq "CD Drive" } |
