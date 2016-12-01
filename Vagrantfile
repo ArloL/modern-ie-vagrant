@@ -24,6 +24,10 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
 powershell -File \\\\VBOXSRV\\vagrant\\hello.ps1
 D:\\VBoxWindowsAdditions.exe /S
+$Eject = New-Object -ComObject "Shell.Application"
+$Eject.Namespace(17).Items() |
+    Where-Object { $_.Type -eq "CD Drive" } |
+        foreach { $_.InvokeVerb("Eject") } 
 SHELL
 
 end
