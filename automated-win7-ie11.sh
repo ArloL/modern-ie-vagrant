@@ -71,6 +71,8 @@ VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd
 
 { VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/elevate-provision-${box_name}.bat"; } &
 
+provisionPID=$!
+
 sleep 15
 
 # altPress
@@ -91,7 +93,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-wait
+wait ${provisionPID}
 
 vagrant provision
 

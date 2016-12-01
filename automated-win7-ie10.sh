@@ -51,6 +51,8 @@ VBoxManage controlvm "${VM}" keyboardputscancode 01 81
 
 { VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/elevate-provision-${box_name}.bat"; } &
 
+provisionPID=$!
+
 sleep 15
 
 # select Yes on UAC
@@ -60,7 +62,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 4b cb
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-wait
+wait ${provisionPID}
 
 vagrant provision
 
