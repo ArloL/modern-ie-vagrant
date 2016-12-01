@@ -38,13 +38,6 @@ VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0
 # escPress, escRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 01 81
 
-VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium additions
-
-sleep 60
-
-# escPress, escRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 01 81
-
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
 
