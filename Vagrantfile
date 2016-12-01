@@ -19,6 +19,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
     vb.customize ["modifyvm", :id, "--vram", "64"]
+    vb.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", "0", "--device", "0", "--type", "dvddrive", "--medium", "additions"]
   end
 
   config.vm.provision "file", source: "scripts/provision-network-private.ps1", destination: "C:\\Users\\IEUser\\provision-network-private.ps1"
