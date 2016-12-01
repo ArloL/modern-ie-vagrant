@@ -29,7 +29,7 @@ VM=$(cat .vagrant/machines/default/virtualbox/id)
 
 wait_for_guestcontrol "${VM}" 3
 
-sleep 90
+sleep 60
 
 VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
 
