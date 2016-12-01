@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
 powershell -File \\\\VBOXSRV\\vagrant\\hello.ps1
 
-schtasks /Create /SC ONSTART /TN "private network" /TR "C:\Users\IEUser\provision-network-private.cmd" /F
+schtasks /Create /SC ONSTART /TN "private network" /TR "C:\\Users\\IEUser\\provision-network-private.cmd" /RL HIGHEST /F
 
 D:\\VBoxWindowsAdditions.exe /S
 
