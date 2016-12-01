@@ -23,12 +23,12 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "file", source: "scripts/provision-network-private.ps1", destination: "C:\\Users\\IEUser\\provision-network-private.ps1"
-  config.vm.provision "file", source: "scripts/provision-network-private.cmd", destination: "C:\\Users\\IEUser\\provision-network-private.cmd"
+  config.vm.provision "file", source: "scripts/vagrant-onstart.cmd", destination: "C:\\Users\\IEUser\\vagrant-onstart.cmd"
 
   config.vm.provision "shell", inline: <<-SHELL
 powershell -File \\\\VBOXSRV\\vagrant\\hello.ps1
 
-schtasks /Create /SC ONSTART /TN "private network" /TR "C:\\Users\\IEUser\\provision-network-private.cmd" /RL HIGHEST /F
+schtasks /Create /SC ONSTART /TN "vagrant-onstart" /TR "C:\\Users\\IEUser\\vagrant-onstart.cmd" /RL HIGHEST /F
 
 D:\\VBoxWindowsAdditions.exe /S
 
@@ -36,6 +36,9 @@ $Eject = New-Object -ComObject "Shell.Application"
 $Eject.Namespace(17).Items() |
     Where-Object { $_.Type -eq "CD Drive" } |
         foreach { $_.InvokeVerb("Eject") } 
+
+Remove-Item -Recurse -Force C:\\tmp
+
 SHELL
 
 end
