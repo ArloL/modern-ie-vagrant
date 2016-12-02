@@ -73,10 +73,21 @@ provisionPID=$!
 
 sleep 15
 
+# altPress
+VBoxManage controlvm "${VM}" keyboardputscancode 38
+# tabPress, tabRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
+# altRelease
+VBoxManage controlvm "${VM}" keyboardputscancode b8
+
+sleep 5
+
 # select Yes on UAC
 
-# leftPress, leftRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 4b cb
+# tabPress, tabRelease
+VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
+VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
+VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
