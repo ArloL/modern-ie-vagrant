@@ -38,15 +38,13 @@ VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0
 # escPress, escRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 01 81
 
-sleep 5
-
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
 
 # leftWindowPress, rPress, rRelease, leftWindowRelease
 VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
 
-sleep 5
+sleep 15
 
 #  Enter \\vboxsrv and press ENTER
 
@@ -63,7 +61,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 2f af
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-sleep 15
+sleep 30
 
 # Make sure the folder is available so we can run our script from there
 
