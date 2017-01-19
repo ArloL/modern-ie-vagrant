@@ -19,7 +19,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
     vb.customize ["modifyvm", :id, "--vram", "64"]
-    vb.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", "0", "--device", "0", "--type", "dvddrive", "--medium", "additions"]
+    vb.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", "0", "--device", "1", "--type", "dvddrive", "--medium", "additions"]
   end
 
   config.vm.provision "file", source: "scripts/provision-network-private.ps1", destination: "C:\\Users\\IEUser\\provision-network-private.ps1"
@@ -30,7 +30,7 @@ powershell -File \\\\VBOXSRV\\vagrant\\hello.ps1
 
 schtasks /Create /SC ONSTART /TN "vagrant-onstart" /TR "C:\\Users\\IEUser\\vagrant-onstart.cmd" /RL HIGHEST /DELAY 0000:20 /F
 
-D:\\VBoxWindowsAdditions.exe /S
+E:\\VBoxWindowsAdditions.exe /S
 
 $Eject = New-Object -ComObject "Shell.Application"
 $Eject.Namespace(17).Items() |
