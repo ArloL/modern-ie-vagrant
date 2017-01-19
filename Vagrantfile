@@ -4,7 +4,6 @@
 # box name into env var, same script can be used with different boxes. Defaults to win10-edge.
 box_name = ENV["box_name"] != nil ? ENV["box_name"].strip : "win10-edge"
 boot_timeout = ENV["boot_timeout"] != nil ? ENV["boot_timeout"].strip.to_i : 300
-additions = ENV["additions"] != nil ? ENV["additions"].strip.to_i : "C:\\Program Files\\Oracle\\VirtualBox\\VBoxGuestAdditions.iso"
 
 Vagrant.configure(2) do |config|
 
@@ -20,7 +19,6 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
     vb.customize ["modifyvm", :id, "--vram", "64"]
-    vb.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", "0", "--device", "1", "--type", "dvddrive", "--medium", additions]
   end
 
   config.vm.provision "file", source: "scripts/provision-network-private.ps1", destination: "C:\\Users\\IEUser\\provision-network-private.ps1"
@@ -31,12 +29,7 @@ powershell -File \\\\VBOXSRV\\vagrant\\hello.ps1
 
 schtasks /Create /SC ONSTART /TN "vagrant-onstart" /TR "C:\\Users\\IEUser\\vagrant-onstart.cmd" /RL HIGHEST /DELAY 0000:20 /F
 
-E:\\VBoxWindowsAdditions.exe /S
-
-$Eject = New-Object -ComObject "Shell.Application"
-$Eject.Namespace(17).Items() |
-    Where-Object { $_.Type -eq "CD Drive" } |
-        foreach { $_.InvokeVerb("Eject") } 
+\\\\VBOXSRV\\vagrant\\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S
 
 Remove-Item -Recurse -Force C:\\tmp
 
