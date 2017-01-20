@@ -73,6 +73,8 @@ provisionPID=$!
 
 sleep 15
 
+# switch to UAC
+
 # altPress
 VBoxManage controlvm "${VM}" keyboardputscancode 38
 # tabPress, tabRelease
