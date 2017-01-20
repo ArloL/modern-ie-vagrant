@@ -17,3 +17,5 @@ powershell -File \\VBOXSRV\vagrant\hello.ps1
 schtasks /Create /SC ONSTART /TN "vagrant-onstart" /TR "C:\Users\IEUser\vagrant-onstart.cmd" /RL HIGHEST /DELAY 0000:20 /F
 
 \\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S
+
+shutdown -s -t 0
