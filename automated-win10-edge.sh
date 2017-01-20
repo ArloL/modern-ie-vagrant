@@ -77,6 +77,6 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait ${provisionPID}
 
-vagrant provision
+# no vagrant provision necessary since it's all done in the provision script
 
 vagrant package --output "${box_name}.box" --Vagrantfile Vagrantfile-package
