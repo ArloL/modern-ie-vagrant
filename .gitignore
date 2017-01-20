@@ -29,5 +29,5 @@ sftp-config.json
 *.7z
 *.iso
 
-scripts/elevate-1.3.0-redist
+scripts/elevate/
 scripts/VBoxGuestAdditions/
