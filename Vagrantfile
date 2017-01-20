@@ -29,7 +29,7 @@ powershell -File \\\\VBOXSRV\\vagrant\\hello.ps1
 
 schtasks /Create /SC ONSTART /TN "vagrant-onstart" /TR "C:\\Users\\IEUser\\vagrant-onstart.cmd" /RL HIGHEST /DELAY 0000:20 /F
 
-\\\\VBOXSRV\\vagrant\\VBoxGuestAdditions\\VBoxWindowsAdditions.exe /S
+\\\\VBOXSRV\\vagrant\\scripts\\VBoxGuestAdditions\\VBoxWindowsAdditions.exe /S
 
 Remove-Item -Recurse -Force C:\\tmp
 
