@@ -8,12 +8,12 @@ Scripts for setting up [WinRM](https://msdn.microsoft.com/en-us/library/windows/
 * Setup WinRM
 * Run [UltraDefrag](http://ultradefrag.sourceforge.net)
 * Run [SDelete](https://technet.microsoft.com/en-us/sysinternals/sdelete.aspx)
+* Update guest additions
 * Package as a new Vagrant box
 
 # How do I use it?
 
-For Windows XP execute `download-prerequisites-xp.sh` on the host first.
-For the others execute `download-prerequisites.sh`.
+Execute `download-prerequisites.sh` on the host first.
 
 Download the Vagrant box from modern.ie and add it to Vagrant. Then execute the "automated" script for it.
 
