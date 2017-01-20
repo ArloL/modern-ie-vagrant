@@ -5,8 +5,8 @@ set -o nounset
 set -o xtrace
 
 wait_for_guestcontrol() {
-    GuestAdditionsRunLevel=0
     while true ; do
+        GuestAdditionsRunLevel=0
         echo "Waiting for ${1} to be available for guestcontrol."
         eval "$(VBoxManage showvminfo "${1}" --machinereadable | grep 'GuestAdditionsRunLevel')"
         if [ "${GuestAdditionsRunLevel}" -eq "${2}" ]; then
