@@ -4,6 +4,8 @@ set -o errexit
 set -o nounset
 set -o xtrace
 
+vagrant destroy --force
+
 sh automated-win7-ie8.sh
 vagrant destroy --force
 
