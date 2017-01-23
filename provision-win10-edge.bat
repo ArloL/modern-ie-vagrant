@@ -12,7 +12,7 @@ call %~dp0scripts\provision-winrm.bat
 
 for %%i in (%~dp0scripts\VBoxGuestAdditions\cert\vbox-*.cer) do certutil -addstore -f "TrustedPublisher" %%i
 
-powershell -File \\VBOXSRV\vagrant\hello.ps1
+powershell -ExecutionPolicy Bypass -File \\VBOXSRV\vagrant\hello.ps1
 
 schtasks /Create /SC ONSTART /TN "vagrant-onstart" /TR "C:\Users\IEUser\vagrant-onstart.cmd" /RL HIGHEST /DELAY 0000:20 /F
 
