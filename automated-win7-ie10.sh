@@ -93,8 +93,10 @@ VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-wait ${provisionPID}
+wait ${provisionPID} || true
 
-vagrant provision
+wait_for_guestcontrol "${VM}" 0
+
+# no vagrant provision necessary since it's all done in the provision script
 
 vagrant package --output "${box_name}.box" --Vagrantfile Vagrantfile-package
