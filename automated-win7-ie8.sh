@@ -97,6 +97,4 @@ wait ${provisionPID} || true
 
 wait_for_guestcontrol "${VM}" 0
 
-# no vagrant provision necessary since it's all done in the provision script
-
 vagrant package --output "${box_name}.box" --Vagrantfile Vagrantfile-package
