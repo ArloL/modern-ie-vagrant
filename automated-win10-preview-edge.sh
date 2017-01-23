@@ -20,7 +20,7 @@ export box_name=win10-preview-edge
 export boot_timeout=5
 
 if [ -f "${box_name}.box" ]; then
-    exit 1;
+    exit 0;
 fi
 
 vagrant up || true
