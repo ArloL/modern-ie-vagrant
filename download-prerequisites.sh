@@ -18,9 +18,18 @@ shasum --check SDelete.zip.sha1
 
 unzip -o SDelete.zip -d SDelete
 
-wget --continue --timestamping --output-document ultradefrag-portable-7.0.1.bin.amd64.zip https://sourceforge.net/projects/ultradefrag/files/stable-release/7.0.1/ultradefrag-portable-7.0.1.bin.amd64.zip/download
-shasum --check ultradefrag-portable-7.0.1.bin.amd64.zip.sha1
+version="7.0.2"
 
-unzip -o ultradefrag-portable-7.0.1.bin.amd64.zip
+wget --output-document ultradefrag-portable-$version.bin.i386.zip http://downloads.sourceforge.net/ultradefrag/ultradefrag-portable-$version.bin.i386.zip
+shasum --check ultradefrag-portable-$version.bin.i386.zip.sha1
 
-mv ultradefrag-portable-7.0.1.amd64 ultradefrag
+unzip -o ultradefrag-portable-$version.bin.i386.zip
+
+mv ultradefrag-portable-$version.i386 ultradefrag
+
+wget --output-document ultradefrag-portable-$version.bin.amd64.zip http://downloads.sourceforge.net/ultradefrag/ultradefrag-portable-$version.bin.amd64.zip
+shasum --check ultradefrag-portable-$version.bin.amd64.zip.sha1
+
+unzip -o ultradefrag-portable-$version.bin.amd64.zip
+
+mv ultradefrag-portable-$version.amd64 ultradefrag64
