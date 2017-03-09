@@ -17,19 +17,3 @@ wget --continue --timestamping https://download.sysinternals.com/files/SDelete.z
 shasum --check SDelete.zip.sha1
 
 unzip -o SDelete.zip -d SDelete
-
-version="7.0.2"
-
-wget --output-document ultradefrag-portable-$version.bin.i386.zip http://downloads.sourceforge.net/ultradefrag/ultradefrag-portable-$version.bin.i386.zip
-shasum --check ultradefrag-portable-$version.bin.i386.zip.sha1
-
-unzip -o ultradefrag-portable-$version.bin.i386.zip
-
-mv ultradefrag-portable-$version.i386 ultradefrag
-
-wget --output-document ultradefrag-portable-$version.bin.amd64.zip http://downloads.sourceforge.net/ultradefrag/ultradefrag-portable-$version.bin.amd64.zip
-shasum --check ultradefrag-portable-$version.bin.amd64.zip.sha1
-
-unzip -o ultradefrag-portable-$version.bin.amd64.zip
-
-mv ultradefrag-portable-$version.amd64 ultradefrag64

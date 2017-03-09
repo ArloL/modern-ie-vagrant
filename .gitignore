@@ -32,5 +32,3 @@ sftp-config.json
 scripts/elevate/
 scripts/VBoxGuestAdditions/
 scripts/SDelete/
-scripts/ultradefrag/
-scripts/ultradefrag64/
