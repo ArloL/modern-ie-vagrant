@@ -10,7 +10,7 @@ Vagrant.configure(2) do |config|
   config.vm.box = "modern.ie/" + box_name
   config.vm.boot_timeout = boot_timeout
 
-  config.vm.network "forwarded_port", guest: 3389, host: 3389, id: "rdp", auto_correct: true
+  config.vm.network "forwarded_port", guest: 3389, host: 3389, host_ip: "localhost", id: "rdp", auto_correct: true
 
   config.vm.communicator = "winrm"
   config.winrm.username = "IEUser"
