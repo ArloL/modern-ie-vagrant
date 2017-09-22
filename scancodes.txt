@@ -1,0 +1,21 @@
+Left-Shift: 2a aa
+Enter:      1c 9c
+ESC:        01 81
+
+\: 2b ab
+!: Left-Shift + 1
+
+a: 1e 9e
+b: 30 b0
+d: 20 a0
+
+o: 18 98
+p: 19 99
+r: 13 93
+s: 1f 9f
+v: 2f af
+w: 11 91
+x: 2d ad
+
+0: 0b 8b
+1: 02 82
