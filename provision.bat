@@ -1,5 +1,7 @@
 @echo on
 
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d "1" /f
+
 copy %~dp0scripts\provision-network-private.ps1 C:\Users\IEUser\provision-network-private.ps1
 
 copy %~dp0scripts\vagrant-onstart.cmd C:\Users\IEUser\vagrant-onstart.cmd
