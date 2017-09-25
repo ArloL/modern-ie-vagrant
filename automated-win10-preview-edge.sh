@@ -81,7 +81,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 2f af
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-sleep 5
+sleep 30
 
 # Make sure the folder is available so we can run our script from there
 

@@ -27,7 +27,7 @@ vagrant up || true
 
 VM=$(cat .vagrant/machines/default/virtualbox/id)
 
-sleep 45
+sleep 60
 
 VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
 
@@ -38,7 +38,7 @@ VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-sleep 5
+sleep 15
 
 # Enter Passw0rd!
 VBoxManage controlvm "${VM}" keyboardputscancode 2a 19 99 aa
@@ -54,14 +54,14 @@ VBoxManage controlvm "${VM}" keyboardputscancode 2a 02 82 aa
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-sleep 45
+sleep 60
 
 # Press Win+R
 
 # leftWindowPress, rPress, rRelease, leftWindowRelease
 VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
 
-sleep 5
+sleep 15
 
 #  Enter e:\vboxwindowsadditions.exe /S and press ENTER
 
@@ -95,7 +95,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 2a 1f 9f aa
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-sleep 5
+sleep 15
 
 # select Yes on UAC
 
@@ -124,14 +124,14 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait_for_guestcontrol "${VM}" 1
 
-sleep 45
+sleep 60
 
 # Press Win+R
 
 # leftWindowPress, rPress, rRelease, leftWindowRelease
 VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
 
-sleep 5
+sleep 15
 
 # Enter shutdown /r /t 0 and press ENTER
 
@@ -164,7 +164,7 @@ VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-sleep 5
+sleep 15
 
 # Enter Passw0rd!
 VBoxManage controlvm "${VM}" keyboardputscancode 2a 19 99 aa
@@ -182,7 +182,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait_for_guestcontrol "${VM}" 3
 
-sleep 45
+sleep 60
 
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
@@ -190,7 +190,7 @@ sleep 45
 # leftWindowPress, rPress, rRelease, leftWindowRelease
 VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
 
-sleep 5
+sleep1 5
 
 #  Enter \\vboxsrv and press ENTER
 
@@ -207,7 +207,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 2f af
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-sleep 5
+sleep 30
 
 # Make sure the folder is available so we can run our script from there
 
