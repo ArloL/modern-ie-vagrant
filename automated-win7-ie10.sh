@@ -86,10 +86,8 @@ sleep 5
 
 # select Yes on UAC
 
-# tabPress, tabRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
-VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
-VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
+# leftPress, leftRelease
+VBoxManage controlvm "${VM}" keyboardputscancode e0 4b e0 cb
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
