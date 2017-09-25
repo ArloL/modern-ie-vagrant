@@ -159,6 +159,8 @@ wait_for_guestcontrol "${VM}" 2
 
 VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium emptydrive
 
+sleep 60
+
 # Login
 
 # enterPress, enterRelease
@@ -190,7 +192,7 @@ sleep 60
 # leftWindowPress, rPress, rRelease, leftWindowRelease
 VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
 
-sleep1 5
+sleep 15
 
 #  Enter \\vboxsrv and press ENTER
 

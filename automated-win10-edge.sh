@@ -29,7 +29,7 @@ VM=$(cat .vagrant/machines/default/virtualbox/id)
 
 wait_for_guestcontrol "${VM}" 3
 
-sleep 45
+sleep 60
 
 VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
 
@@ -39,7 +39,7 @@ VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0
 # leftWindowPress, rPress, rRelease, leftWindowRelease
 VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
 
-sleep 5
+sleep 15
 
 #  Enter \\vboxsrv and press ENTER
 
