@@ -21,7 +21,7 @@ vagrant destroy --force
 sh automated-win81-ie11.sh
 vagrant destroy --force
 
-sh automated-win10-edge.sh
+sh automated-win10-edge-no-additions.sh
 vagrant destroy --force
 
 sh automated-win10-preview-edge.sh
