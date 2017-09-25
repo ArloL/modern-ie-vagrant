@@ -115,6 +115,8 @@ VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
 # altRelease
 VBoxManage controlvm "${VM}" keyboardputscancode b8
 
+sleep 5
+
 # select Yes on Driver Stuff
 
 # leftPress, leftRelease
