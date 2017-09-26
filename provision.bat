@@ -24,4 +24,4 @@ start slmgr /rearm
 
 \\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S
 
-shutdown -s -t 0
+shutdown /s /t 30 /f
