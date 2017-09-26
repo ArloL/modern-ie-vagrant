@@ -1,6 +1,7 @@
-Für Left-Shift Release:
-WolframAlpha:
-0x80 + 0x2a (Left-Shift Press): 0xaa
+The table http://www.ee.bgu.ac.il/~microlab/MicroLab/Labs/ScanCodes.htm
+shows the press scan code. To calculate release add 0x80 to the press code.
+For example Left-Shift is calculated as follows:
+0x80 + 0x2a = 0xaa -> 2a aa
 
 Left-Shift == 2a aa
 Enter == 1c 9c
@@ -21,25 +22,38 @@ Left Windows == e0 5b e0 db
 
 a == 1e 9e
 b == 30 b0
-
+c == 2e ae
 d == 20 a0
 e == 12 92
-
+f == 21 a1
+g == 22 a2
 h == 23 a3
 i == 17 97
-
+j == 24 a4
+k == 25 a5
+l == 26 a6
+m == 32 b2
 n == 31 b1
 o == 18 98
 p == 19 99
-
+q == 10 90
 r == 13 93
 s == 1f 9f
 t == 14 94
 u == 16 96
-
 v == 2f af
 w == 11 91
 x == 2d ad
+y == 15 95
+z == 2c ac
 
 0 == 0b 8b
 1 == 02 82
+2 == 03 83
+3 == 04 84
+4 == 05 85
+5 == 06 86
+6 == 07 87
+7 == 08 88
+8 == 09 89
+9 == 0a 8a
