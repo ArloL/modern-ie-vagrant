@@ -4,11 +4,16 @@ set -o errexit
 set -o nounset
 set -o xtrace
 
+get_guest_additions_run_level() {
+    GuestAdditionsRunLevel=0
+    eval "$(VBoxManage showvminfo "${1}" --machinereadable | grep 'GuestAdditionsRunLevel')"
+    echo ${GuestAdditionsRunLevel}
+}
+
 wait_for_guestcontrol() {
     while true ; do
-        GuestAdditionsRunLevel=0
         echo "Waiting for ${1} to be available for guestcontrol."
-        eval "$(VBoxManage showvminfo "${1}" --machinereadable | grep 'GuestAdditionsRunLevel')"
+        GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")
         if [ "${GuestAdditionsRunLevel}" -eq "${2}" ]; then
             return 0;
         fi
@@ -33,30 +38,36 @@ sleep 60
 
 VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
 
-# Login
+GuestAdditionsRunLevel=$(get_guest_additions_run_level "${VM}")
 
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 
-sleep 15
+    # Login
 
-# Enter Passw0rd!
-VBoxManage controlvm "${VM}" keyboardputscancode 2a 19 99 aa
-VBoxManage controlvm "${VM}" keyboardputscancode 1e 9e
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 11 91
-VBoxManage controlvm "${VM}" keyboardputscancode 0b 8b
-VBoxManage controlvm "${VM}" keyboardputscancode 13 93
-VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
-VBoxManage controlvm "${VM}" keyboardputscancode 2a 02 82 aa
+    # enterPress, enterRelease
+    VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+    sleep 15
 
-wait_for_guestcontrol "${VM}" 3
+    # Enter Passw0rd!
+    VBoxManage controlvm "${VM}" keyboardputscancode 2a 19 99 aa
+    VBoxManage controlvm "${VM}" keyboardputscancode 1e 9e
+    VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
+    VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
+    VBoxManage controlvm "${VM}" keyboardputscancode 11 91
+    VBoxManage controlvm "${VM}" keyboardputscancode 0b 8b
+    VBoxManage controlvm "${VM}" keyboardputscancode 13 93
+    VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
+    VBoxManage controlvm "${VM}" keyboardputscancode 2a 02 82 aa
 
-sleep 60
+    # enterPress, enterRelease
+    VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+    wait_for_guestcontrol "${VM}" 3
+
+    sleep 60
+
+fi
 
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
