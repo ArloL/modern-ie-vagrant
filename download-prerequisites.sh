@@ -9,6 +9,6 @@ wget --continue --timestamping http://code.kliu.org/misc/elevate/elevate-1.3.0-r
 
 7z x elevate-1.3.0-redist.7z -y -o$(pwd)/elevate
 
-wget --continue --timestamping http://download.virtualbox.org/virtualbox/5.2.8/VBoxGuestAdditions_5.2.8.iso
+wget --continue --timestamping http://download.virtualbox.org/virtualbox/5.2.12/VBoxGuestAdditions_5.2.12.iso
 
-7z x VBoxGuestAdditions_5.2.8.iso -y -o$(pwd)/VBoxGuestAdditions
+7z x VBoxGuestAdditions_5.2.12.iso -y -o$(pwd)/VBoxGuestAdditions
