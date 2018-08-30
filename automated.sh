@@ -24,5 +24,6 @@ vagrant destroy --force || true
 sh automated-win10-edge.sh
 vagrant destroy --force || true
 
-sh automated-win10-preview-edge.sh
-vagrant destroy --force || true
+# 2018-08-30: Currently no download available
+#sh automated-win10-preview-edge.sh
+#vagrant destroy --force || true
