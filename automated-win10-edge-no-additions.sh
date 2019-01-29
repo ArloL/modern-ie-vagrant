@@ -90,24 +90,6 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 sleep 15
 
-# switch to Driver Stuff
-
-# altPress
-VBoxManage controlvm "${VM}" keyboardputscancode 38
-# tabPress, tabRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 0f 8f
-# altRelease
-VBoxManage controlvm "${VM}" keyboardputscancode b8
-
-sleep 5
-
-# select Yes on Driver Stuff
-
-# leftPress, leftRelease
-VBoxManage controlvm "${VM}" keyboardputscancode e0 4b e0 cb
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
-
 wait_for_guestcontrol "${VM}" 1
 
 sleep 60
