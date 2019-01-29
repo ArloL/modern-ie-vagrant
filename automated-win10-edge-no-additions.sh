@@ -36,7 +36,7 @@ sleep 60
 
 VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
 
-VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium additions
+VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 1 --type dvddrive --medium additions
 
 sleep 60
 
@@ -94,6 +94,8 @@ wait_for_guestcontrol "${VM}" 1
 
 sleep 60
 
+VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 1 --type dvddrive --medium emptydrive
+
 # Press Win+R
 
 # leftWindowPress, rPress, rRelease, leftWindowRelease
@@ -122,12 +124,6 @@ VBoxManage controlvm "${VM}" keyboardputscancode 0b 8b
 
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
-
-wait_for_guestcontrol "${VM}" 2
-
-VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium emptydrive
-
-sleep 60
 
 wait_for_guestcontrol "${VM}" 3
 
