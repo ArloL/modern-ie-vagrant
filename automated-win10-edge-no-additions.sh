@@ -38,27 +38,6 @@ VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0
 
 VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium additions
 
-# Login
-
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
-
-sleep 15
-
-# Enter Passw0rd!
-VBoxManage controlvm "${VM}" keyboardputscancode 2a 19 99 aa
-VBoxManage controlvm "${VM}" keyboardputscancode 1e 9e
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 11 91
-VBoxManage controlvm "${VM}" keyboardputscancode 0b 8b
-VBoxManage controlvm "${VM}" keyboardputscancode 13 93
-VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
-VBoxManage controlvm "${VM}" keyboardputscancode 2a 02 82 aa
-
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
-
 sleep 60
 
 # Press Win+R
@@ -167,27 +146,6 @@ wait_for_guestcontrol "${VM}" 2
 VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium emptydrive
 
 sleep 60
-
-# Login
-
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
-
-sleep 15
-
-# Enter Passw0rd!
-VBoxManage controlvm "${VM}" keyboardputscancode 2a 19 99 aa
-VBoxManage controlvm "${VM}" keyboardputscancode 1e 9e
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 11 91
-VBoxManage controlvm "${VM}" keyboardputscancode 0b 8b
-VBoxManage controlvm "${VM}" keyboardputscancode 13 93
-VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
-VBoxManage controlvm "${VM}" keyboardputscancode 2a 02 82 aa
-
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait_for_guestcontrol "${VM}" 3
 
