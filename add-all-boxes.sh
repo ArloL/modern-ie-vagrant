@@ -6,5 +6,5 @@ set -o xtrace
 
 for i in `ls -1 *.box`; do
     name=$(basename $i | cut -d. -f1)
-    vagrant box add --name "evosec-${name}" --force "${name}.box"
+    vagrant box add --name "okeeffe-${name}" --force "${name}.box"
 done

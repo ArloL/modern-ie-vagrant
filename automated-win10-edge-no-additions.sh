@@ -184,4 +184,4 @@ wait_for_guestcontrol "${VM}" 0
 
 vagrant package --output "${box_name}.box" --Vagrantfile Vagrantfile-package
 
-vagrant box add --name "evosec-${box_name}" --force "${box_name}.box"
+vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
