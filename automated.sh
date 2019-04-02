@@ -21,9 +21,9 @@ vagrant destroy --force || true
 sh automated-win81-ie11.sh
 vagrant destroy --force || true
 
-# 2018-01-29: Currently not with guest additions
+# 2019-04-02: Currently not with automatic login
 #sh automated-win10-edge.sh
-sh automated-win10-edge-no-additions.sh
+sh automated-win10-edge-no-login.sh
 vagrant destroy --force || true
 
 # 2018-08-30: Currently no download available
