@@ -28,15 +28,21 @@ if [ -f "${box_name}.box" ]; then
     exit 0;
 fi
 
-vagrant up || true
+if [ -f ".vagrant/machines/default/virtualbox/id" ]; then
+    vagrant snapshot pop || true
+else
+    vagrant up || true
+
+    VM=$(cat .vagrant/machines/default/virtualbox/id)
+
+    wait_for_guestcontrol "${VM}" 2
+
+    sleep 60
+
+    vagrant snapshot push
+fi
 
 VM=$(cat .vagrant/machines/default/virtualbox/id)
-
-wait_for_guestcontrol "${VM}" 2
-
-sleep 60
-
-VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
 
 GuestAdditionsRunLevel=$(get_guest_additions_run_level "${VM}")
 
