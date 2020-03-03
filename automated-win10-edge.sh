@@ -32,11 +32,42 @@ vagrant up || true
 
 VM=$(cat .vagrant/machines/default/virtualbox/id)
 
-wait_for_guestcontrol "${VM}" 3
+wait_for_guestcontrol "${VM}" 2
 
 sleep 60
 
 VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
+
+GuestAdditionsRunLevel=$(get_guest_additions_run_level "${VM}")
+
+if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
+
+    # Login
+
+    # enterPress, enterRelease
+    VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+    sleep 15
+
+    # Enter Passw0rd!
+    VBoxManage controlvm "${VM}" keyboardputscancode 2a 19 99 aa
+    VBoxManage controlvm "${VM}" keyboardputscancode 1e 9e
+    VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
+    VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
+    VBoxManage controlvm "${VM}" keyboardputscancode 11 91
+    VBoxManage controlvm "${VM}" keyboardputscancode 0b 8b
+    VBoxManage controlvm "${VM}" keyboardputscancode 13 93
+    VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
+    VBoxManage controlvm "${VM}" keyboardputscancode 2a 02 82 aa
+
+    # enterPress, enterRelease
+    VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+
+    wait_for_guestcontrol "${VM}" 3
+
+    sleep 60
+
+fi
 
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
