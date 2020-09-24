@@ -7,6 +7,18 @@ download() {
     local name=${1}
     local boxName=${2}
     local url=${3}
+    boxListSearch=$(vagrant box list | grep "modern.ie/${name}" || true)
+    if [ ! "${boxListSearch}" = "" ]
+    then
+        echo "${name} exists"
+        return
+    fi
+    if [ -f "modern.ie-${name}.box" ]
+    then
+        shasum --check "modern.ie-${name}.box.sha1"
+        vagrant box add --name="modern.ie/${name}" --force "modern.ie-${name}.box"
+        return
+    fi
     if ! shasum --check "modern.ie-${name}.zip.sha1"
     then
         rm -f "modern.ie-${name}.zip"
