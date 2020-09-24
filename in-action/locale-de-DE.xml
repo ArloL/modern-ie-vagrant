@@ -1,0 +1,14 @@
+<gs:GlobalizationServices xmlns:gs="urn:longhornGlobalizationUnattend">
+    <gs:UserList>
+        <gs:User UserID="Current"/>
+    </gs:UserList>
+    <gs:MUILanguagePreferences>
+        <gs:MUILanguage Value="de-DE" />
+    </gs:MUILanguagePreferences>
+    <gs:InputPreferences>
+        <!-- de-DE -->
+        <gs:InputLanguageID Action="add" ID="0407:00000407" Default="true" />
+        <!-- en-US -->
+        <gs:InputLanguageID Action="remove" ID="0409:00000409" />
+    </gs:InputPreferences>
+</gs:GlobalizationServices>

@@ -1,0 +1,106 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+  config.vm.network "forwarded_port", guest: 3389, host: 3389, host_ip: "localhost", id: "rdp", auto_correct: true
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = false
+    vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+  end
+
+  config.vm.guest = :windows
+
+  config.vm.define "win7-ie8" do |m|
+    m.vm.box = "okeeffe-win7-ie8"
+
+    m.vm.provision "shell", inline: %{
+cd C:\\vagrant
+.\\provision-bginfo.ps1
+.\\provision-timezone.ps1
+.\\provision-powersettings.ps1
+.\\provision-locale.ps1
+}
+
+  end
+
+  config.vm.define "win7-ie9" do |m|
+    m.vm.box = "okeeffe-win7-ie9"
+
+    m.vm.provision "shell", inline: %{
+cd C:\\vagrant
+.\\provision-bginfo.ps1
+.\\provision-timezone.ps1
+.\\provision-powersettings.ps1
+.\\provision-locale.ps1
+}
+
+  end
+
+  config.vm.define "win7-ie10" do |m|
+    m.vm.box = "okeeffe-win7-ie10"
+
+    m.vm.provision "shell", inline: %{
+cd C:\\vagrant
+.\\provision-bginfo.ps1
+.\\provision-timezone.ps1
+.\\provision-powersettings.ps1
+.\\provision-locale.ps1
+}
+
+  end
+
+  config.vm.define "win7-ie11" do |m|
+    m.vm.box = "okeeffe-win7-ie11"
+
+    m.vm.provision "shell", inline: %{
+cd C:\\vagrant
+.\\provision-bginfo.ps1
+.\\provision-timezone.ps1
+.\\provision-powersettings.ps1
+.\\provision-locale.ps1
+}
+
+  end
+
+  config.vm.define "win81-ie11" do |m|
+    m.vm.box = "okeeffe-win81-ie11"
+
+    m.vm.provision "shell", inline: %{
+cd C:\\vagrant
+.\\provision-bginfo.ps1
+.\\provision-timezone.ps1
+.\\provision-powersettings.ps1
+.\\provision-locale.ps1
+}
+
+  end
+
+  config.vm.define "win10-edge" do |m|
+    m.vm.box = "okeeffe-win10-edge"
+
+    m.vm.provision "shell", inline: %{
+cd C:\\vagrant
+.\\provision-bginfo.ps1
+.\\provision-timezone.ps1
+.\\provision-powersettings.ps1
+.\\provision-locale.ps1
+}
+
+  end
+
+  config.vm.define "win10-preview-edge" do |m|
+    m.vm.box = "okeeffe-win10-preview-edge"
+
+    m.vm.provision "shell", inline: %{
+cd C:\\vagrant
+.\\provision-bginfo.ps1
+.\\provision-timezone.ps1
+.\\provision-powersettings.ps1
+.\\provision-locale.ps1
+}
+
+  end
+
+end
