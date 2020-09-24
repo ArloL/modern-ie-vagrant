@@ -25,14 +25,11 @@ download() {
         wget --continue --output-document="modern.ie-${name}.zip" "${url}"
         shasum --check "modern.ie-${name}.zip.sha1"
     fi
-    if [ ! -f "modern.ie-${name}.box" ]
+    if [ ! -f "${boxName}" ]
     then
-        if [ ! -f "${boxName}" ]
-        then
-            unzip "modern.ie-${name}.zip"
-        fi
-        mv "${boxName}" "modern.ie-${name}.box"
+        unzip "modern.ie-${name}.zip"
     fi
+    mv "${boxName}" "modern.ie-${name}.box"
     shasum --check "modern.ie-${name}.box.sha1"
     vagrant box add --name="modern.ie/${name}" --force "modern.ie-${name}.box"
 }
