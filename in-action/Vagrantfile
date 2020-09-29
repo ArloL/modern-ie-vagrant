@@ -87,6 +87,7 @@ cd C:\\vagrant
 .\\provision-powersettings.ps1
 .\\provision-locale.ps1
 .\\provision-chocolatey.ps1
+.\\provision-chocolatey-packages.ps1
 }
 
   end
