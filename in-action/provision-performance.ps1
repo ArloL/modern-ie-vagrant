@@ -11,4 +11,4 @@ reg add "HKCU\Control Panel\Desktop"  /v DragFullWindows /t REG_SZ /d 0 /f
 reg add "HKCU\Control Panel\Desktop"  /v FontSmoothing /t REG_SZ /d 2 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"  /v ListviewShadow /t REG_DWORD /d 0 /f
 
-for($i = 0; $i -lt 100; $i++){ rundll32.exe user32.dll, UpdatePerUserSystemParameters }
+Restart-Service -Name themes -Force
