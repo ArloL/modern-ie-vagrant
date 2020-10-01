@@ -17,10 +17,10 @@ Vagrant.configure(2) do |config|
 
     m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
 cd C:\\vagrant
+.\\provision-performance.ps1
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
-.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -31,10 +31,10 @@ cd C:\\vagrant
 
     m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
 cd C:\\vagrant
+.\\provision-performance.ps1
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
-.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -45,10 +45,10 @@ cd C:\\vagrant
 
     m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
 cd C:\\vagrant
+.\\provision-performance.ps1
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
-.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -59,10 +59,10 @@ cd C:\\vagrant
 
     m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
 cd C:\\vagrant
+.\\provision-performance.ps1
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
-.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -73,10 +73,10 @@ cd C:\\vagrant
 
     m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
 cd C:\\vagrant
+.\\provision-performance.ps1
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
-.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -87,10 +87,10 @@ cd C:\\vagrant
 
     m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
 cd C:\\vagrant
+.\\provision-performance.ps1
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
-.\\provision-performance.ps1
 .\\provision-locale.ps1
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
@@ -103,10 +103,10 @@ cd C:\\vagrant
 
     m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
 cd C:\\vagrant
+.\\provision-performance.ps1
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
-.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
