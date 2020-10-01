@@ -8,3 +8,5 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Wallpapers" /v 
 
 add-type -typedefinition "using System;`n using System.Runtime.InteropServices;`n public class PInvoke { [DllImport(`"user32.dll`")] public static extern bool SetSysColors(int cElements, int[] lpaElements, int[] lpaRgbValues); }"
 [PInvoke]::SetSysColors(1, @(1), @(0xB16300))
+
+for($i = 0; $i -lt 100; $i++){ rundll32.exe user32.dll, UpdatePerUserSystemParameters }
