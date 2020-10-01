@@ -15,7 +15,9 @@ Vagrant.configure(2) do |config|
   config.vm.define "win7-ie8" do |m|
     m.vm.box = "okeeffe-win7-ie8"
 
-    m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
+    m.vm.provision "default", type: "shell" do |s|
+      s.powershell_elevated_interactive = true
+      s.inline = %{
 cd C:\\vagrant
 .\\provision-performance.ps1
 .\\provision-bginfo.ps1
@@ -25,13 +27,16 @@ cd C:\\vagrant
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
 }
+    end
 
   end
 
   config.vm.define "win7-ie9" do |m|
     m.vm.box = "okeeffe-win7-ie9"
 
-    m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
+    m.vm.provision "default", type: "shell" do |s|
+      s.powershell_elevated_interactive = true
+      s.inline = %{
 cd C:\\vagrant
 .\\provision-performance.ps1
 .\\provision-bginfo.ps1
@@ -41,13 +46,16 @@ cd C:\\vagrant
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
 }
+    end
 
   end
 
   config.vm.define "win7-ie10" do |m|
     m.vm.box = "okeeffe-win7-ie10"
 
-    m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
+    m.vm.provision "default", type: "shell" do |s|
+      s.powershell_elevated_interactive = true
+      s.inline = %{
 cd C:\\vagrant
 .\\provision-performance.ps1
 .\\provision-bginfo.ps1
@@ -57,13 +65,16 @@ cd C:\\vagrant
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
 }
+    end
 
   end
 
   config.vm.define "win7-ie11" do |m|
     m.vm.box = "okeeffe-win7-ie11"
 
-    m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
+    m.vm.provision "default", type: "shell" do |s|
+      s.powershell_elevated_interactive = true
+      s.inline = %{
 cd C:\\vagrant
 .\\provision-performance.ps1
 .\\provision-bginfo.ps1
@@ -73,13 +84,16 @@ cd C:\\vagrant
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
 }
+    end
 
   end
 
   config.vm.define "win81-ie11" do |m|
     m.vm.box = "okeeffe-win81-ie11"
 
-    m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
+    m.vm.provision "default", type: "shell" do |s|
+      s.powershell_elevated_interactive = true
+      s.inline = %{
 cd C:\\vagrant
 .\\provision-performance.ps1
 .\\provision-bginfo.ps1
@@ -89,13 +103,16 @@ cd C:\\vagrant
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
 }
+    end
 
   end
 
   config.vm.define "win10-edge" do |m|
     m.vm.box = "okeeffe-win10-edge"
 
-    m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
+    m.vm.provision "default", type: "shell" do |s|
+      s.powershell_elevated_interactive = true
+      s.inline = %{
 cd C:\\vagrant
 .\\provision-performance.ps1
 .\\provision-bginfo.ps1
@@ -105,13 +122,16 @@ cd C:\\vagrant
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
 }
+    end
 
   end
 
   config.vm.define "win10-preview-edge" do |m|
     m.vm.box = "okeeffe-win10-preview-edge"
 
-    m.vm.provision "shell", powershell_elevated_interactive: true, inline: %{
+    m.vm.provision "default", type: "shell" do |s|
+      s.powershell_elevated_interactive = true
+      s.inline = %{
 cd C:\\vagrant
 .\\provision-performance.ps1
 .\\provision-bginfo.ps1
@@ -121,6 +141,7 @@ cd C:\\vagrant
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
 }
+    end
 
   end
 
