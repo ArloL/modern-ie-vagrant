@@ -20,6 +20,7 @@ cd C:\\vagrant
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
+.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -33,6 +34,7 @@ cd C:\\vagrant
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
+.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -46,6 +48,7 @@ cd C:\\vagrant
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
+.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -59,6 +62,7 @@ cd C:\\vagrant
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
+.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -72,6 +76,7 @@ cd C:\\vagrant
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
+.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
@@ -85,6 +90,7 @@ cd C:\\vagrant
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
+.\\provision-performance.ps1
 .\\provision-locale.ps1
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
@@ -100,6 +106,7 @@ cd C:\\vagrant
 .\\provision-bginfo.ps1
 .\\provision-timezone.ps1
 .\\provision-powersettings.ps1
+.\\provision-performance.ps1
 .\\provision-locale.ps1
 }
 
