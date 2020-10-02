@@ -28,20 +28,36 @@ if [ -f "${box_name}.box" ]; then
     exit 0;
 fi
 
-vagrant up "${box_name}" || true
+if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
+    VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
+else
+    VM=""
+fi
 
-VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
+if VBoxManage snapshot "${VM}" list; then
 
-wait_for_guestcontrol "${VM}" 2
+    vagrant snapshot pop "${box_name}" --no-delete || true
 
-sleep 60
-sleep 60
-sleep 60
-sleep 60
-sleep 60
-sleep 60
+else
 
-VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
+    vagrant up "${box_name}" || true
+
+    VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
+
+    sleep 60
+
+    wait_for_guestcontrol "${VM}" 2
+
+    sleep 60
+    sleep 60
+    sleep 60
+    sleep 60
+    sleep 60
+    sleep 60
+
+    vagrant snapshot push "${box_name}"
+
+fi
 
 VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 1 --type dvddrive --medium additions
 

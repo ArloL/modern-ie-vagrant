@@ -29,7 +29,15 @@ if [ -f "${box_name}.box" ]; then
 fi
 
 if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
-    vagrant snapshot pop || true
+    VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
+else
+    VM=""
+fi
+
+if VBoxManage snapshot "${VM}" list; then
+
+    vagrant snapshot pop "${box_name}" --no-delete || true
+
 else
 
     vagrant up "${box_name}" || true
@@ -40,10 +48,9 @@ else
 
     sleep 60
 
-    vagrant snapshot push
-fi
+    vagrant snapshot push "${box_name}"
 
-VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
+fi
 
 GuestAdditionsRunLevel=$(get_guest_additions_run_level "${VM}")
 

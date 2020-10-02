@@ -28,13 +28,28 @@ if [ -f "${box_name}.box" ]; then
     exit 0;
 fi
 
-vagrant up "${box_name}" || true
 
-VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
+if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
+    VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
+else
+    VM=""
+fi
 
-sleep 60
+if VBoxManage snapshot "${VM}" list; then
 
-VBoxManage snapshot "${VM}" list || VBoxManage snapshot "${VM}" take "Snapshot 0" --live
+    vagrant snapshot pop "${box_name}" --no-delete || true
+
+else
+
+    vagrant up "${box_name}" || true
+
+    VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
+
+    sleep 60
+
+    vagrant snapshot push "${box_name}"
+
+fi
 
 # Login
 
