@@ -15,14 +15,14 @@ call %~dp0scripts\provision-winrm.bat
 
 for %%i in (%~dp0scripts\VBoxGuestAdditions\cert\vbox-*.cer) do certutil -addstore -f "TrustedPublisher" %%i
 
-PowerShell -ExecutionPolicy Bypass -File \\VBOXSRV\vagrant\scripts\provision-wmf51.ps1
-
 schtasks /Create /SC ONSTART /TN "vagrant-onstart" /TR "C:\Users\IEUser\vagrant-onstart.cmd" /RL HIGHEST /DELAY 0000:20 /F
 
 start slmgr /rearm
 
-\\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S
-
 sc config "winrm" start= demand
+
+PowerShell -ExecutionPolicy Bypass -File \\VBOXSRV\vagrant\scripts\provision-wmf51.ps1
+
+\\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S
 
 shutdown /s /t 30 /f
