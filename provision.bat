@@ -26,3 +26,5 @@ PowerShell -ExecutionPolicy Bypass -File \\VBOXSRV\vagrant\scripts\provision-wmf
 \\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S
 
 shutdown /s /t 30 /f
+
+sleep 30
