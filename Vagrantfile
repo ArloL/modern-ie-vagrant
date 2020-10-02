@@ -18,6 +18,13 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--vram", "64"]
   end
 
+  config.vm.provision "default", type: "shell" do |s|
+      s.powershell_elevated_interactive = true
+      s.inline = %{
+cd C:\\vagrant\\in-action
+.\\provision-checkpsversion.ps1
+}
+  end
 
   ["win7-ie8", "win7-ie9", "win7-ie10", "win7-ie11", "win81-ie11", "win10-edge"].each do |name|
     config.vm.define "#{name}" do |node|
