@@ -28,9 +28,9 @@ if [ -f "${box_name}.box" ]; then
     exit 0;
 fi
 
-vagrant up || true
+vagrant up "${box_name}" || true
 
-VM=$(cat .vagrant/machines/default/virtualbox/id)
+VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
 
 wait_for_guestcontrol "${VM}" 3
 
@@ -100,6 +100,6 @@ wait ${provisionPID} || true
 
 wait_for_guestcontrol "${VM}" 0
 
-vagrant package --output "${box_name}.box" --Vagrantfile Vagrantfile-package
+vagrant package "${box_name}" --output "${box_name}.box" --Vagrantfile Vagrantfile-package
 
 vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"

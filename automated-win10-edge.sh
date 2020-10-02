@@ -28,12 +28,13 @@ if [ -f "${box_name}.box" ]; then
     exit 0;
 fi
 
-if [ -f ".vagrant/machines/default/virtualbox/id" ]; then
+if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
     vagrant snapshot pop || true
 else
-    vagrant up || true
 
-    VM=$(cat .vagrant/machines/default/virtualbox/id)
+    vagrant up "${box_name}" || true
+
+    VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
 
     wait_for_guestcontrol "${VM}" 2
 
@@ -42,7 +43,7 @@ else
     vagrant snapshot push
 fi
 
-VM=$(cat .vagrant/machines/default/virtualbox/id)
+VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
 
 GuestAdditionsRunLevel=$(get_guest_additions_run_level "${VM}")
 
@@ -121,6 +122,6 @@ wait ${provisionPID} || true
 
 wait_for_guestcontrol "${VM}" 0
 
-vagrant package --output "${box_name}.box" --Vagrantfile Vagrantfile-package
+vagrant package "${box_name}" --output "${box_name}.box" --Vagrantfile Vagrantfile-package
 
 vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
