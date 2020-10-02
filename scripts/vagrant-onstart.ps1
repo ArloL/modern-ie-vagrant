@@ -3,3 +3,5 @@ $connections = $networkListManager.GetNetworkConnections()
 $connections | % {$_.GetNetwork().SetCategory(1)}
 
 Enable-PSRemoting -Force
+
+Set-Service "winrm" -startupType manual
