@@ -8,7 +8,7 @@ md $path -Force
 
 (New-Object System.Net.WebClient).DownloadFile("https://go.microsoft.com/fwlink/?linkid=839522", "$path\Win7-KB3191566-x86.zip")
 
-Unzip "$path\Win7-KB3191566-x86.zip" $path $true
+Unzip "$path\Win7-KB3191566-x86.zip" $path
 
 wusa.exe "$path/Win7-KB3191566-x86.msu" /quiet /norestart | Out-Null
 
