@@ -7,3 +7,5 @@ set WINRM_EXEC=call %SYSTEMROOT%\system32\winrm
 %WINRM_EXEC% set winrm/config/client/auth @{Basic="true"}
 %WINRM_EXEC% set winrm/config/service @{AllowUnencrypted="true"}
 %WINRM_EXEC% set winrm/config/service/auth @{Basic="true"}
+
+sc config "winrm" start= demand
