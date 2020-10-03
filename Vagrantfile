@@ -24,9 +24,10 @@ cd C:\\vagrant\\in-action
 }
   end
 
-  ["win7-ie8", "win7-ie9", "win7-ie10", "win7-ie11", "win81-ie11", "win10-edge"].each do |name|
+  {"win7-ie8": 60600, "win7-ie9": 60700, "win7-ie10": 60800, "win7-ie11": 60900, "win81-ie11": 61000, "win10-edge": 61100}.each do |name,port|
     config.vm.define "#{name}" do |node|
       node.vm.box = "modern.ie/#{name}"
+      node.vm.usable_port_range = port..port + 100
     end
   end
 
