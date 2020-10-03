@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
-    vb.customize ["modifyvm", :id, "--vram", "64"]
+    vb.customize ["modifyvm", :id, "--vram", "64", "--graphicscontroller", "vboxsvga"]
   end
 
   config.vm.provision "default", type: "shell" do |s|
