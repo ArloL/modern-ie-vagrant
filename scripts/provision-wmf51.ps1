@@ -1,3 +1,7 @@
+if ($PSVersionTable.PSVersion.Major -ge 3) {
+    return
+}
+
 $scriptDir = Split-Path -parent $MyInvocation.MyCommand.Path
 
 . $scriptDir\Unzip.ps1
