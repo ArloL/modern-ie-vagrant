@@ -16,4 +16,6 @@ Unzip "$path\Win7-KB3191566-x86.zip" $path
 
 wusa.exe "$path/Win7-KB3191566-x86.msu" /quiet /norestart | Out-Null
 
+wusa.exe "$path/Win7-KB3191566-x86.msu" /quiet /norestart | Out-Null
+
 Remove-Item $path -Recurse -Force
