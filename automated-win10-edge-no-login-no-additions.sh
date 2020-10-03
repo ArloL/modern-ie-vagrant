@@ -37,7 +37,7 @@ fi
 
 if VBoxManage snapshot "${VM}" list; then
 
-    vagrant snapshot pop "${box_name}" --no-delete || true
+    vagrant snapshot restore "${box_name}" "Snapshot 0" || true
 
 else
 
@@ -47,7 +47,7 @@ else
 
     sleep 60
 
-    vagrant snapshot push "${box_name}"
+    vagrant snapshot save "${box_name}" "Snapshot 0"
 
 fi
 
