@@ -24,10 +24,13 @@ cd C:\\vagrant\\in-action
 }
   end
 
-  {"win7-ie8": 60600, "win7-ie9": 60700, "win7-ie10": 60800, "win7-ie11": 60900, "win81-ie11": 61000, "win10-edge": 61100}.each do |name,port|
+  {"win7-ie8": 60600, "win7-ie9": 60700, "win7-ie10": 60800, "win7-ie11": 60900, "win81-ie11": 61000, "win10-edge": 6110}.each do |name,port|
     config.vm.define "#{name}" do |node|
       node.vm.box = "modern.ie/#{name}"
-      node.vm.usable_port_range = port..port + 100
+      node.vm.network "forwarded_port", id: "ssh", guest: 22, host: port, host_ip: "127.0.0.1", auto_correct: true
+      node.vm.network "forwarded_port", id: "winrm", guest: 5985, host: port + 1, host_ip: "127.0.0.1", auto_correct: true
+      node.vm.network "forwarded_port", id: "winrm-ssl", guest: 5986, host: port + 2, host_ip: "127.0.0.1", auto_correct: true
+      node.vm.usable_port_range = port + 10..port + 100
     end
   end
 
