@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+  schedule:
+    - cron: '2 10 28 * *'
+jobs:
+  win7-ie8:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download
+      working-directory: ./vms
+      run: |
+        ./download-vm.sh win7-ie8
+    - name: Build
+      run: |
+        brew install p7zip
+        ./download-prerequisites.sh
+        ./automated-win7-ie8.sh
+  win7-ie9:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download
+      working-directory: ./vms
+      run: |
+        ./download-vm.sh win7-ie9
+    - name: Build
+      run: |
+        brew install p7zip
+        ./download-prerequisites.sh
+        ./automated-win7-ie9.sh
+  win7-ie10:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download
+      working-directory: ./vms
+      run: |
+        ./download-vm.sh win7-ie10
+    - name: Build
+      run: |
+        brew install p7zip
+        ./download-prerequisites.sh
+        ./automated-win7-ie10.sh
+  win7-ie11:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download
+      working-directory: ./vms
+      run: |
+        ./download-vm.sh win7-ie11
+    - name: Build
+      run: |
+        brew install p7zip
+        ./download-prerequisites.sh
+        ./automated-win7-ie11.sh
+  win81-ie11:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download
+      working-directory: ./vms
+      run: |
+        ./download-vm.sh win81-ie11
+    - name: Build
+      run: |
+        brew install p7zip
+        ./download-prerequisites.sh
+        ./automated-win81-ie11.sh
+  win10-edge:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download
+      working-directory: ./vms
+      run: |
+        ./download-vm.sh win10-edge
+    - name: Build
+      run: |
+        brew install p7zip
+        ./download-prerequisites.sh
+        ./automated-win10-edge-no-login.sh
