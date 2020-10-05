@@ -262,3 +262,5 @@ vagrant halt "${box_name}"
 vagrant package "${box_name}" --output "${box_name}.box" --Vagrantfile Vagrantfile-package
 
 vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
+
+rm -f "${box_name}.box"
