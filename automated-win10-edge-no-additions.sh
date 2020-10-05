@@ -49,52 +49,19 @@ VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device
 sleep 60
 
 # Press Win+R
-
-# leftWindowPress, rPress, rRelease, leftWindowRelease
-VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
+send_keys "${VM}" "<winPress>" r "<winRelease>"
 
 sleep 15
 
-#  Enter e:\vboxwindowsadditions.exe /S and press ENTER
+# Enter e:\vboxwindowsadditions /S and press ENTER
 
-VBoxManage controlvm "${VM}" keyboardputscancode 12 92
-VBoxManage controlvm "${VM}" keyboardputscancode 2a 27 a7 aa
-VBoxManage controlvm "${VM}" keyboardputscancode 2b ab
-VBoxManage controlvm "${VM}" keyboardputscancode 2f af
-VBoxManage controlvm "${VM}" keyboardputscancode 30 b0
-VBoxManage controlvm "${VM}" keyboardputscancode 18 98
-VBoxManage controlvm "${VM}" keyboardputscancode 2d ad
-VBoxManage controlvm "${VM}" keyboardputscancode 11 91
-VBoxManage controlvm "${VM}" keyboardputscancode 17 97
-VBoxManage controlvm "${VM}" keyboardputscancode 31 b1
-VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
-VBoxManage controlvm "${VM}" keyboardputscancode 18 98
-VBoxManage controlvm "${VM}" keyboardputscancode 11 91
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 1e 9e
-VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
-VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
-VBoxManage controlvm "${VM}" keyboardputscancode 17 97
-VBoxManage controlvm "${VM}" keyboardputscancode 14 94
-VBoxManage controlvm "${VM}" keyboardputscancode 17 97
-VBoxManage controlvm "${VM}" keyboardputscancode 18 98
-VBoxManage controlvm "${VM}" keyboardputscancode 31 b1
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 39 b9
-VBoxManage controlvm "${VM}" keyboardputscancode 35 b5
-VBoxManage controlvm "${VM}" keyboardputscancode 2a 1f 9f aa
-
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+send_keys "${VM}" e ":" \\ v b o x w i n d o w s a d d i t i o n s " " / S "<enter>"
 
 sleep 15
 
 # select Yes on UAC
 
-# leftPress, leftRelease
-VBoxManage controlvm "${VM}" keyboardputscancode e0 4b e0 cb
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+send_keys "${VM}" "<left>" "<enter>"
 
 sleep 15
 
@@ -105,33 +72,13 @@ sleep 60
 VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 1 --type dvddrive --medium emptydrive
 
 # Press Win+R
-
-# leftWindowPress, rPress, rRelease, leftWindowRelease
-VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
+send_keys "${VM}" "<winPress>" r "<winRelease>"
 
 sleep 15
 
 # Enter shutdown /r /t 0 and press ENTER
 
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 23 a3
-VBoxManage controlvm "${VM}" keyboardputscancode 16 96
-VBoxManage controlvm "${VM}" keyboardputscancode 14 94
-VBoxManage controlvm "${VM}" keyboardputscancode 20 a0
-VBoxManage controlvm "${VM}" keyboardputscancode 18 98
-VBoxManage controlvm "${VM}" keyboardputscancode 11 91
-VBoxManage controlvm "${VM}" keyboardputscancode 31 b1
-VBoxManage controlvm "${VM}" keyboardputscancode 39 b9
-VBoxManage controlvm "${VM}" keyboardputscancode 35 b5
-VBoxManage controlvm "${VM}" keyboardputscancode 13 93
-VBoxManage controlvm "${VM}" keyboardputscancode 39 b9
-VBoxManage controlvm "${VM}" keyboardputscancode 35 b5
-VBoxManage controlvm "${VM}" keyboardputscancode 14 94
-VBoxManage controlvm "${VM}" keyboardputscancode 39 b9
-VBoxManage controlvm "${VM}" keyboardputscancode 0b 8b
-
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+send_keys "${VM}" s h u t d o w n " " / r " " / t " " 0 "<enter>"
 
 wait_for_guest_additions_run_level "${VM}" 3
 
@@ -139,26 +86,11 @@ sleep 60
 
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
-
-# leftWindowPress, rPress, rRelease, leftWindowRelease
-VBoxManage controlvm "${VM}" keyboardputscancode e0 5b 13 93 e0 db
+send_keys "${VM}" "<winPress>" r "<winRelease>"
 
 sleep 15
 
-#  Enter \\vboxsrv and press ENTER
-
-VBoxManage controlvm "${VM}" keyboardputscancode 2b ab
-VBoxManage controlvm "${VM}" keyboardputscancode 2b ab
-VBoxManage controlvm "${VM}" keyboardputscancode 2f af
-VBoxManage controlvm "${VM}" keyboardputscancode 30 b0
-VBoxManage controlvm "${VM}" keyboardputscancode 18 98
-VBoxManage controlvm "${VM}" keyboardputscancode 2d ad
-VBoxManage controlvm "${VM}" keyboardputscancode 1f 9f
-VBoxManage controlvm "${VM}" keyboardputscancode 13 93
-VBoxManage controlvm "${VM}" keyboardputscancode 2f af
-
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+send_keys "${VM}" \\ \\ v b o x s r v "<enter>"
 
 sleep 30
 
@@ -174,10 +106,7 @@ sleep 15
 
 # select Yes on UAC
 
-# leftPress, leftRelease
-VBoxManage controlvm "${VM}" keyboardputscancode e0 4b e0 cb
-# enterPress, enterRelease
-VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
+send_keys "${VM}" "<left>" "<enter>"
 
 wait ${provisionPID} || true
 
