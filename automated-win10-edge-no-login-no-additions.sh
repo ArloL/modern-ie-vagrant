@@ -129,7 +129,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode e0 4b e0 cb
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-wait_for_guestcontrol "${VM}" 1
+wait_for_guest_additions_run_level "${VM}" 1
 
 sleep 60
 
@@ -162,7 +162,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 0b 8b
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-wait_for_guestcontrol "${VM}" 2
+wait_for_guest_additions_run_level "${VM}" 2
 
 VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium emptydrive
 
@@ -189,7 +189,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 2a 02 82 aa
 # enterPress, enterRelease
 VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-wait_for_guestcontrol "${VM}" 3
+wait_for_guest_additions_run_level "${VM}" 3
 
 sleep 60
 
@@ -237,7 +237,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait ${provisionPID} || true
 
-wait_for_guestcontrol "${VM}" 0
+wait_for_guest_additions_run_level "${VM}" 0
 
 unset boot_timeout
 vagrant up "${box_name}" --provision

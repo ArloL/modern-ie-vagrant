@@ -9,7 +9,7 @@ get_guest_additions_run_level() {
     echo ${GuestAdditionsRunLevel}
 }
 
-wait_for_guestcontrol() {
+wait_for_guest_additions_run_level() {
     while true ; do
         echo "Waiting for ${1} to be in guest additions run level ${2}."
         GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")

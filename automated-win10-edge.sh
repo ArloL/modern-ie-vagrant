@@ -29,7 +29,7 @@ else
 
     VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
 
-    wait_for_guestcontrol "${VM}" 2
+    wait_for_guest_additions_run_level "${VM}" 2
 
     sleep 60
 
@@ -62,7 +62,7 @@ if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
     # enterPress, enterRelease
     VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
-    wait_for_guestcontrol "${VM}" 3
+    wait_for_guest_additions_run_level "${VM}" 3
 
     sleep 60
 
@@ -112,7 +112,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait ${provisionPID} || true
 
-wait_for_guestcontrol "${VM}" 0
+wait_for_guest_additions_run_level "${VM}" 0
 
 unset boot_timeout
 vagrant up "${box_name}" --provision

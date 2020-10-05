@@ -103,7 +103,7 @@ VBoxManage controlvm "${VM}" keyboardputscancode 1c 9c
 
 wait ${provisionPID} || true
 
-wait_for_guestcontrol "${VM}" 0
+wait_for_guest_additions_run_level "${VM}" 0
 
 unset boot_timeout
 vagrant up "${box_name}" --provision
