@@ -15,7 +15,6 @@ jobs:
         ./download-vm.sh win7-ie8
     - name: Build
       run: |
-        brew install p7zip
         ./download-prerequisites.sh
         ./automated-win7-ie8.sh
   win7-ie9:
@@ -28,7 +27,6 @@ jobs:
         ./download-vm.sh win7-ie9
     - name: Build
       run: |
-        brew install p7zip
         ./download-prerequisites.sh
         ./automated-win7-ie9.sh
   win7-ie10:
@@ -41,7 +39,6 @@ jobs:
         ./download-vm.sh win7-ie10
     - name: Build
       run: |
-        brew install p7zip
         ./download-prerequisites.sh
         ./automated-win7-ie10.sh
   win7-ie11:
@@ -54,7 +51,6 @@ jobs:
         ./download-vm.sh win7-ie11
     - name: Build
       run: |
-        brew install p7zip
         ./download-prerequisites.sh
         ./automated-win7-ie11.sh
   win81-ie11:
@@ -67,7 +63,6 @@ jobs:
         ./download-vm.sh win81-ie11
     - name: Build
       run: |
-        brew install p7zip
         ./download-prerequisites.sh
         ./automated-win81-ie11.sh
   win10-edge:
@@ -80,6 +75,5 @@ jobs:
         ./download-vm.sh win10-edge
     - name: Build
       run: |
-        brew install p7zip
         ./download-prerequisites.sh
         ./automated-win10-edge-no-login.sh
