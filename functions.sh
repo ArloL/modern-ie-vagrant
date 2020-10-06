@@ -81,7 +81,7 @@ send_keys() {
             "9") hexValues="0a 8a";;
             *) echo "Sorry, I can not enter ${key} for you!"; exit 1;;
         esac
-        echo VBoxManage controlvm "${uuid}" keyboardputscancode "${hexValues}"
+        VBoxManage controlvm "${uuid}" keyboardputscancode "${hexValues}"
     done
     unset uuid
 }
