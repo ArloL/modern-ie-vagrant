@@ -21,9 +21,7 @@ vagrant destroy --force || true
 sh automated-win81-ie11.sh
 vagrant destroy --force || true
 
-# 2019-04-02: Currently not with automatic login
-#sh automated-win10-edge.sh
-sh automated-win10-edge-no-login.sh
+sh automated-win10-edge.sh
 vagrant destroy --force || true
 
 # 2018-08-30: Currently no download available

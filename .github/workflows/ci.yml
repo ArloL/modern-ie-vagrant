@@ -76,4 +76,4 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win10-edge-no-login.sh
+        ./automated-win10-edge.sh
