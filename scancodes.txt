@@ -19,6 +19,8 @@ Left Windows == e0 5b e0 db
 / == 35 b5
 ; == 27 a7
 : == Left-Shift + ; == 2a 27 a7 aa
+- == 0c 8c
+. == 34 b4
 
 a == 1e 9e
 b == 30 b0

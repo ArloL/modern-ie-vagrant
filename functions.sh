@@ -43,6 +43,8 @@ send_keys() {
             ":") send_keys_as_hex 2a 27 a7 aa;;
             ";") send_keys_as_hex 27 a7;;
             "!") send_keys_as_hex 2a 02 82 aa;;
+            "-") send_keys_as_hex 0c 8c;;
+            ".") send_keys_as_hex 34 b4;;
             "a") send_keys_as_hex 1e 9e;;
             "b") send_keys_as_hex 30 b0;;
             "c") send_keys_as_hex 2e ae;;
