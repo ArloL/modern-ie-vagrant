@@ -39,55 +39,55 @@ VBoxManage storageattach "${VM}" --storagectl "IDE Controller" --port 1 --device
 
 # Login
 
-send_keys "${VM}" "<enter>"
+send_keys "<enter>"
 
 sleep 15
 
 # Enter Passw0rd!
-send_keys "${VM}" P a s s w 0 r d "!" "<enter>"
+send_keys P a s s w 0 r d "!" "<enter>"
 
 sleep 60
 
 # Press Win+R
 
-send_keys "${VM}" "<winPress>" r "<winRelease>"
+send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
 #  Enter e:\vboxwindowsadditions /S and press ENTER
 
-send_keys "${VM}" e ":" \\ v b o x w i n d o w s a d d i t i o n s " " / S "<enter>"
+send_keys e ":" \\ v b o x w i n d o w s a d d i t i o n s " " / S "<enter>"
 
 sleep 15
 
 # select Yes on UAC
 
-send_keys "${VM}" "<left>" "<enter>"
+send_keys "<left>" "<enter>"
 
 sleep 15
 
 # switch to Driver Stuff
 
-send_keys "${VM}" "<altPress>" "<tab>" "<altRelease>"
+send_keys "<altPress>" "<tab>" "<altRelease>"
 
 sleep 5
 
 # select Yes on Driver Stuff
 
-send_keys "${VM}" "<left>" "<enter>"
+send_keys "<left>" "<enter>"
 
 wait_for_guest_additions_run_level "${VM}" 1
 
 sleep 60
 
 # Press Win+R
-send_keys "${VM}" "<winPress>" r "<winRelease>"
+send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
 # Enter shutdown /r /t 0 and press ENTER
 
-send_keys "${VM}" s h u t d o w n " " / r " " / t " " 0 "<enter>"
+send_keys s h u t d o w n " " / r " " / t " " 0 "<enter>"
 
 wait_for_guest_additions_run_level "${VM}" 2
 
@@ -97,12 +97,12 @@ sleep 60
 
 # Login
 
-send_keys "${VM}" "<enter>"
+send_keys "<enter>"
 
 sleep 15
 
 # Enter Passw0rd!
-send_keys "${VM}" P a s s w 0 r d "!" "<enter>"
+send_keys P a s s w 0 r d "!" "<enter>"
 
 wait_for_guest_additions_run_level "${VM}" 3
 
@@ -111,11 +111,11 @@ sleep 60
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
 
-send_keys "${VM}" "<winPress>" r "<winRelease>"
+send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
-send_keys "${VM}" \\ \\ v b o x s r v "<enter>"
+send_keys \\ \\ v b o x s r v "<enter>"
 
 sleep 30
 
@@ -131,7 +131,7 @@ sleep 15
 
 # select Yes on UAC
 
-send_keys "${VM}" "<left>" "<enter>"
+send_keys "<left>" "<enter>"
 
 wait ${provisionPID} || true
 

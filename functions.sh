@@ -20,69 +20,71 @@ wait_for_guest_additions_run_level() {
     done
 }
 
-send_keys() {
-    uuid="${1}"
-    shift
-    for key in "$@"; do
-        case $key in
-            "<esc>") hexValues="01 81";;
-            "<enter>") hexValues="1c 9c";;
-            "<winPress>") hexValues="e0 5b";;
-            "<winRelease>") hexValues="e0 db";;
-            "<left>") hexValues="e0 4b e0 cb";;
-            "<altPress>") hexValues="38";;
-            "<altRelease>") hexValues="b8";;
-            "<shiftPress>") hexValues="2a";;
-            "<shiftRelease>") hexValues="aa";;
-            "<tab>") hexValues="0f 8f";;
-            "\\") hexValues="2b ab";;
-            "/") hexValues="35 b5";;
-            " ") hexValues="39 b9";;
-            ":") hexValues="2a 27 a7 aa";;
-            ";") hexValues="27 a7";;
-            "!") hexValues="2a 02 82 aa";;
-            "a") hexValues="1e 9e";;
-            "b") hexValues="30 b0";;
-            "c") hexValues="2e ae";;
-            "d") hexValues="20 a0";;
-            "e") hexValues="12 92";;
-            "f") hexValues="21 a1";;
-            "g") hexValues="22 a2";;
-            "h") hexValues="23 a3";;
-            "i") hexValues="17 97";;
-            "j") hexValues="24 a4";;
-            "k") hexValues="25 a5";;
-            "l") hexValues="26 a6";;
-            "m") hexValues="32 b2";;
-            "n") hexValues="31 b1";;
-            "o") hexValues="18 98";;
-            "p") hexValues="19 99";;
-            "q") hexValues="10 90";;
-            "r") hexValues="13 93";;
-            "s") hexValues="1f 9f";;
-            "t") hexValues="14 94";;
-            "u") hexValues="16 96";;
-            "v") hexValues="2f af";;
-            "w") hexValues="11 91";;
-            "x") hexValues="2d ad";;
-            "y") hexValues="15 95";;
-            "z") hexValues="2c ac";;
-            "P") hexValues="2a 19 99 aa";;
-            "S") hexValues="2a 1f 9f aa";;
-            "0") hexValues="0b 8b";;
-            "1") hexValues="02 82";;
-            "2") hexValues="03 83";;
-            "3") hexValues="04 84";;
-            "4") hexValues="05 85";;
-            "5") hexValues="06 86";;
-            "6") hexValues="07 87";;
-            "7") hexValues="08 88";;
-            "8") hexValues="09 89";;
-            "9") hexValues="0a 8a";;
-            *) echo "Sorry, I can not enter ${key} for you!"; exit 1;;
-        esac
-        VBoxManage controlvm "${uuid}" keyboardputscancode "${hexValues}"
-    done
-    unset uuid
+send_keys_as_hex() {
+    VBoxManage controlvm "${VM}" keyboardputscancode "$@"
 }
 
+send_keys() {
+    for key in "$@"; do
+        case $key in
+            "<esc>") send_keys_as_hex 01 81;;
+            "<enter>") send_keys_as_hex 1c 9c;;
+            "<winPress>") send_keys_as_hex e0 5b;;
+            "<winRelease>") send_keys_as_hex e0 db;;
+            "<left>") send_keys_as_hex e0 4b e0 cb;;
+            "<altPress>") send_keys_as_hex 38;;
+            "<altRelease>") send_keys_as_hex b8;;
+            "<shiftPress>") send_keys_as_hex 2a;;
+            "<shiftRelease>") send_keys_as_hex aa;;
+            "<tab>") send_keys_as_hex 0f 8f;;
+            "\\") send_keys_as_hex 2b ab;;
+            "/") send_keys_as_hex 35 b5;;
+            " ") send_keys_as_hex 39 b9;;
+            ":") send_keys_as_hex 2a 27 a7 aa;;
+            ";") send_keys_as_hex 27 a7;;
+            "!") send_keys_as_hex 2a 02 82 aa;;
+            "a") send_keys_as_hex 1e 9e;;
+            "b") send_keys_as_hex 30 b0;;
+            "c") send_keys_as_hex 2e ae;;
+            "d") send_keys_as_hex 20 a0;;
+            "e") send_keys_as_hex 12 92;;
+            "f") send_keys_as_hex 21 a1;;
+            "g") send_keys_as_hex 22 a2;;
+            "h") send_keys_as_hex 23 a3;;
+            "i") send_keys_as_hex 17 97;;
+            "j") send_keys_as_hex 24 a4;;
+            "k") send_keys_as_hex 25 a5;;
+            "l") send_keys_as_hex 26 a6;;
+            "m") send_keys_as_hex 32 b2;;
+            "n") send_keys_as_hex 31 b1;;
+            "o") send_keys_as_hex 18 98;;
+            "p") send_keys_as_hex 19 99;;
+            "q") send_keys_as_hex 10 90;;
+            "r") send_keys_as_hex 13 93;;
+            "s") send_keys_as_hex 1f 9f;;
+            "t") send_keys_as_hex 14 94;;
+            "u") send_keys_as_hex 16 96;;
+            "v") send_keys_as_hex 2f af;;
+            "w") send_keys_as_hex 11 91;;
+            "x") send_keys_as_hex 2d ad;;
+            "y") send_keys_as_hex 15 95;;
+            "z") send_keys_as_hex 2c ac;;
+            "P") send_keys_as_hex 2a 19 99 aa;;
+            "S") send_keys_as_hex 2a 1f 9f aa;;
+            "0") send_keys_as_hex 0b 8b;;
+            "1") send_keys_as_hex 02 82;;
+            "2") send_keys_as_hex 03 83;;
+            "3") send_keys_as_hex 04 84;;
+            "4") send_keys_as_hex 05 85;;
+            "5") send_keys_as_hex 06 86;;
+            "6") send_keys_as_hex 07 87;;
+            "7") send_keys_as_hex 08 88;;
+            "8") send_keys_as_hex 09 89;;
+            "9") send_keys_as_hex 0a 8a;;
+            *) echo "Sorry, I can not enter ${key} for you!"; exit 1;;
+        esac
+    done
+}
+
+# VM="\"\${VM}\""
+# send_keys s h u t d o w n " " / r " " / t " " 0 "<enter>"

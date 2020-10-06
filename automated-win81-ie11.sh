@@ -39,11 +39,11 @@ fi
 
 # Press Win+R so we can open the \\vboxsrv directory and execute our batch
 # script from there.
-send_keys "${VM}" "<winPress>" r "<winRelease>"
+send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
-send_keys "${VM}" \\ \\ v b o x s r v "<enter>"
+send_keys \\ \\ v b o x s r v "<enter>"
 
 sleep 30
 
@@ -59,7 +59,7 @@ sleep 15
 
 # select Yes on UAC
 
-send_keys "${VM}" "<left>" "<enter>"
+send_keys "<left>" "<enter>"
 
 wait ${provisionPID} || true
 
