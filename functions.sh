@@ -24,19 +24,12 @@ send_keys_as_hex() {
     VBoxManage controlvm "${VM}" keyboardputscancode "$@"
 }
 
-send_keys() {
-    for key in "$@"; do
-        case $key in
-            "<esc>") send_keys_as_hex 01 81;;
-            "<enter>") send_keys_as_hex 1c 9c;;
-            "<winPress>") send_keys_as_hex e0 5b;;
-            "<winRelease>") send_keys_as_hex e0 db;;
-            "<left>") send_keys_as_hex e0 4b e0 cb;;
-            "<altPress>") send_keys_as_hex 38;;
-            "<altRelease>") send_keys_as_hex b8;;
-            "<shiftPress>") send_keys_as_hex 2a;;
-            "<shiftRelease>") send_keys_as_hex aa;;
-            "<tab>") send_keys_as_hex 0f 8f;;
+send_keys_split_string() {
+    stringToSplit="${1}"
+    while [ -n "$stringToSplit" ]; do
+        restOfString="${stringToSplit#?}" # All but the first character of the string
+        firstCharacterOfString="${stringToSplit%"$restOfString"}" # Remove $rest so the first character remains
+        case $firstCharacterOfString in
             "\\") send_keys_as_hex 2b ab;;
             "/") send_keys_as_hex 35 b5;;
             " ") send_keys_as_hex 39 b9;;
@@ -85,8 +78,30 @@ send_keys() {
             "9") send_keys_as_hex 0a 8a;;
             *) echo "Sorry, I can not enter ${key} for you!"; exit 1;;
         esac
+        stringToSplit="$restOfString"
+    done
+    unset stringToSplit
+    unset restOfString
+    unset firstCharacterOfString
+}
+
+send_keys() {
+    for key in "$@"; do
+        case $key in
+            "<esc>") send_keys_as_hex 01 81;;
+            "<enter>") send_keys_as_hex 1c 9c;;
+            "<winPress>") send_keys_as_hex e0 5b;;
+            "<winRelease>") send_keys_as_hex e0 db;;
+            "<left>") send_keys_as_hex e0 4b e0 cb;;
+            "<altPress>") send_keys_as_hex 38;;
+            "<altRelease>") send_keys_as_hex b8;;
+            "<shiftPress>") send_keys_as_hex 2a;;
+            "<shiftRelease>") send_keys_as_hex aa;;
+            "<tab>") send_keys_as_hex 0f 8f;;
+            *) send_keys_split_string "${key}";;
+        esac
     done
 }
 
 # VM="\"\${VM}\""
-# send_keys s h u t d o w n " " / r " " / t " " 0 "<enter>"
+# send_keys "shutdown /r /t 0" "<enter>"

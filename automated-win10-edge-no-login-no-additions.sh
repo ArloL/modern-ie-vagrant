@@ -87,7 +87,7 @@ sleep 15
 
 # Enter shutdown /r /t 0 and press ENTER
 
-send_keys s h u t d o w n " " / r " " / t " " 0 "<enter>"
+send_keys "shutdown /r /t 0" "<enter>"
 
 wait_for_guest_additions_run_level "${VM}" 2
 
@@ -115,7 +115,7 @@ send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
-send_keys \\ \\ v b o x s r v "<enter>"
+send_keys "\\\\vboxsrv" "<enter>"
 
 sleep 30
 

@@ -51,7 +51,7 @@ sleep 15
 
 #  Enter \\vboxsrv and press ENTER
 
-send_keys \\ \\ v b o x s r v "<enter>"
+send_keys "\\\\vboxsrv" "<enter>"
 
 sleep 30
 
