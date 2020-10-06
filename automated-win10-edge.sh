@@ -63,27 +63,14 @@ send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
-#  Enter \\vboxsrv and press ENTER
-
-send_keys \\ \\ v b o x s r v "<enter>"
-
-sleep 30
-
-# Make sure the folder is available so we can run our script from there
-
-VBoxManage guestcontrol "${VM}" --verbose --username IEUser --password 'Passw0rd!' stat //VBOXSRV/vagrant
-
-{ VBoxManage guestcontrol "${VM}" --username IEUser --password 'Passw0rd!' run --exe "//VBOXSRV/vagrant/elevate-provision.bat"; } &
-
-provisionPID=$!
+send_keys \\ \\ v b o x s r v \\ v a g r a n t \\ e l e v a t e - p r o v i s i o n . b a t "<enter>"
 
 sleep 15
 
 # select Yes on UAC
-
 send_keys "<left>" "<enter>"
 
-wait ${provisionPID} || true
+sleep 60
 
 wait_for_guest_additions_run_level "${VM}" 0
 
