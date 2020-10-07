@@ -31,7 +31,7 @@ else
 
     wait_for_guest_additions_run_level "${VM}" 3
 
-    sleep 60
+    sleep 120
 
     vagrant snapshot save "${box_name}" "Snapshot 0"
 
@@ -40,16 +40,16 @@ fi
 # Press Win+R to open the Run dialog
 send_keys "<winPress>" r "<winRelease>"
 
-sleep 15
+sleep 30
 
 send_keys "\\\\vboxsrv\\vagrant\\elevate-provision.bat" "<enter>"
 
-sleep 15
+sleep 30
 
 # select Yes on UAC
 send_keys "<left>" "<enter>"
 
-sleep 60
+sleep 120
 
 wait_for_guest_additions_run_level "${VM}" 0
 
