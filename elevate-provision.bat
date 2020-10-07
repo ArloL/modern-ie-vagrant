@@ -1,1 +1,1 @@
-powershell -Command "&{ Start-Process cmd -ArgumentList '/c \\VBOXSRV\vagrant\provision.bat' -Verb RunAs}"
+powershell -Command "&{ Start-Process powershell -ArgumentList '-ExecutionPolicy Bypass -File \\VBOXSRV\vagrant\provision.ps1' -Verb RunAs }"
