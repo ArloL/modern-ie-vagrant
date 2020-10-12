@@ -38,7 +38,8 @@ send_keys_split_string() {
             "!") send_keys_as_hex 2a 02 82 aa;;
             "-") send_keys_as_hex 0c 8c;;
             ".") send_keys_as_hex 34 b4;;
-            "\"") send_keys_as_hex 2b ab;;
+            "'") send_keys_as_hex 28 a8;;
+            "\"") send_keys_as_hex 2a 28 a8 aa;;
             "&") send_keys_as_hex 2a 08 88 aa;;
             "{") send_keys_as_hex 2a 1a 9a aa;;
             "}") send_keys_as_hex 2a 1b 9b aa;;
