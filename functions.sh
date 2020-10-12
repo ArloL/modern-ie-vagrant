@@ -38,6 +38,10 @@ send_keys_split_string() {
             "!") send_keys_as_hex 2a 02 82 aa;;
             "-") send_keys_as_hex 0c 8c;;
             ".") send_keys_as_hex 34 b4;;
+            "\"") send_keys_as_hex ;;
+            "&") send_keys_as_hex 2a 08 88 aa;;
+            "{") send_keys_as_hex 2a 1a 9a aa;;
+            "}") send_keys_as_hex 2a 1b 9b aa;;
             "a") send_keys_as_hex 1e 9e;;
             "b") send_keys_as_hex 30 b0;;
             "c") send_keys_as_hex 2e ae;;
@@ -64,8 +68,32 @@ send_keys_split_string() {
             "x") send_keys_as_hex 2d ad;;
             "y") send_keys_as_hex 15 95;;
             "z") send_keys_as_hex 2c ac;;
+            "A") send_keys_as_hex 2a 1e 9e aa;;
+            "B") send_keys_as_hex 2a 30 b0 aa;;
+            "C") send_keys_as_hex 2a 2e ae aa;;
+            "D") send_keys_as_hex 2a 20 a0 aa;;
+            "E") send_keys_as_hex 2a 12 92 aa;;
+            "F") send_keys_as_hex 2a 21 a1 aa;;
+            "G") send_keys_as_hex 2a 22 a2 aa;;
+            "H") send_keys_as_hex 2a 23 a3 aa;;
+            "I") send_keys_as_hex 2a 17 97 aa;;
+            "J") send_keys_as_hex 2a 24 a4 aa;;
+            "K") send_keys_as_hex 2a 25 a5 aa;;
+            "L") send_keys_as_hex 2a 26 a6 aa;;
+            "M") send_keys_as_hex 2a 32 b2 aa;;
+            "N") send_keys_as_hex 2a 31 b1 aa;;
+            "O") send_keys_as_hex 2a 18 98 aa;;
             "P") send_keys_as_hex 2a 19 99 aa;;
+            "Q") send_keys_as_hex 2a 10 90 aa;;
+            "R") send_keys_as_hex 2a 13 93 aa;;
             "S") send_keys_as_hex 2a 1f 9f aa;;
+            "T") send_keys_as_hex 2a 14 94 aa;;
+            "U") send_keys_as_hex 2a 16 96 aa;;
+            "V") send_keys_as_hex 2a 2f af aa;;
+            "W") send_keys_as_hex 2a 11 91 aa;;
+            "X") send_keys_as_hex 2a 2d ad aa;;
+            "Y") send_keys_as_hex 2a 15 95 aa;;
+            "Z") send_keys_as_hex 2a 2c ac aa;;
             "0") send_keys_as_hex 0b 8b;;
             "1") send_keys_as_hex 02 82;;
             "2") send_keys_as_hex 03 83;;
@@ -76,7 +104,7 @@ send_keys_split_string() {
             "7") send_keys_as_hex 08 88;;
             "8") send_keys_as_hex 09 89;;
             "9") send_keys_as_hex 0a 8a;;
-            *) echo "Sorry, I can not enter ${key} for you!"; exit 1;;
+            *) echo "Sorry, I can not enter ${firstCharacterOfString} for you!"; exit 1;;
         esac
         stringToSplit="$restOfString"
     done
