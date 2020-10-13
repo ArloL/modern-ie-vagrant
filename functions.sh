@@ -24,6 +24,11 @@ send_keys_as_hex() {
     VBoxManage controlvm "${VM}" keyboardputscancode "$@"
 }
 
+
+# The table https://www.win.tue.nl/~aeb/linux/kbd/scancodes-1.html
+# shows the press scan code. To calculate release add 0x80 to the press code.
+# For example Left-Shift is calculated as follows:
+# 0x80 + 0x2a = 0xaa -> 2a aa
 send_keys_split_string() {
     stringToSplit="${1}"
     while [ -n "$stringToSplit" ]; do
@@ -122,6 +127,9 @@ send_keys() {
             "<winPress>") send_keys_as_hex e0 5b;;
             "<winRelease>") send_keys_as_hex e0 db;;
             "<left>") send_keys_as_hex e0 4b e0 cb;;
+            "<right>") send_keys_as_hex e0 4d e0 cd;;
+            "<up>") send_keys_as_hex e0 48 e0 c8;;
+            "<down>") send_keys_as_hex e0 50 e0 d0;;
             "<altPress>") send_keys_as_hex 38;;
             "<altRelease>") send_keys_as_hex b8;;
             "<shiftPress>") send_keys_as_hex 2a;;
