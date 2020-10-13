@@ -16,7 +16,7 @@ wait_for_vm_to_shutdown() {
         if [ "${GuestAdditionsRunLevel}" -eq "0" ]; then
             return 0;
         fi
-        sleep 5
+        sleep 10
     done
 }
 
@@ -27,7 +27,7 @@ wait_for_guest_additions_run_level() {
         if [ "${GuestAdditionsRunLevel}" -eq "${2}" ]; then
             return 0;
         fi
-        sleep 5
+        sleep 10
     done
 }
 
