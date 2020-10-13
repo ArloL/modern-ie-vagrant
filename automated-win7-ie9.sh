@@ -45,7 +45,7 @@ send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
-send_keys "\\\\vboxsrv\\vagrant\\elevate-provision.bat" "<enter>"
+send_keys "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
 
 sleep 15
 
