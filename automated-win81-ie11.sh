@@ -51,7 +51,7 @@ send_keys "<left>" "<enter>"
 
 sleep 120
 
-wait_for_guest_additions_run_level "${VM}" 0
+wait_for_vm_to_shutdown "${VM}"
 
 unset boot_timeout
 vagrant up "${box_name}" --provision

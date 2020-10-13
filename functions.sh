@@ -9,6 +9,17 @@ get_guest_additions_run_level() {
     echo ${GuestAdditionsRunLevel}
 }
 
+wait_for_vm_to_shutdown() {
+    while true ; do
+        echo "Waiting for ${1} to be in guest additions run level 0."
+        GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")
+        if [ "${GuestAdditionsRunLevel}" -eq "0" ]; then
+            return 0;
+        fi
+        sleep 5
+    done
+}
+
 wait_for_guest_additions_run_level() {
     while true ; do
         echo "Waiting for ${1} to be in guest additions run level ${2}."
