@@ -6,7 +6,7 @@ set -o xtrace
 
 . functions.sh
 
-export box_name=win7-ie11
+box_name=win7-ie11
 export boot_timeout=5
 
 if [ -f "${box_name}.box" ]; then
