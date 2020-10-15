@@ -7,7 +7,6 @@ set -o xtrace
 . functions.sh
 
 box_name=win7-ie11
-export boot_timeout=5
 
 if [ -f "${box_name}.box" ]; then
     exit 0;
@@ -21,11 +20,11 @@ fi
 
 if VBoxManage snapshot "${VM}" list; then
 
-    vagrant snapshot restore "${box_name}" "Snapshot 0" || true
+    boot_timeout=15 vagrant snapshot restore "${box_name}" "Snapshot 0" || true
 
 else
 
-    vagrant up "${box_name}" || true
+    boot_timeout=15 vagrant up "${box_name}" || true
 
     VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
 
@@ -61,7 +60,6 @@ sleep 60
 
 wait_for_vm_to_shutdown "${VM}"
 
-unset boot_timeout
 vagrant up "${box_name}" --provision
 vagrant reload "${box_name}" --provision
 vagrant halt "${box_name}"

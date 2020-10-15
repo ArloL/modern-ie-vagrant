@@ -7,7 +7,6 @@ set -o xtrace
 . functions.sh
 
 box_name=win10-preview-edge
-export boot_timeout=5
 
 if [ -f "${box_name}.box" ]; then
     exit 0;
@@ -73,7 +72,6 @@ wait ${provisionPID} || true
 
 wait_for_vm_to_shutdown "${VM}"
 
-unset boot_timeout
 vagrant up "${box_name}" --provision
 vagrant reload "${box_name}" --provision
 vagrant halt "${box_name}"
