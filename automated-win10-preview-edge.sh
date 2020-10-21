@@ -8,10 +8,6 @@ set -o xtrace
 
 box_name=win10-preview-edge
 
-if [ -f "${box_name}.box" ]; then
-    exit 0;
-fi
-
 vagrant up "${box_name}" || true
 
 VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")

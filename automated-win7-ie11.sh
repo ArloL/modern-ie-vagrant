@@ -8,10 +8,6 @@ set -o xtrace
 
 box_name=win7-ie11
 
-if [ -f "${box_name}.box" ]; then
-    exit 0;
-fi
-
 if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
     VM=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
 else
