@@ -20,6 +20,6 @@ Foreach-Object {
     certutil -addstore -f "TrustedPublisher" $_.FullName
 }
 
-\\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S
+\\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S | Out-Null
 
 shutdown /s /t 30 /f
