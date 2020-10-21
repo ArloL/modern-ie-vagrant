@@ -19,8 +19,9 @@ Vagrant.configure(2) do |config|
   config.vm.provision "default", type: "shell" do |s|
       s.powershell_elevated_interactive = true
       s.inline = %{
-cd C:\\vagrant\\in-action
-.\\provision-checkpsversion.ps1
+if ($PSVersionTable.PSVersion.Major -lt 3) {
+    exit 1
+}
 }
   end
 
