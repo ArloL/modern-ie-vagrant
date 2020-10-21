@@ -16,7 +16,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win7-ie8.sh
+        ./automated-win.sh win7-ie8
   win7-ie9:
     runs-on: macos-latest
     steps:
@@ -28,7 +28,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win7-ie9.sh
+        ./automated-win.sh win7-ie9
   win7-ie10:
     runs-on: macos-latest
     steps:
@@ -40,7 +40,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win7-ie10.sh
+        ./automated-win.sh win7-ie10
   win7-ie11:
     runs-on: macos-latest
     steps:
@@ -52,7 +52,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win7-ie11.sh
+        ./automated-win.sh win7-ie11
   win81-ie11:
     runs-on: macos-latest
     steps:
@@ -64,7 +64,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win81-ie11.sh
+        ./automated-win.sh win81-ie11
   win10-edge:
     runs-on: macos-latest
     steps:
@@ -76,4 +76,4 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win10-edge.sh
+        ./automated-win.sh win10-edge
