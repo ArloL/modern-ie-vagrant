@@ -58,10 +58,10 @@ send_keys "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
 
 sleep 15
 
-# select Yes on question whether to run script
-send_keys "<left>" "<enter>"
-
-sleep 15
+case "$1" in
+    # select Yes on question whether to run script
+    win7*) send_keys "<left>" "<enter>"; sleep 15;;
+esac
 
 # select Yes on UAC
 send_keys "<left>" "<enter>"
