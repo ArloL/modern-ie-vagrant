@@ -6,24 +6,20 @@ set -o xtrace
 
 vagrant destroy --force || true
 
-sh automated-win7-ie8.sh
+./automated-win.sh win7-ie8
 vagrant destroy --force || true
 
-sh automated-win7-ie9.sh
+./automated-win.sh win7-ie9
 vagrant destroy --force || true
 
-sh automated-win7-ie10.sh
+./automated-win.sh win7-ie10
 vagrant destroy --force || true
 
-sh automated-win7-ie11.sh
+./automated-win.sh win7-ie11
 vagrant destroy --force || true
 
-sh automated-win81-ie11.sh
+./automated-win.sh win81-ie11
 vagrant destroy --force || true
 
-sh automated-win10-edge.sh
+./automated-win.sh win10-edge
 vagrant destroy --force || true
-
-# 2018-08-30: Currently no download available
-#sh automated-win10-preview-edge.sh
-#vagrant destroy --force || true
