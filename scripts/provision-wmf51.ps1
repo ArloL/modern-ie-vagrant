@@ -1,4 +1,10 @@
 if ($PSVersionTable.PSVersion.Major -ge 3) {
+    echo "PowerShell is GTE to 3"
+    return
+}
+
+if (Get-HotFix -Id KB3191566) {
+    echo "KB3191566 is already installed"
     return
 }
 
@@ -15,7 +21,7 @@ md $path -Force
 Unzip "$path\Win7-KB3191566-x86.zip" $path
 
 While (!(Get-HotFix -Id KB3191566)) {
-wusa.exe "$path/Win7-KB3191566-x86.msu" /quiet /norestart | Out-Null
+    wusa.exe "$path/Win7-KB3191566-x86.msu" /quiet /norestart | Out-Null
 }
 
 Remove-Item $path -Recurse -Force
