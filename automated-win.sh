@@ -66,9 +66,7 @@ sleep 15
 # select Yes on UAC
 send_keys "<left>" "<enter>"
 
-sleep 60
-
-exit 0
+sleep 120
 
 wait_for_vm_to_shutdown "${VM}"
 
