@@ -70,6 +70,11 @@ sleep 120
 
 wait_for_vm_to_shutdown "${VM}"
 
+case "$1" in
+    win7*) VBoxManage modifyvm "${VM}" --ostype "Windows7";;
+    win8*) VBoxManage modifyvm "${VM}" --paravirtprovider "default";;
+esac
+
 vagrant up "${1}" --provision
 vagrant reload "${1}" --provision
 vagrant halt "${1}"
