@@ -20,6 +20,7 @@ Vagrant.configure(2) do |config|
       s.powershell_elevated_interactive = true
       s.inline = %{
 if ($PSVersionTable.PSVersion.Major -lt 3) {
+    echo "Wrong PowerShell version"
     exit 1
 }
 }
