@@ -38,10 +38,9 @@ send_keys "<enter>"
 
 sleep 15
 
-# Enter Passw0rd!
-send_keys P a s s w 0 r d "!" "<enter>"
+send_keys "Passw0rd!" "<enter>"
 
-sleep 60
+sleep 120
 
 # Press Win+R
 
@@ -49,9 +48,7 @@ send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
-#  Enter e:\vboxwindowsadditions /S and press ENTER
-
-send_keys e ":" \\ v b o x w i n d o w s a d d i t i o n s " " / S "<enter>"
+send_keys "e:\\vboxwindowsadditions /S" "<enter>"
 
 sleep 15
 
@@ -97,7 +94,7 @@ send_keys "<enter>"
 sleep 15
 
 # Enter Passw0rd!
-send_keys P a s s w 0 r d "!" "<enter>"
+send_keys "Passw0rd!" "<enter>"
 
 wait_for_guest_additions_run_level "${VM}" 3
 

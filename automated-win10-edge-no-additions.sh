@@ -48,9 +48,7 @@ send_keys "<winPress>" r "<winRelease>"
 
 sleep 15
 
-# Enter e:\vboxwindowsadditions /S and press ENTER
-
-send_keys e ":" \\ v b o x w i n d o w s a d d i t i o n s " " / S "<enter>"
+send_keys "e:\\vboxwindowsadditions /S" "<enter>"
 
 sleep 15
 
