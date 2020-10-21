@@ -42,7 +42,7 @@ if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 
     wait_for_guest_additions_run_level "${VM}" 3
 
-    sleep 60
+    sleep 120
 
 fi
 
