@@ -14,8 +14,8 @@ md $path -Force
 
 Unzip "$path\Win7-KB3191566-x86.zip" $path
 
+While (!(Get-HotFix -Id KB3191566)) {
 wusa.exe "$path/Win7-KB3191566-x86.msu" /quiet /norestart | Out-Null
-
-wusa.exe "$path/Win7-KB3191566-x86.msu" /quiet /norestart | Out-Null
+}
 
 Remove-Item $path -Recurse -Force
