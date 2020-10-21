@@ -9,7 +9,7 @@ copy \\VBOXSRV\vagrant\scripts\vagrant-onstart.cmd C:\Users\IEUser\vagrant-onsta
 
 net start schedule
 
-schtasks /Create /SC ONLOGON /TN "vagrant-onstart" /TR "C:\Users\IEUser\vagrant-onstart.cmd" /RL HIGHEST /DELAY 0000:30 /F
+schtasks /Create /TN "vagrant-onstart" /XML "\\VBOXSRV\vagrant\scripts\vagrant-onstart.xml" /F
 
 start slmgr /rearm
 
