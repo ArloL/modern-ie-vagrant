@@ -26,13 +26,41 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
 }
   end
 
-  {"win7-ie8": 60600, "win7-ie9": 60700, "win7-ie10": 60800, "win7-ie11": 60900, "win81-ie11": 61000, "win10-edge": 6110}.each do |name,port|
+  {
+    "win7-ie8" => {
+      "port" => 60600,
+      "ostype" => "Windows7"
+    },
+    "win7-ie9" => {
+      "port" => 60700,
+      "ostype" => "Windows7"
+    },
+    "win7-ie10" => {
+      "port" => 60800,
+      "ostype" => "Windows7"
+    },
+    "win7-ie11" => {
+      "port" => 60900,
+      "ostype" => "Windows7"
+    },
+    "win81-ie11" => {
+      "port" => 61000,
+      "ostype" => "Windows8_64"
+    },
+    "win10-edge" => {
+      "port" => 61100,
+      "ostype" => "Windows10_64"
+    }
+  }.each do |name, attr|
     config.vm.define "#{name}" do |node|
       node.vm.box = "modern.ie/#{name}"
-      node.vm.network "forwarded_port", id: "ssh", guest: 22, host: port, host_ip: "127.0.0.1", auto_correct: true
-      node.vm.network "forwarded_port", id: "winrm", guest: 5985, host: port + 1, host_ip: "127.0.0.1", auto_correct: true
-      node.vm.network "forwarded_port", id: "winrm-ssl", guest: 5986, host: port + 2, host_ip: "127.0.0.1", auto_correct: true
-      node.vm.usable_port_range = port + 10..port + 100
+      node.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--ostype", attr['ostype']]
+      end
+      node.vm.network "forwarded_port", id: "ssh", guest: 22, host: attr['port'], host_ip: "127.0.0.1", auto_correct: true
+      node.vm.network "forwarded_port", id: "winrm", guest: 5985, host: attr['port'] + 1, host_ip: "127.0.0.1", auto_correct: true
+      node.vm.network "forwarded_port", id: "winrm-ssl", guest: 5986, host: attr['port'] + 2, host_ip: "127.0.0.1", auto_correct: true
+      node.vm.usable_port_range = attr['port'] + 10..attr['port'] + 100
     end
   end
 
