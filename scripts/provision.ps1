@@ -11,8 +11,6 @@ net start schedule
 
 schtasks /Create /TN "vagrant-onstart" /XML "\\VBOXSRV\vagrant\scripts\vagrant-onstart.xml" /F
 
-start slmgr /rearm
-
 \\VBOXSRV\vagrant\scripts\provision-wmf51.ps1
 
 Get-ChildItem "\\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\cert" -Filter *.cer |
@@ -21,5 +19,7 @@ Foreach-Object {
 }
 
 \\VBOXSRV\vagrant\scripts\VBoxGuestAdditions\VBoxWindowsAdditions.exe /S | Out-Null
+
+start slmgr /rearm
 
 shutdown /s /t 30 /f
