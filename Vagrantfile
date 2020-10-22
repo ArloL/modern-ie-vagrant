@@ -22,6 +22,10 @@ Vagrant.configure(2) do |config|
       "--usb", "off",
       "--clipboard-mode", "disabled"
     ]
+    vb.customize [
+      "setextradata", :id,
+      "GUI/ScaleFactor", "1"
+    ]
   end
 
   config.vm.provision "default", type: "shell" do |s|
