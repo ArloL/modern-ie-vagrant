@@ -13,7 +13,14 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
-    vb.customize ["modifyvm", :id, "--vram", "64", "--graphicscontroller", "vboxsvga", "--paravirtprovider", "default", "--vrde", "off", "--usb", "off"]
+    vb.customize [
+      "modifyvm", :id,
+      "--vram", "64",
+      "--graphicscontroller", "vboxsvga",
+      "--paravirtprovider", "default",
+      "--vrde", "off",
+      "--usb", "off"
+    ]
   end
 
   config.vm.provision "default", type: "shell" do |s|
@@ -53,14 +60,34 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
     }
   }.each do |name, attr|
     config.vm.define "#{name}" do |node|
+
       node.vm.box = "modern.ie/#{name}"
+
       node.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--ostype", attr['ostype']]
       end
-      node.vm.network "forwarded_port", id: "ssh", guest: 22, host: attr['port'], host_ip: "127.0.0.1", auto_correct: true
-      node.vm.network "forwarded_port", id: "winrm", guest: 5985, host: attr['port'] + 1, host_ip: "127.0.0.1", auto_correct: true
-      node.vm.network "forwarded_port", id: "winrm-ssl", guest: 5986, host: attr['port'] + 2, host_ip: "127.0.0.1", auto_correct: true
+
+      node.vm.network "forwarded_port",
+        id: "ssh",
+        guest: 22,
+        host: attr['port'],
+        host_ip: "127.0.0.1",
+        auto_correct: true
+      node.vm.network "forwarded_port",
+        id: "winrm",
+        guest: 5985,
+        host: attr['port'] + 1,
+        host_ip: "127.0.0.1",
+        auto_correct: true
+      node.vm.network "forwarded_port",
+        id: "winrm-ssl",
+        guest: 5986,
+        host: attr['port'] + 2,
+        host_ip: "127.0.0.1",
+        auto_correct: true
+
       node.vm.usable_port_range = attr['port'] + 10..attr['port'] + 100
+
     end
   end
 
