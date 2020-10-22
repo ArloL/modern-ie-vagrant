@@ -19,7 +19,8 @@ Vagrant.configure(2) do |config|
       "--graphicscontroller", "vboxsvga",
       "--paravirtprovider", "default",
       "--vrde", "off",
-      "--usb", "off"
+      "--usb", "off",
+      "--clipboard-mode", "disabled"
     ]
   end
 
