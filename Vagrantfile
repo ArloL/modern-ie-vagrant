@@ -2,6 +2,7 @@
 # vi: set ft=ruby :
 
 boot_timeout = ENV["boot_timeout"] != nil ? ENV["boot_timeout"].strip.to_i : 300
+vb_recording = ENV["VB_RECORDING"] != nil ? ENV["VB_RECORDING"].strip : "off"
 
 Vagrant.configure(2) do |config|
 
@@ -20,7 +21,9 @@ Vagrant.configure(2) do |config|
       "--paravirtprovider", "default",
       "--vrde", "off",
       "--usb", "off",
-      "--clipboard-mode", "disabled"
+      "--clipboard-mode", "disabled",
+      "--recording", vb_recording,
+      "--recordingfile", "output.webm"
     ]
     vb.customize [
       "setextradata", :id,
