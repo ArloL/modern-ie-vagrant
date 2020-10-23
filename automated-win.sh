@@ -22,7 +22,7 @@ else
 
     VM=$(cat ".vagrant/machines/${1}/virtualbox/id")
 
-    wait_for_guest_additions_run_level "${VM}" 2
+    wait_for_guest_additions_run_level "${VM}" 2 600
 
     sleep 120
 
@@ -40,7 +40,7 @@ if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 
     send_keys "Passw0rd!" "<enter>"
 
-    wait_for_guest_additions_run_level "${VM}" 3
+    wait_for_guest_additions_run_level "${VM}" 3 600
 
     sleep 120
 
@@ -68,7 +68,7 @@ send_keys "<left>" "<enter>"
 
 sleep 120
 
-wait_for_vm_to_shutdown "${VM}"
+wait_for_vm_to_shutdown "${VM}" 600
 
 vagrant up "${1}" --provision
 vagrant reload "${1}" --provision

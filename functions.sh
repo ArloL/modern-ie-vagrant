@@ -10,23 +10,33 @@ get_guest_additions_run_level() {
 }
 
 wait_for_vm_to_shutdown() {
+    timeout=${2}
     while true ; do
         echo "Waiting for ${1} to be in guest additions run level 0."
         GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")
         if [ "${GuestAdditionsRunLevel}" -eq "0" ]; then
             return 0;
         fi
+        if [ "${timeout}" -le 0 ]; then
+            return 1
+        fi
+        timeout=$((timeout - 10))
         sleep 10
     done
 }
 
 wait_for_guest_additions_run_level() {
+    timeout=${3}
     while true ; do
         echo "Waiting for ${1} to be in guest additions run level ${2}."
         GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")
         if [ "${GuestAdditionsRunLevel}" -ge "${2}" ]; then
             return 0;
         fi
+        if [ "${timeout}" -le 0 ]; then
+            return 1
+        fi
+        timeout=$((timeout - 10))
         sleep 10
     done
 }
