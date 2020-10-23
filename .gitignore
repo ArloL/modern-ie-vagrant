@@ -64,6 +64,6 @@ GitHub.sublime-settings
 *.zip
 *.7z
 *.iso
+*.webm
 
-scripts/elevate/
 scripts/VBoxGuestAdditions/
