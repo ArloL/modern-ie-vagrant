@@ -1,10 +1,9 @@
 #!/bin/sh
 
-set -o errexit
 set -o nounset
 set -o xtrace
 
-vagrant destroy --force || true
+vagrant destroy --force
 
 ./automated-win.sh win7-ie8
 ./automated-win.sh win7-ie9
