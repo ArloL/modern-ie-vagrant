@@ -74,6 +74,7 @@ vagrant up "${1}" --provision
 vagrant reload "${1}" --provision
 vagrant halt "${1}"
 
+VBoxManage modifyvm "${VM}" --recording off
 VBoxManage setextradata "${VM}" "GUI/ScaleFactor" "1"
 
 vagrant package "${1}" --output "${1}.box" --Vagrantfile Vagrantfile-package
