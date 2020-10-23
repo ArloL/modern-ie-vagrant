@@ -4,6 +4,10 @@ on:
   push:
   schedule:
     - cron: '2 10 28 * *'
+
+env:
+  VB_RECORDING: "on"
+
 jobs:
   win7-ie8:
     runs-on: macos-latest
@@ -16,7 +20,11 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie8
+        ./automated-win.sh win7-ie8 || true
+    - uses: actions/upload-artifact@v1
+      with:
+        name: recording from ${{github.job}} build
+        path: *.webm
   win7-ie9:
     runs-on: macos-latest
     steps:
@@ -28,7 +36,11 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie9
+        ./automated-win.sh win7-ie9 || true
+    - uses: actions/upload-artifact@v1
+      with:
+        name: recording from ${{github.job}} build
+        path: *.webm
   win7-ie10:
     runs-on: macos-latest
     steps:
@@ -40,7 +52,11 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie10
+        ./automated-win.sh win7-ie10 || true
+    - uses: actions/upload-artifact@v1
+      with:
+        name: recording from ${{github.job}} build
+        path: *.webm
   win7-ie11:
     runs-on: macos-latest
     steps:
@@ -52,7 +68,11 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie11
+        ./automated-win.sh win7-ie11 || true
+    - uses: actions/upload-artifact@v1
+      with:
+        name: recording from ${{github.job}} build
+        path: *.webm
   win81-ie11:
     runs-on: macos-latest
     steps:
@@ -64,7 +84,11 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win81-ie11
+        ./automated-win.sh win81-ie11 || true
+    - uses: actions/upload-artifact@v1
+      with:
+        name: recording from ${{github.job}} build
+        path: *.webm
   win10-edge:
     runs-on: macos-latest
     steps:
@@ -76,4 +100,8 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win10-edge
+        ./automated-win.sh win10-edge || true
+    - uses: actions/upload-artifact@v1
+      with:
+        name: recording from ${{github.job}} build
+        path: *.webm
