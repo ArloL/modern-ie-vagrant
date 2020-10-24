@@ -60,46 +60,18 @@ send_keys_split_string() {
             "\\") send_keys_as_hex 2b ab;;
             "/") send_keys_as_hex 35 b5;;
             " ") send_keys_as_hex 39 b9;;
-            ":")
-                send_keys "<shiftPress>"
-                send_keys ";"
-                send_keys "<shiftRelease>"
-                ;;
+            ":") send_keys "<shiftPress>" ";" "<shiftRelease>";;
             ";") send_keys_as_hex 27 a7;;
-            "!")
-                send_keys "<shiftPress>"
-                send_keys "1"
-                send_keys "<shiftRelease>"
-                ;;
+            "!") send_keys "<shiftPress>" "1" "<shiftRelease>";;
             "-") send_keys_as_hex 0c 8c;;
             ".") send_keys_as_hex 34 b4;;
             "'") send_keys_as_hex 28 a8;;
-            "\"")
-                send_keys "<shiftPress>"
-                send_keys "'"
-                send_keys "<shiftRelease>"
-                ;;
-            "&")
-                send_keys "<shiftPress>"
-                send_keys "7"
-                send_keys "<shiftRelease>"
-                ;;
-            "[")
-                send_keys_as_hex 1a 9a
-                ;;
-            "]")
-                send_keys_as_hex 1b 9b
-                ;;
-            "{")
-                send_keys "<shiftPress>"
-                send_keys "["
-                send_keys "<shiftRelease>"
-                ;;
-            "}")
-                send_keys "<shiftPress>"
-                send_keys "]"
-                send_keys "<shiftRelease>"
-                ;;
+            "\"") send_keys "<shiftPress>" "'" "<shiftRelease>";;
+            "&") send_keys "<shiftPress>" "7" "<shiftRelease>";;
+            "[") send_keys_as_hex 1a 9a;;
+            "]") send_keys_as_hex 1b 9b;;
+            "{") send_keys "<shiftPress>" "[" "<shiftRelease>";;
+            "}") send_keys "<shiftPress>" "]" "<shiftRelease>";;
             "a") send_keys_as_hex 1e 9e;;
             "b") send_keys_as_hex 30 b0;;
             "c") send_keys_as_hex 2e ae;;
@@ -126,136 +98,32 @@ send_keys_split_string() {
             "x") send_keys_as_hex 2d ad;;
             "y") send_keys_as_hex 15 95;;
             "z") send_keys_as_hex 2c ac;;
-            "A")
-                send_keys "<shiftPress>"
-                send_keys "a"
-                send_keys "<shiftRelease>"
-                ;;
-            "B")
-                send_keys "<shiftPress>"
-                send_keys "b"
-                send_keys "<shiftRelease>"
-                ;;
-            "C")
-                send_keys "<shiftPress>"
-                send_keys "c"
-                send_keys "<shiftRelease>"
-                ;;
-            "D")
-                send_keys "<shiftPress>"
-                send_keys "d"
-                send_keys "<shiftRelease>"
-                ;;
-            "E")
-                send_keys "<shiftPress>"
-                send_keys "e"
-                send_keys "<shiftRelease>"
-                ;;
-            "F")
-                send_keys "<shiftPress>"
-                send_keys "f"
-                send_keys "<shiftRelease>"
-                ;;
-            "G")
-                send_keys "<shiftPress>"
-                send_keys "g"
-                send_keys "<shiftRelease>"
-                ;;
-            "H")
-                send_keys "<shiftPress>"
-                send_keys "h"
-                send_keys "<shiftRelease>"
-                ;;
-            "I")
-                send_keys "<shiftPress>"
-                send_keys "i"
-                send_keys "<shiftRelease>"
-                ;;
-            "J")
-                send_keys "<shiftPress>"
-                send_keys "j"
-                send_keys "<shiftRelease>"
-                ;;
-            "K")
-                send_keys "<shiftPress>"
-                send_keys "k"
-                send_keys "<shiftRelease>"
-                ;;
-            "L")
-                send_keys "<shiftPress>"
-                send_keys "l"
-                send_keys "<shiftRelease>"
-                ;;
-            "M")
-                send_keys "<shiftPress>"
-                send_keys "m"
-                send_keys "<shiftRelease>"
-                ;;
-            "N")
-                send_keys "<shiftPress>"
-                send_keys "n"
-                send_keys "<shiftRelease>"
-                ;;
-            "O")
-                send_keys "<shiftPress>"
-                send_keys "o"
-                send_keys "<shiftRelease>"
-                ;;
-            "P")
-                send_keys "<shiftPress>"
-                send_keys "p"
-                send_keys "<shiftRelease>"
-                ;;
-            "Q")
-                send_keys "<shiftPress>"
-                send_keys "q"
-                send_keys "<shiftRelease>"
-                ;;
-            "R")
-                send_keys "<shiftPress>"
-                send_keys "r"
-                send_keys "<shiftRelease>"
-                ;;
-            "S")
-                send_keys "<shiftPress>"
-                send_keys "s"
-                send_keys "<shiftRelease>"
-                ;;
-            "T")
-                send_keys "<shiftPress>"
-                send_keys "t"
-                send_keys "<shiftRelease>"
-                ;;
-            "U")
-                send_keys "<shiftPress>"
-                send_keys "u"
-                send_keys "<shiftRelease>"
-                ;;
-            "V")
-                send_keys "<shiftPress>"
-                send_keys "v"
-                send_keys "<shiftRelease>"
-                ;;
-            "W")
-                send_keys "<shiftPress>"
-                send_keys "w"
-                send_keys "<shiftRelease>"
-                ;;
-            "X")
-                send_keys "<shiftPress>"
-                send_keys "x"
-                send_keys "<shiftRelease>"
-                ;;
-            "Y")
-                send_keys "<shiftPress>"
-                send_keys "y"
-                send_keys "<shiftRelease>"
-                ;;
-            "Z")
-                send_keys "<shiftPress>"
-                send_keys "z"
-                send_keys "<shiftRelease>"
-                ;;
+            "A") send_keys "<shiftPress>" "a" "<shiftRelease>";;
+            "B") send_keys "<shiftPress>" "b" "<shiftRelease>";;
+            "C") send_keys "<shiftPress>" "c" "<shiftRelease>";;
+            "D") send_keys "<shiftPress>" "d" "<shiftRelease>";;
+            "E") send_keys "<shiftPress>" "e" "<shiftRelease>";;
+            "F") send_keys "<shiftPress>" "f" "<shiftRelease>";;
+            "G") send_keys "<shiftPress>" "g" "<shiftRelease>";;
+            "H") send_keys "<shiftPress>" "h" "<shiftRelease>";;
+            "I") send_keys "<shiftPress>" "i" "<shiftRelease>";;
+            "J") send_keys "<shiftPress>" "j" "<shiftRelease>";;
+            "K") send_keys "<shiftPress>" "k" "<shiftRelease>";;
+            "L") send_keys "<shiftPress>" "l" "<shiftRelease>";;
+            "M") send_keys "<shiftPress>" "m" "<shiftRelease>";;
+            "N") send_keys "<shiftPress>" "n" "<shiftRelease>";;
+            "O") send_keys "<shiftPress>" "o" "<shiftRelease>";;
+            "P") send_keys "<shiftPress>" "p" "<shiftRelease>";;
+            "Q") send_keys "<shiftPress>" "q" "<shiftRelease>";;
+            "R") send_keys "<shiftPress>" "r" "<shiftRelease>";;
+            "S") send_keys "<shiftPress>" "s" "<shiftRelease>";;
+            "T") send_keys "<shiftPress>" "t" "<shiftRelease>";;
+            "U") send_keys "<shiftPress>" "u" "<shiftRelease>";;
+            "V") send_keys "<shiftPress>" "v" "<shiftRelease>";;
+            "W") send_keys "<shiftPress>" "w" "<shiftRelease>";;
+            "X") send_keys "<shiftPress>" "x" "<shiftRelease>";;
+            "Y") send_keys "<shiftPress>" "y" "<shiftRelease>";;
+            "Z") send_keys "<shiftPress>" "z" "<shiftRelease>";;
             "0") send_keys_as_hex 0b 8b;;
             "1") send_keys_as_hex 02 82;;
             "2") send_keys_as_hex 03 83;;
