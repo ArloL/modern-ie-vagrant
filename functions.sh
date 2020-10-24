@@ -62,7 +62,11 @@ send_keys_split_string() {
             " ") send_keys_as_hex 39 b9;;
             ":") send_keys_as_hex 2a 27 a7 aa;;
             ";") send_keys_as_hex 27 a7;;
-            "!") send_keys_as_hex 2a 02 82 aa;;
+            "!")
+                send_keys "<shiftPress>"
+                send_keys "1"
+                send_keys "<shiftRelease>"
+                ;;
             "-") send_keys_as_hex 0c 8c;;
             ".") send_keys_as_hex 34 b4;;
             "'") send_keys_as_hex 28 a8;;
