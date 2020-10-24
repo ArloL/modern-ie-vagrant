@@ -20,7 +20,7 @@ if [ "${VM}" != "" ] && VBoxManage snapshot "${VM}" list; then
 
     VBoxManage modifyvm "${VM}" \
         --recording "on" \
-        --recordingfile "recordings/${1}-0000.webm"
+        --recordingfile "recordings/${1}-${GITHUB_SHA:-$(date -u +"%Y%m%dT%H%M%S")}.webm"
 
     boot_timeout=15 vagrant snapshot restore "${1}" "Snapshot 0" || true
 
