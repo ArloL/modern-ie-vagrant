@@ -20,8 +20,8 @@ wait_for_vm_to_shutdown() {
         if [ "${timeout}" -le 0 ]; then
             return 1
         fi
-        timeout=$((timeout - 10))
-        sleep 10
+        timeout=$((timeout - 15))
+        sleep 15
     done
 }
 
@@ -36,8 +36,8 @@ wait_for_guest_additions_run_level() {
         if [ "${timeout}" -le 0 ]; then
             return 1
         fi
-        timeout=$((timeout - 10))
-        sleep 10
+        timeout=$((timeout - 15))
+        sleep 15
     done
 }
 
