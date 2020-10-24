@@ -59,18 +59,18 @@ send_keys_split_string() {
             "\\") send_keys_as_hex 2b ab;;
             "/") send_keys_as_hex 35 b5;;
             " ") send_keys_as_hex 39 b9;;
-            ":") send_keys "<shiftPress>" ";" "<shiftRelease>";;
+            ":") send_keys 4 "<shiftPress>" ";" "<shiftRelease>";;
             ";") send_keys_as_hex 27 a7;;
-            "!") send_keys "<shiftPress>" "1" "<shiftRelease>";;
+            "!") send_keys 4 "<shiftPress>" "1" "<shiftRelease>";;
             "-") send_keys_as_hex 0c 8c;;
             ".") send_keys_as_hex 34 b4;;
             "'") send_keys_as_hex 28 a8;;
-            "\"") send_keys "<shiftPress>" "'" "<shiftRelease>";;
-            "&") send_keys "<shiftPress>" "7" "<shiftRelease>";;
+            "\"") send_keys 4 "<shiftPress>" "'" "<shiftRelease>";;
+            "&") send_keys 4 "<shiftPress>" "7" "<shiftRelease>";;
             "[") send_keys_as_hex 1a 9a;;
             "]") send_keys_as_hex 1b 9b;;
-            "{") send_keys "<shiftPress>" "[" "<shiftRelease>";;
-            "}") send_keys "<shiftPress>" "]" "<shiftRelease>";;
+            "{") send_keys 4 "<shiftPress>" "[" "<shiftRelease>";;
+            "}") send_keys 4 "<shiftPress>" "]" "<shiftRelease>";;
             "a") send_keys_as_hex 1e 9e;;
             "b") send_keys_as_hex 30 b0;;
             "c") send_keys_as_hex 2e ae;;
@@ -97,32 +97,32 @@ send_keys_split_string() {
             "x") send_keys_as_hex 2d ad;;
             "y") send_keys_as_hex 15 95;;
             "z") send_keys_as_hex 2c ac;;
-            "A") send_keys "<shiftPress>" "a" "<shiftRelease>";;
-            "B") send_keys "<shiftPress>" "b" "<shiftRelease>";;
-            "C") send_keys "<shiftPress>" "c" "<shiftRelease>";;
-            "D") send_keys "<shiftPress>" "d" "<shiftRelease>";;
-            "E") send_keys "<shiftPress>" "e" "<shiftRelease>";;
-            "F") send_keys "<shiftPress>" "f" "<shiftRelease>";;
-            "G") send_keys "<shiftPress>" "g" "<shiftRelease>";;
-            "H") send_keys "<shiftPress>" "h" "<shiftRelease>";;
-            "I") send_keys "<shiftPress>" "i" "<shiftRelease>";;
-            "J") send_keys "<shiftPress>" "j" "<shiftRelease>";;
-            "K") send_keys "<shiftPress>" "k" "<shiftRelease>";;
-            "L") send_keys "<shiftPress>" "l" "<shiftRelease>";;
-            "M") send_keys "<shiftPress>" "m" "<shiftRelease>";;
-            "N") send_keys "<shiftPress>" "n" "<shiftRelease>";;
-            "O") send_keys "<shiftPress>" "o" "<shiftRelease>";;
-            "P") send_keys "<shiftPress>" "p" "<shiftRelease>";;
-            "Q") send_keys "<shiftPress>" "q" "<shiftRelease>";;
-            "R") send_keys "<shiftPress>" "r" "<shiftRelease>";;
-            "S") send_keys "<shiftPress>" "s" "<shiftRelease>";;
-            "T") send_keys "<shiftPress>" "t" "<shiftRelease>";;
-            "U") send_keys "<shiftPress>" "u" "<shiftRelease>";;
-            "V") send_keys "<shiftPress>" "v" "<shiftRelease>";;
-            "W") send_keys "<shiftPress>" "w" "<shiftRelease>";;
-            "X") send_keys "<shiftPress>" "x" "<shiftRelease>";;
-            "Y") send_keys "<shiftPress>" "y" "<shiftRelease>";;
-            "Z") send_keys "<shiftPress>" "z" "<shiftRelease>";;
+            "A") send_keys 4 "<shiftPress>" "a" "<shiftRelease>";;
+            "B") send_keys 4 "<shiftPress>" "b" "<shiftRelease>";;
+            "C") send_keys 4 "<shiftPress>" "c" "<shiftRelease>";;
+            "D") send_keys 4 "<shiftPress>" "d" "<shiftRelease>";;
+            "E") send_keys 4 "<shiftPress>" "e" "<shiftRelease>";;
+            "F") send_keys 4 "<shiftPress>" "f" "<shiftRelease>";;
+            "G") send_keys 4 "<shiftPress>" "g" "<shiftRelease>";;
+            "H") send_keys 4 "<shiftPress>" "h" "<shiftRelease>";;
+            "I") send_keys 4 "<shiftPress>" "i" "<shiftRelease>";;
+            "J") send_keys 4 "<shiftPress>" "j" "<shiftRelease>";;
+            "K") send_keys 4 "<shiftPress>" "k" "<shiftRelease>";;
+            "L") send_keys 4 "<shiftPress>" "l" "<shiftRelease>";;
+            "M") send_keys 4 "<shiftPress>" "m" "<shiftRelease>";;
+            "N") send_keys 4 "<shiftPress>" "n" "<shiftRelease>";;
+            "O") send_keys 4 "<shiftPress>" "o" "<shiftRelease>";;
+            "P") send_keys 4 "<shiftPress>" "p" "<shiftRelease>";;
+            "Q") send_keys 4 "<shiftPress>" "q" "<shiftRelease>";;
+            "R") send_keys 4 "<shiftPress>" "r" "<shiftRelease>";;
+            "S") send_keys 4 "<shiftPress>" "s" "<shiftRelease>";;
+            "T") send_keys 4 "<shiftPress>" "t" "<shiftRelease>";;
+            "U") send_keys 4 "<shiftPress>" "u" "<shiftRelease>";;
+            "V") send_keys 4 "<shiftPress>" "v" "<shiftRelease>";;
+            "W") send_keys 4 "<shiftPress>" "w" "<shiftRelease>";;
+            "X") send_keys 4 "<shiftPress>" "x" "<shiftRelease>";;
+            "Y") send_keys 4 "<shiftPress>" "y" "<shiftRelease>";;
+            "Z") send_keys 4 "<shiftPress>" "z" "<shiftRelease>";;
             "0") send_keys_as_hex 0b 8b;;
             "1") send_keys_as_hex 02 82;;
             "2") send_keys_as_hex 03 83;;
@@ -140,6 +140,8 @@ send_keys_split_string() {
 }
 
 send_keys() {
+    local timeout=$1
+    shift
     for key in "$@"; do
         case $key in
             "<esc>") send_keys_as_hex 01 81;;
@@ -157,9 +159,9 @@ send_keys() {
             "<tab>") send_keys_as_hex 0f 8f;;
             *) send_keys_split_string "${key}";;
         esac
-        sleep 4
+        sleep "${timeout}"
     done
 }
 
 # VM="\"\${VM}\""
-# send_keys "shutdown /r /t 0" "<enter>"
+# send_keys 10 "shutdown /r /t 0" "<enter>"

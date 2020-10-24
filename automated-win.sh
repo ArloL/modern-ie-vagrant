@@ -42,15 +42,7 @@ GuestAdditionsRunLevel=$(get_guest_additions_run_level "${VM}")
 
 if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 
-    send_keys "<enter>"
-
-    sleep 15
-
-    send_keys "Passw0rd!"
-
-    sleep 15
-
-    send_keys "<enter>"
+    send_keys 14 "<enter>" "Passw0rd!" "<enter>"
 
     wait_for_guest_additions_run_level "${VM}" 3 600
 
@@ -59,35 +51,34 @@ if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 fi
 
 # close restart dialog
-send_keys "<esc>"
+send_keys 14 "<esc>"
 
 # Press Win+R to open the Run dialog
-send_keys "<winPress>" r "<winRelease>"
+send_keys 4 "<winPress>" "r" "<winRelease>"
 
-sleep 30
+sleep 10
 
-send_keys "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
+send_keys 14 "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
 
-sleep 120
-
+# custom timeouts per os, be aware: UAC has a 2 minute timeout
 case "$1" in
-    # select Yes on question whether to run script
     win7*)
-        send_keys "<left>"
-        sleep 15
-        send_keys "<enter>"
-        sleep 30
+        sleep 60
+        # select Yes on question whether to run script
+        send_keys 14 "<left>" "<enter>"
+        ;;
+    win8*)
+        sleep 60
+        ;;
+    win10*)
+        sleep 60
         ;;
 esac
 
 # select Yes on UAC
-send_keys "<left>"
+send_keys 14 "<left>" "<enter>"
 
-sleep 15
-
-send_keys "<enter>"
-
-sleep 120
+sleep 240
 
 wait_for_vm_to_shutdown "${VM}" 1200
 
@@ -105,7 +96,6 @@ VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeDevicesMenuActions"
 VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeMachineMenuActions"
 VBoxManage setextradata "${VM}" "GUI/ScaleFactor"
 VBoxManage setextradata "${VM}" "GUI/StatusBar/IndicatorOrder"
-
 
 vagrant package "${1}" --output "${1}.box" --Vagrantfile Vagrantfile-package
 
