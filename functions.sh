@@ -1,16 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 set -o errexit
 set -o nounset
 
 get_guest_additions_run_level() {
-    GuestAdditionsRunLevel=0
+    local GuestAdditionsRunLevel=0
     eval "$(VBoxManage showvminfo "${1}" --machinereadable | grep 'GuestAdditionsRunLevel')"
     echo ${GuestAdditionsRunLevel}
 }
 
 wait_for_vm_to_shutdown() {
-    timeout=${2}
+    local timeout=${2}
     while true ; do
         echo "Waiting for ${1} to be in guest additions run level 0."
         GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")
@@ -26,7 +26,7 @@ wait_for_vm_to_shutdown() {
 }
 
 wait_for_guest_additions_run_level() {
-    timeout=${3}
+    local timeout=${3}
     while true ; do
         echo "Waiting for ${1} to be in guest additions run level ${2}."
         GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")
@@ -52,10 +52,10 @@ send_keys_as_hex() {
 # For example Left-Shift is calculated as follows:
 # 0x80 + 0x2a = 0xaa -> 2a aa
 send_keys_split_string() {
-    stringToSplit="${1}"
+    local stringToSplit="${1}"
     while [ -n "$stringToSplit" ]; do
-        restOfString="${stringToSplit#?}" # All but the first character of the string
-        firstCharacterOfString="${stringToSplit%"$restOfString"}" # Remove $rest so the first character remains
+        local restOfString="${stringToSplit#?}" # All but the first character of the string
+        local firstCharacterOfString="${stringToSplit%"$restOfString"}" # Remove $rest so the first character remains
         case $firstCharacterOfString in
             "\\") send_keys_as_hex 2b ab;;
             "/") send_keys_as_hex 35 b5;;
