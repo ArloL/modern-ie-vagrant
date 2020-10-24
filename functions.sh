@@ -147,10 +147,10 @@ send_keys() {
             "<enter>") send_keys_as_hex 1c 9c;;
             "<winPress>") send_keys_as_hex e0 5b;;
             "<winRelease>") send_keys_as_hex e0 db;;
-            "<left>") send_keys_as_hex 4b cb;;
-            "<right>") send_keys_as_hex 4d cd;;
-            "<up>") send_keys_as_hex 48 c8;;
-            "<down>") send_keys_as_hex 50 d0;;
+            "<left>") send_keys_as_hex e0 4b e0 cb;;
+            "<right>") send_keys_as_hex e0 4d e0 cd;;
+            "<up>") send_keys_as_hex e0 48 e0 c8;;
+            "<down>") send_keys_as_hex e0 50 e0 d0;;
             "<altPress>") send_keys_as_hex 38;;
             "<altRelease>") send_keys_as_hex b8;;
             "<shiftPress>") send_keys_as_hex 2a;;
