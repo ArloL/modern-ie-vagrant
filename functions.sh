@@ -43,6 +43,7 @@ wait_for_guest_additions_run_level() {
 
 send_keys_as_hex() {
     VBoxManage controlvm "${VM}" keyboardputscancode "$@"
+    sleep 1
 }
 
 
@@ -158,6 +159,7 @@ send_keys() {
             "<tab>") send_keys_as_hex 0f 8f;;
             *) send_keys_split_string "${key}";;
         esac
+        sleep 4
     done
 }
 
