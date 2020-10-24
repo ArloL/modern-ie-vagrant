@@ -60,17 +60,12 @@ sleep 10
 
 send_keys 14 "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
 
-# custom timeouts per os, be aware: UAC has a 2 minute timeout
+sleep 60
+
 case "$1" in
     win7*)
-        sleep 60
         # select Yes on question whether to run script
         send_keys 14 "<left>" "<enter>"
-        ;;
-    win8*)
-        sleep 60
-        ;;
-    win10*)
         sleep 60
         ;;
 esac
