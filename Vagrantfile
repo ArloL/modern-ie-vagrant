@@ -73,7 +73,7 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
         vb.customize [
           "modifyvm", :id,
           "--ostype", attr['ostype'],
-          "--recordingfile", "recordings/#{name}.webm"
+          "--recordingfile", "recordings/#{name}-0000.webm"
         ]
       end
 
