@@ -12,7 +12,7 @@ else
     VM=""
 fi
 
-if VBoxManage snapshot "${VM}" list; then
+if [ "${VM}" != "" ] && VBoxManage snapshot "${VM}" list; then
 
     boot_timeout=15 vagrant snapshot restore "${1}" "Snapshot 0" || true
 
