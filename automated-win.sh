@@ -6,6 +6,8 @@ set -o xtrace
 
 . functions.sh
 
+trap "vagrant halt ${1} --force" EXIT
+
 if [ -f ".vagrant/machines/${1}/virtualbox/id" ]; then
     VM=$(cat ".vagrant/machines/${1}/virtualbox/id")
 else
