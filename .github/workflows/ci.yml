@@ -5,109 +5,29 @@ on:
   schedule:
     - cron: '2 10 28 * *'
 
+strategy:
+  matrix:
+    os: [win7-ie8, win7-ie9, win7-ie10, win7-ie11, win81-ie11, win10-edge]
+
 env:
   VB_RECORDING: "on"
 
 jobs:
-  win7-ie8:
+  ci:
+    name: ${{ matrix.os }}
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
     - name: Download
       working-directory: ./vms
       run: |
-        ./download-vm.sh win7-ie8
+        ./download-vm.sh ${{ matrix.os }}
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie8
+        ./automated-win.sh ${{ matrix.os }}
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
-        name: recordings from ${{github.job}} build
-        path: recordings
-  win7-ie9:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Download
-      working-directory: ./vms
-      run: |
-        ./download-vm.sh win7-ie9
-    - name: Build
-      run: |
-        ./download-prerequisites.sh
-        ./automated-win.sh win7-ie9
-    - uses: actions/upload-artifact@v1
-      if: ${{ always() }}
-      with:
-        name: recordings from ${{github.job}} build
-        path: recordings
-  win7-ie10:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Download
-      working-directory: ./vms
-      run: |
-        ./download-vm.sh win7-ie10
-    - name: Build
-      run: |
-        ./download-prerequisites.sh
-        ./automated-win.sh win7-ie10
-    - uses: actions/upload-artifact@v1
-      if: ${{ always() }}
-      with:
-        name: recordings from ${{github.job}} build
-        path: recordings
-  win7-ie11:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Download
-      working-directory: ./vms
-      run: |
-        ./download-vm.sh win7-ie11
-    - name: Build
-      run: |
-        ./download-prerequisites.sh
-        ./automated-win.sh win7-ie11
-    - uses: actions/upload-artifact@v1
-      if: ${{ always() }}
-      with:
-        name: recordings from ${{github.job}} build
-        path: recordings
-  win81-ie11:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Download
-      working-directory: ./vms
-      run: |
-        ./download-vm.sh win81-ie11
-    - name: Build
-      run: |
-        ./download-prerequisites.sh
-        ./automated-win.sh win81-ie11
-    - uses: actions/upload-artifact@v1
-      if: ${{ always() }}
-      with:
-        name: recordings from ${{github.job}} build
-        path: recordings
-  win10-edge:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Download
-      working-directory: ./vms
-      run: |
-        ./download-vm.sh win10-edge
-    - name: Build
-      run: |
-        ./download-prerequisites.sh
-        ./automated-win.sh win10-edge
-    - uses: actions/upload-artifact@v1
-      if: ${{ always() }}
-      with:
-        name: recordings from ${{github.job}} build
+        name: recordings from ${{ matrix.os }} build
         path: recordings
