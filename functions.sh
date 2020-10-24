@@ -46,7 +46,6 @@ send_keys_as_hex() {
     sleep 1
 }
 
-
 # The table https://www.win.tue.nl/~aeb/linux/kbd/scancodes-1.html
 # shows the press scan code. To calculate release add 0x80 to the press code.
 # For example Left-Shift is calculated as follows:
