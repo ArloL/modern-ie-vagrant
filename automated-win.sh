@@ -81,7 +81,7 @@ case "$1" in
 esac
 
 # select Yes on UAC
-send_keys "<shiftPress>" "<tab>" "<shiftRelease>"
+send_keys "<left>"
 
 sleep 15
 
