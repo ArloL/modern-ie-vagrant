@@ -96,7 +96,16 @@ vagrant reload "${1}" --provision
 vagrant halt "${1}"
 
 VBoxManage modifyvm "${VM}" --recording off
-VBoxManage setextradata "${VM}" "GUI/ScaleFactor" "1"
+
+VBoxManage setextradata "${VM}" "GUI/Fullscreen"
+VBoxManage setextradata "${VM}" "GUI/LastCloseAction"
+VBoxManage setextradata "${VM}" "GUI/LastGuestSizeHint"
+VBoxManage setextradata "${VM}" "GUI/LastNormalWindowPosition"
+VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeDevicesMenuActions"
+VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeMachineMenuActions"
+VBoxManage setextradata "${VM}" "GUI/ScaleFactor"
+VBoxManage setextradata "${VM}" "GUI/StatusBar/IndicatorOrder"
+
 
 vagrant package "${1}" --output "${1}.box" --Vagrantfile Vagrantfile-package
 
