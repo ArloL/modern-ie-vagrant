@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-boot_timeout = ENV["boot_timeout"] != nil ? ENV["boot_timeout"].strip.to_i : 300
+boot_timeout = ENV["boot_timeout"] != nil ? ENV["boot_timeout"].strip.to_i : 600
 
 Vagrant.configure(2) do |config|
 
