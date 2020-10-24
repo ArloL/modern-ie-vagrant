@@ -6,7 +6,7 @@ boot_timeout = ENV["boot_timeout"] != nil ?
   1200
 
 recording_suffix = ENV["GITHUB_SHA"] != nil ?
-  "-" + ENV["GITHUB_SHA"] :
+  ENV["GITHUB_SHA"] :
   Time.now.utc.strftime("%Y%m%dT%H%M%S")
 
 Vagrant.configure(2) do |config|
@@ -79,7 +79,7 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
         vb.customize [
           "modifyvm", :id,
           "--ostype", attr['ostype'],
-          "--recordingfile", "recordings/#{name}#{recording_suffix}.webm"
+          "--recordingfile", "recordings/#{name}-#{recording_suffix}.webm"
         ]
       end
 
