@@ -68,11 +68,20 @@ sleep 30
 
 case "$1" in
     # select Yes on question whether to run script
-    win7*) send_keys "<left>" "<enter>"; sleep 30;;
+    win7*)
+        send_keys "<left>"
+        sleep 15
+        send_keys "<enter>"
+        sleep 30
+        ;;
 esac
 
 # select Yes on UAC
-send_keys "<left>" "<enter>"
+send_keys "<left>"
+
+sleep 15
+
+send_keys "<enter>"
 
 sleep 120
 
