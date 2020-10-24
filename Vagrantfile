@@ -5,9 +5,7 @@ boot_timeout = ENV["boot_timeout"] != nil ?
   ENV["boot_timeout"].strip.to_i :
   1200
 
-recording_suffix = ENV["GITHUB_SHA"] != nil ?
-  ENV["GITHUB_SHA"] :
-  Time.now.utc.strftime("%Y%m%dT%H%M%S")
+recording_suffix = Time.now.utc.strftime("%Y%m%dT%H%M%S")
 
 Vagrant.configure(2) do |config|
 
