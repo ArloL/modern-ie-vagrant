@@ -3,7 +3,11 @@
 
 Vagrant.configure(2) do |config|
 
-  config.vm.network "forwarded_port", guest: 3389, host: 3389, id: "rdp", auto_correct: true
+  config.vm.network "forwarded_port",
+    id: "rdp",
+    guest: 3389,
+    host: 3389,
+    auto_correct: true
 
   config.vm.communicator = "winrm"
   config.winrm.username = "IEUser"
