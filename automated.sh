@@ -3,8 +3,6 @@
 set -o nounset
 set -o xtrace
 
-export VB_RECORDING=on
-
 ./automated-win.sh win7-ie8
 ./automated-win.sh win7-ie9
 ./automated-win.sh win7-ie10
