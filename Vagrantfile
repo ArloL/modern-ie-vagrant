@@ -22,8 +22,7 @@ Vagrant.configure(2) do |config|
       "--vrde", "off",
       "--usb", "off",
       "--clipboard-mode", "disabled",
-      "--recording", vb_recording,
-      "--recordingfile", "output.webm"
+      "--recording", vb_recording
     ]
     vb.customize [
       "setextradata", :id,
@@ -72,7 +71,11 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
       node.vm.box = "modern.ie/#{name}"
 
       node.vm.provider "virtualbox" do |vb|
-        vb.customize ["modifyvm", :id, "--ostype", attr['ostype']]
+        vb.customize [
+          "modifyvm", :id,
+          "--ostype", attr['ostype'],
+          "--recordingfile", "recordings/#{name}.webm"
+        ]
       end
 
       node.vm.network "forwarded_port",
