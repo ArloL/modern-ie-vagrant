@@ -70,7 +70,7 @@ send_keys "<left>" "<enter>"
 
 sleep 120
 
-wait_for_vm_to_shutdown "${VM}" 600
+wait_for_vm_to_shutdown "${VM}" 1200
 
 vagrant up "${1}" --provision
 vagrant reload "${1}" --provision
