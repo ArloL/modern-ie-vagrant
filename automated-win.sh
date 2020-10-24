@@ -40,9 +40,13 @@ if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 
     send_keys "<enter>"
 
-    sleep 30
+    sleep 15
 
-    send_keys "Passw0rd!" "<enter>"
+    send_keys "Passw0rd!"
+
+    sleep 15
+
+    send_keys "<enter>"
 
     wait_for_guest_additions_run_level "${VM}" 3 600
 
