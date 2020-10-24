@@ -19,7 +19,7 @@ fi
 if [ "${VM}" != "" ] && VBoxManage snapshot "${VM}" list; then
 
     VBoxManage modifyvm "${VM}" \
-        --recording "${VB_RECORDING}" \
+        --recording "on" \
         --recordingfile "recordings/${1}.webm"
 
     boot_timeout=15 vagrant snapshot restore "${1}" "Snapshot 0" || true
