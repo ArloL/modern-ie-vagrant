@@ -1,7 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-boot_timeout = ENV["boot_timeout"] != nil ? ENV["boot_timeout"].strip.to_i : 600
+boot_timeout = ENV["boot_timeout"] != nil ?
+  ENV["boot_timeout"].strip.to_i :
+  1200
+
 recording_suffix = ENV["GITHUB_SHA"] != nil ?
   "-" + ENV["GITHUB_SHA"] :
   Time.now.utc.strftime("%Y%m%dT%H%M%S")
