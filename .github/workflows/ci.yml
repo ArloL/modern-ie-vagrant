@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie8 || true
+        ./automated-win.sh win7-ie8
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
@@ -37,7 +37,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie9 || true
+        ./automated-win.sh win7-ie9
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
@@ -54,7 +54,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie10 || true
+        ./automated-win.sh win7-ie10
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
@@ -71,7 +71,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win7-ie11 || true
+        ./automated-win.sh win7-ie11
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
@@ -88,7 +88,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win81-ie11 || true
+        ./automated-win.sh win81-ie11
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
@@ -105,7 +105,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh win10-edge || true
+        ./automated-win.sh win10-edge
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
