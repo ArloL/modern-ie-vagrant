@@ -5,8 +5,6 @@ set -o xtrace
 
 export VB_RECORDING=on
 
-vagrant destroy --force
-
 ./automated-win.sh win7-ie8
 ./automated-win.sh win7-ie9
 ./automated-win.sh win7-ie10
