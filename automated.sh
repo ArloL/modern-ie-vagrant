@@ -3,6 +3,8 @@
 set -o nounset
 set -o xtrace
 
+export VB_RECORDING=on
+
 vagrant destroy --force
 
 ./automated-win.sh win7-ie8
