@@ -64,7 +64,7 @@ sleep 30
 
 send_keys "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
 
-sleep 30
+sleep 60
 
 case "$1" in
     # select Yes on question whether to run script
