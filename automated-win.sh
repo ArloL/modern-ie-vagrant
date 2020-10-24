@@ -6,6 +6,8 @@ set -o xtrace
 
 . functions.sh
 
+# We want the variable to expand when setting the trap
+# shellcheck disable=SC2064
 trap "vagrant halt ${1} --force" EXIT
 
 if [ -f ".vagrant/machines/${1}/virtualbox/id" ]; then
