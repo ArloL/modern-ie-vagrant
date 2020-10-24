@@ -140,9 +140,6 @@ send_keys_split_string() {
         esac
         stringToSplit="$restOfString"
     done
-    unset stringToSplit
-    unset restOfString
-    unset firstCharacterOfString
 }
 
 send_keys() {
