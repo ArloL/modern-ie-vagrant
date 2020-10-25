@@ -38,7 +38,7 @@ else
 
 fi
 
-GuestAdditionsRunLevel=$(get_guest_additions_run_level "${VM}")
+GuestAdditionsRunLevel=$(get_guest_additions_run_level)
 
 if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 
