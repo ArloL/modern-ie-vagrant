@@ -19,6 +19,7 @@ Vagrant.configure(2) do |config|
     vb.gui = false
     vb.customize [
       "modifyvm", :id,
+      "--memory", "2048",
       "--vram", "64",
       "--graphicscontroller", "vboxsvga",
       "--paravirtprovider", "default",
