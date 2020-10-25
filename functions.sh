@@ -60,22 +60,25 @@ reset_vm_state() {
 package_vm() {
     VBoxManage modifyvm "${VM}" --recording off
     reset_vm_state
-    vagrant package "${1}" --output "${1}.box" --Vagrantfile Vagrantfile-package
-    vagrant box add --name "okeeffe-${1}" --force "${1}.box"
-    rm -f "${1}.box"
+    vagrant package "${BOX_NAME}" \
+        --output "${BOX_NAME}.box" \
+        --Vagrantfile Vagrantfile-package
+    vagrant box add --name "okeeffe-${BOX_NAME}" --force "${BOX_NAME}.box"
+    rm -f "${BOX_NAME}.box"
 }
 
 get_guest_additions_run_level() {
     local GuestAdditionsRunLevel=0
-    eval "$(VBoxManage showvminfo "${1}" --machinereadable | grep 'GuestAdditionsRunLevel')"
+    eval "$(VBoxManage showvminfo "${VM}" \
+        --machinereadable | grep 'GuestAdditionsRunLevel')"
     echo ${GuestAdditionsRunLevel}
 }
 
 wait_for_vm_to_shutdown() {
-    local timeout=${2}
+    local timeout=${1}
     while true ; do
-        echo "Waiting for ${1} to be in guest additions run level 0."
-        GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")
+        echo "Waiting for ${VM} to be in guest additions run level 0."
+        GuestAdditionsRunLevel=$(get_guest_additions_run_level)
         if [ "${GuestAdditionsRunLevel}" -eq "0" ]; then
             return 0;
         fi
@@ -88,11 +91,11 @@ wait_for_vm_to_shutdown() {
 }
 
 wait_for_guest_additions_run_level() {
-    local timeout=${3}
+    local timeout=${2}
     while true ; do
-        echo "Waiting for ${1} to be in guest additions run level ${2}."
-        GuestAdditionsRunLevel=$(get_guest_additions_run_level "${1}")
-        if [ "${GuestAdditionsRunLevel}" -ge "${2}" ]; then
+        echo "Waiting for ${VM} to be in guest additions run level ${1}."
+        GuestAdditionsRunLevel=$(get_guest_additions_run_level)
+        if [ "${GuestAdditionsRunLevel}" -ge "${1}" ]; then
             return 0;
         fi
         if [ "${timeout}" -le 0 ]; then

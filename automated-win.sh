@@ -6,12 +6,14 @@ set -o xtrace
 
 . functions.sh
 
+BOX_NAME="${1:-win7-ie8}"
+
 # We want the variable to expand when setting the trap
 # shellcheck disable=SC2064
-trap "vagrant halt ${1} --force" EXIT
+trap "vagrant halt ${BOX_NAME} --force" EXIT
 
-if [ -f ".vagrant/machines/${1}/virtualbox/id" ]; then
-    VM=$(cat ".vagrant/machines/${1}/virtualbox/id")
+if [ -f ".vagrant/machines/${BOX_NAME}/virtualbox/id" ]; then
+    VM=$(cat ".vagrant/machines/${BOX_NAME}/virtualbox/id")
 else
     VM=""
 fi
@@ -20,21 +22,21 @@ if [ "${VM}" != "" ] && VBoxManage snapshot "${VM}" list; then
 
     VBoxManage modifyvm "${VM}" \
         --recording "on" \
-        --recordingfile "recordings/${1}-$(date -u +"%Y%m%dT%H%M%S").webm"
+        --recordingfile "recordings/${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").webm"
 
-    boot_timeout=15 vagrant snapshot restore "${1}" "Snapshot 0" || true
+    boot_timeout=15 vagrant snapshot restore "${BOX_NAME}" "Snapshot 0" || true
 
 else
 
-    boot_timeout=15 vagrant up "${1}" || true
+    boot_timeout=15 vagrant up "${BOX_NAME}" || true
 
-    VM=$(cat ".vagrant/machines/${1}/virtualbox/id")
+    VM=$(cat ".vagrant/machines/${BOX_NAME}/virtualbox/id")
 
-    wait_for_guest_additions_run_level "${VM}" 2 600
+    wait_for_guest_additions_run_level 2 600
 
     sleep 120
 
-    vagrant snapshot save "${1}" "Snapshot 0"
+    vagrant snapshot save "${BOX_NAME}" "Snapshot 0"
 
 fi
 
@@ -46,7 +48,7 @@ if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 
     send_keys 1 "Passw0rd!" "<enter>"
 
-    wait_for_guest_additions_run_level "${VM}" 3 600
+    wait_for_guest_additions_run_level 3 600
 
     sleep 120
 
@@ -59,7 +61,7 @@ run_command "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat"
 
 sleep 73
 
-case ${1} in
+case ${BOX_NAME} in
     win7*)
         # select Yes on question whether to run script
         send_keys 14 "<left>" "<enter>"
@@ -72,10 +74,10 @@ send_keys 14 "<left>" "<enter>"
 
 sleep 240
 
-wait_for_vm_to_shutdown "${VM}" 1200
+wait_for_vm_to_shutdown 1200
 
-vagrant up "${1}" --provision
-vagrant reload "${1}" --provision
-vagrant halt "${1}"
+vagrant up "${BOX_NAME}" --provision
+vagrant reload "${BOX_NAME}" --provision
+vagrant halt "${BOX_NAME}"
 
-package_vm "${1}"
+package_vm "${BOX_NAME}"
