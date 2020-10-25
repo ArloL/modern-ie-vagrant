@@ -62,7 +62,7 @@ send_keys 14 "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
 
 sleep 60
 
-case "$1" in
+case ${1} in
     win7*)
         # select Yes on question whether to run script
         send_keys 14 "<left>" "<enter>"

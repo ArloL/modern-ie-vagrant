@@ -51,11 +51,11 @@ send_keys_as_hex() {
 # For example Left-Shift is calculated as follows:
 # 0x80 + 0x2a = 0xaa -> 2a aa
 send_keys_split_string() {
-    local stringToSplit="${1}"
-    while [ -n "$stringToSplit" ]; do
+    local stringToSplit=${1}
+    while [ -n "${stringToSplit}" ]; do
         local restOfString="${stringToSplit#?}" # All but the first character of the string
-        local firstCharacterOfString="${stringToSplit%"$restOfString"}" # Remove $rest so the first character remains
-        case $firstCharacterOfString in
+        local firstCharacterOfString="${stringToSplit%"${restOfString}"}" # Remove rest so the first character remains
+        case ${firstCharacterOfString} in
             "\\") send_keys_as_hex 2b ab;;
             "/") send_keys_as_hex 35 b5;;
             " ") send_keys_as_hex 39 b9;;
@@ -135,15 +135,15 @@ send_keys_split_string() {
             "9") send_keys_as_hex 0a 8a;;
             *) echo "Sorry, I can not enter ${firstCharacterOfString} for you!"; exit 1;;
         esac
-        stringToSplit="$restOfString"
+        stringToSplit="${restOfString}"
     done
 }
 
 send_keys() {
-    local timeout=$1
+    local timeout=${1}
     shift
     for key in "$@"; do
-        case $key in
+        case ${key} in
             "<esc>") send_keys_as_hex 01 81;;
             "<enter>") send_keys_as_hex 1c 9c;;
             "<winPress>") send_keys_as_hex e0 5b;;

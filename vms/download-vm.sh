@@ -37,7 +37,7 @@ download() {
     rm -f "modern.ie-${name}.box"
 }
 
-case $1 in
+case ${1} in
    "win7-ie8") download "win7-ie8" "IE8 - Win7.box" "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE8/IE8.Win7.Vagrant.zip";;
    "win7-ie9") download "win7-ie9" "IE9 - Win7.box" "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE9/IE9.Win7.Vagrant.zip";;
    "win7-ie10") download "win7-ie10" "IE10 - Win7.box" "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE10/IE10.Win7.Vagrant.zip";;
