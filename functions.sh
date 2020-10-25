@@ -9,6 +9,13 @@ run_command() {
     send_keys 1 "${1}" "<enter>"
 }
 
+vm_has_snapshot_with_name() {
+    if [ "${VM}" != "" ] && VBoxManage snapshot "${VM}" showvminfo "${1}" > /dev/null 2>&1; then
+        return 0;
+    fi
+    return 1
+}
+
 reset_vm_state() {
     VBoxManage setextradata "${VM}" "GUI/Fullscreen"
     VBoxManage setextradata "${VM}" "GUI/LastCloseAction"
