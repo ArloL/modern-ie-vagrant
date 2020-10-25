@@ -16,6 +16,36 @@ vm_has_snapshot_with_name() {
     return 1
 }
 
+reset_storage_controller() {
+    local ImageUUID
+    ImageUUID="$(VBoxManage showvminfo "${VM}" --machinereadable | grep 'ImageUUID' | awk -F '"' '{ print $4 }')"
+
+    if [ "${ImageUUID}" = "" ]; then
+        echo "Could not find ImageUUID"
+        return 1
+    fi
+
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 0 --device 0 --medium none || true
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 0 --device 1 --medium none || true
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 1 --device 0 --medium none || true
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 1 --device 1 --medium none || true
+
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 0 --device 0 --type hdd --medium "${ImageUUID}"
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 0 --device 1 --type dvddrive --medium emptydrive
+}
+
 reset_vm_state() {
     VBoxManage setextradata "${VM}" "GUI/Fullscreen"
     VBoxManage setextradata "${VM}" "GUI/LastCloseAction"
