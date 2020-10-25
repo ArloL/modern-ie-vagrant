@@ -102,19 +102,4 @@ vagrant up "${box_name}" --provision
 vagrant reload "${box_name}" --provision
 vagrant halt "${box_name}"
 
-VBoxManage modifyvm "${VM}" --recording off
-
-VBoxManage setextradata "${VM}" "GUI/Fullscreen"
-VBoxManage setextradata "${VM}" "GUI/LastCloseAction"
-VBoxManage setextradata "${VM}" "GUI/LastGuestSizeHint"
-VBoxManage setextradata "${VM}" "GUI/LastNormalWindowPosition"
-VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeDevicesMenuActions"
-VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeMachineMenuActions"
-VBoxManage setextradata "${VM}" "GUI/ScaleFactor"
-VBoxManage setextradata "${VM}" "GUI/StatusBar/IndicatorOrder"
-
-vagrant package "${box_name}" --output "${box_name}.box" --Vagrantfile Vagrantfile-package
-
-vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
-
-rm -f "${box_name}.box"
+package_vm "${1}"
