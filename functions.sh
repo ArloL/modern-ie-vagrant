@@ -182,6 +182,16 @@ send_keys() {
             "<shiftPress>") send_keys_as_hex 2a;;
             "<shiftRelease>") send_keys_as_hex aa;;
             "<tab>") send_keys_as_hex 0f 8f;;
+            "<f1>") send_keys_as_hex 3b bb;;
+            "<f2>") send_keys_as_hex 3c bc;;
+            "<f3>") send_keys_as_hex 3d bd;;
+            "<f4>") send_keys_as_hex 3e be;;
+            "<f5>") send_keys_as_hex 3f bf;;
+            "<f6>") send_keys_as_hex 40 c0;;
+            "<f7>") send_keys_as_hex 41 c1;;
+            "<f8>") send_keys_as_hex 42 c2;;
+            "<f9>") send_keys_as_hex 43 c3;;
+            "<f10>") send_keys_as_hex 44 c4;;
             *) send_keys_split_string "${key}";;
         esac
         sleep "${timeout}"
