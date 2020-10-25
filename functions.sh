@@ -9,8 +9,7 @@ run_command() {
     send_keys 1 "${1}" "<enter>"
 }
 
-package_vm() {
-    VBoxManage modifyvm "${VM}" --recording off
+reset_vm_state() {
     VBoxManage setextradata "${VM}" "GUI/Fullscreen"
     VBoxManage setextradata "${VM}" "GUI/LastCloseAction"
     VBoxManage setextradata "${VM}" "GUI/LastGuestSizeHint"
@@ -19,11 +18,13 @@ package_vm() {
     VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeMachineMenuActions"
     VBoxManage setextradata "${VM}" "GUI/ScaleFactor"
     VBoxManage setextradata "${VM}" "GUI/StatusBar/IndicatorOrder"
+}
 
+package_vm() {
+    VBoxManage modifyvm "${VM}" --recording off
+    reset_vm_state
     vagrant package "${1}" --output "${1}.box" --Vagrantfile Vagrantfile-package
-
     vagrant box add --name "okeeffe-${1}" --force "${1}.box"
-
     rm -f "${1}.box"
 }
 
