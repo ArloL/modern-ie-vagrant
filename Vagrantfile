@@ -79,6 +79,14 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
           "--ostype", attr['ostype'],
           "--recordingfile", "recordings/#{name}-#{recording_suffix}.webm"
         ]
+        vb.customize [
+          "storageattach", :id,
+          "--storagectl", "IDE Controller",
+          "--port", "0",
+          "--device", "1",
+          "--type", "dvddrive",
+          "--medium", "emptydrive"
+        ]
       end
 
       node.vm.network "forwarded_port",
