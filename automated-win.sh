@@ -18,13 +18,11 @@ else
     VM=""
 fi
 
-if [ "${VM}" != "" ] && VBoxManage snapshot "${VM}" list; then
+if vm_snapshot_exists "Snapshot 0"; then
 
-    VBoxManage modifyvm "${VM}" \
-        --recording "on" \
-        --recordingfile "recordings/${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").webm"
+    vm_snapshot_restore "Snapshot 0"
 
-    boot_timeout=15 vagrant snapshot restore "${BOX_NAME}" "Snapshot 0" || true
+    boot_timeout=15 vagrant up "${BOX_NAME}" || true
 
 else
 

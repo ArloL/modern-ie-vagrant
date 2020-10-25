@@ -9,11 +9,20 @@ run_command() {
     send_keys 1 "${1}" "<enter>"
 }
 
-vm_has_snapshot_with_name() {
-    if [ "${VM}" != "" ] && VBoxManage snapshot "${VM}" showvminfo "${1}" > /dev/null 2>&1; then
+vm_snapshot_exists() {
+    if [ "${VM}" != "" ] && \
+        VBoxManage snapshot "${VM}" showvminfo "${1}" > /dev/null 2>&1;
+    then
         return 0;
     fi
     return 1
+}
+
+vm_snapshot_restore() {
+    vagrant snapshot restore "${BOX_NAME}" "${1}"  --no-start
+    VBoxManage modifyvm "${VM}" \
+        --recordingfile \
+        "recordings/${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").webm"
 }
 
 reset_storage_controller() {
