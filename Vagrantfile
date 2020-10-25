@@ -28,8 +28,12 @@ Vagrant.configure(2) do |config|
       "--recording", "on"
     ]
     vb.customize [
-      "setextradata", :id,
-      "GUI/ScaleFactor", "1"
+      "storageattach", :id,
+      "--storagectl", "IDE Controller",
+      "--port", "0",
+      "--device", "1",
+      "--type", "dvddrive",
+      "--medium", "emptydrive"
     ]
   end
 
@@ -78,14 +82,6 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
           "modifyvm", :id,
           "--ostype", attr['ostype'],
           "--recordingfile", "recordings/#{name}-#{recording_suffix}.webm"
-        ]
-        vb.customize [
-          "storageattach", :id,
-          "--storagectl", "IDE Controller",
-          "--port", "0",
-          "--device", "1",
-          "--type", "dvddrive",
-          "--medium", "emptydrive"
         ]
       end
 
