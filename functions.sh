@@ -170,6 +170,7 @@ send_keys() {
         case ${key} in
             "<esc>") send_keys_as_hex 01 81;;
             "<enter>") send_keys_as_hex 1c 9c;;
+            "<space>") send_keys_split_string " ";;
             "<winPress>") send_keys_as_hex e0 5b;;
             "<winRelease>") send_keys_as_hex e0 db;;
             "<left>") send_keys_as_hex e0 4b e0 cb;;
