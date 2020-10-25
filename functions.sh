@@ -59,6 +59,10 @@ reset_storage_controller() {
 }
 
 reset_vm_state() {
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 0 --device 1 --type dvddrive --medium emptydrive
+
     VBoxManage setextradata "${VM}" "GUI/Fullscreen"
     VBoxManage setextradata "${VM}" "GUI/LastCloseAction"
     VBoxManage setextradata "${VM}" "GUI/LastGuestSizeHint"
