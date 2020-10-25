@@ -194,7 +194,7 @@ send_keys_split_string() {
             "7") send_keys_as_hex 08 88;;
             "8") send_keys_as_hex 09 89;;
             "9") send_keys_as_hex 0a 8a;;
-            *) echo "Sorry, I can not enter ${firstCharacterOfString} for you!"; exit 1;;
+            *) echo "${firstCharacterOfString} is not mapped!"; exit 1;;
         esac
         stringToSplit="${restOfString}"
     done
