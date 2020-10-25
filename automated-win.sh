@@ -55,12 +55,7 @@ fi
 # close restart dialog
 send_keys 14 "<esc>"
 
-# Press Win+R to open the Run dialog
-send_keys 1 "<winPress>" "r" "<winRelease>"
-
-sleep 13
-
-send_keys 1 "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
+run_command "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat"
 
 sleep 73
 

@@ -3,6 +3,12 @@
 set -o errexit
 set -o nounset
 
+run_command() {
+    send_keys 1 "<winPress>" r "<winRelease>"
+    sleep 13
+    send_keys 1 "${1}" "<enter>"
+}
+
 get_guest_additions_run_level() {
     local GuestAdditionsRunLevel=0
     eval "$(VBoxManage showvminfo "${1}" --machinereadable | grep 'GuestAdditionsRunLevel')"
