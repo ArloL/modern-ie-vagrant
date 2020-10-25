@@ -42,7 +42,9 @@ GuestAdditionsRunLevel=$(get_guest_additions_run_level "${VM}")
 
 if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
 
-    send_keys 14 "<enter>" "Passw0rd!" "<enter>"
+    send_keys 14 "<enter>"
+
+    send_keys 1 "Passw0rd!" "<enter>"
 
     wait_for_guest_additions_run_level "${VM}" 3 600
 
@@ -54,13 +56,13 @@ fi
 send_keys 14 "<esc>"
 
 # Press Win+R to open the Run dialog
-send_keys 4 "<winPress>" "r" "<winRelease>"
+send_keys 1 "<winPress>" "r" "<winRelease>"
 
-sleep 10
+sleep 13
 
-send_keys 14 "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
+send_keys 1 "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat" "<enter>"
 
-sleep 60
+sleep 73
 
 case ${1} in
     win7*)
