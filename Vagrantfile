@@ -84,6 +84,13 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
           "--ostype", attr['ostype'],
           "--recordingfile", "recordings/#{name}-#{recording_suffix}.webm"
         ]
+        vb.customize [
+          "snapshot", :id,
+          "take",
+          "Pre-Boot",
+          "--uniquename",
+          "Timestamp"
+        ]
       end
 
       node.vm.network "forwarded_port",
