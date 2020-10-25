@@ -28,14 +28,6 @@ Vagrant.configure(2) do |config|
       "--clipboard-mode", "disabled",
       "--recording", "on"
     ]
-    vb.customize [
-      "storageattach", :id,
-      "--storagectl", "IDE Controller",
-      "--port", "0",
-      "--device", "1",
-      "--type", "dvddrive",
-      "--medium", "emptydrive"
-    ]
   end
 
   config.vm.provision "default", type: "shell" do |s|
