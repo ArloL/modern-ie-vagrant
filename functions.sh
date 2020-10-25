@@ -127,8 +127,10 @@ send_keys_as_hex() {
 send_keys_split_string() {
     local stringToSplit=${1}
     while [ -n "${stringToSplit}" ]; do
-        local restOfString="${stringToSplit#?}" # All but the first character of the string
-        local firstCharacterOfString="${stringToSplit%"${restOfString}"}" # Remove rest so the first character remains
+        # All but the first character of the string
+        local restOfString="${stringToSplit#?}"
+        # Remove rest so the first character remains
+        local firstCharacterOfString="${stringToSplit%"${restOfString}"}"
         case ${firstCharacterOfString} in
             "\\") send_keys_as_hex 2b ab;;
             "/") send_keys_as_hex 35 b5;;
