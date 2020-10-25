@@ -53,6 +53,9 @@ reset_storage_controller() {
     VBoxManage storageattach "${VM}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium emptydrive
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 0 --device 1 --type dvddrive --medium additions
 }
 
 reset_vm_state() {
