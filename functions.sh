@@ -275,6 +275,7 @@ send_keys() {
             "<esc>") send_keys_as_hex 01 81;;
             "<enter>") send_keys_as_hex 1c 9c;;
             "<space>") send_keys_split_string " ";;
+            "<win>") send_keys_as_hex e0 5b e0 db;;
             "<winPress>") send_keys_as_hex e0 5b;;
             "<winRelease>") send_keys_as_hex e0 db;;
             "<left>") send_keys_as_hex e0 4b e0 cb;;
