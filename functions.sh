@@ -340,7 +340,7 @@ vm_run_guest_additions_install() {
         # ensure focus on driver window
         send_keys 1 "<winPress>" "<down>" "<winRelease>"
         sleep 13
-        # select always trust and Yes to add driver
+        # select Yes to add driver
         send_keys 1 "<left>" "<enter>"
         ;;
     win10*)
