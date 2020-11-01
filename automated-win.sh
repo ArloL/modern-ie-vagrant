@@ -7,6 +7,7 @@ set -o xtrace
 . functions.sh
 
 BOX_NAME="${1:-win7-ie8}"
+GUEST_ADDITIONS_INSTALL_MODE="${2:-auto}"
 # shellcheck disable=SC2034
 VM=$(vm_id)
 
@@ -15,62 +16,92 @@ trap 'vagrant halt "${BOX_NAME}" --force' EXIT
 vm_import
 
 if ! vm_snapshot_exists "Snapshot 0"; then
-
     vm_snapshot_restore "Pre-Boot"
-
     reset_storage_controller
-
-    boot_timeout=15 vagrant up "${BOX_NAME}" || true
-
-    wait_for_guest_additions_run_level 2 600
-
+    vm_up
     sleep 120
-
-    vagrant snapshot save "${BOX_NAME}" "Snapshot 0"
-
+    vm_snapshot_save "Snapshot 0"
 else
     vm_snapshot_restore "Snapshot 0"
-    boot_timeout=15 vagrant up "${BOX_NAME}" || true
+    vm_up
 fi
 
-GuestAdditionsRunLevel=$(get_guest_additions_run_level)
+if ! vm_snapshot_exists "Snapshot 1"; then
 
-if [ "${GuestAdditionsRunLevel}" -eq "2" ]; then
+    if [ "${GUEST_ADDITIONS_INSTALL_MODE}" = "manual" ] ||
+        [ "$(get_guest_additions_run_level)" -eq "0" ]; then
 
-    send_keys 14 "<enter>"
+        if ! vm_snapshot_exists "Snapshot 0-1"; then
+            # close dialog or trigger password prompt
+            send_keys 14 "<esc>"
+            send_keys 1 "Passw0rd!" "<enter>"
+            # wait for 180 seconds while closing upcoming dialogs
+            send_keys 14 \
+                "<esc>" "<esc>" "<esc>" "<esc>" \
+                "<esc>" "<esc>" "<esc>" "<esc>" \
+                "<esc>" "<esc>" "<esc>" "<esc>"
+            vm_snapshot_save "Snapshot 0-1"
+        else
+            vm_snapshot_restore "Snapshot 0-1"
+            vm_up
+        fi
 
-    send_keys 1 "Passw0rd!" "<enter>"
+        if ! vm_snapshot_exists "Snapshot 0-2"; then
+            vm_run_guest_additions_install
+            wait_for_vm_to_shutdown 1200
+            vm_snapshot_save "Snapshot 0-2"
+        else
+            vm_snapshot_restore "Snapshot 0-2"
+        fi
 
-    wait_for_guest_additions_run_level 3 600
+        if ! vm_snapshot_exists "Snapshot 0-3"; then
+            vm_up
+            wait_for_guest_additions_run_level 2 600
+            sleep 120
+            vm_snapshot_save "Snapshot 0-3"
+        else
+            vm_snapshot_restore "Snapshot 0-3"
+            vm_up
+        fi
 
-    sleep 120
+    fi
 
+    if [ "$(get_guest_additions_run_level)" -eq "2" ]; then
+        send_keys 14 "<enter>"
+        send_keys 1 "Passw0rd!" "<enter>"
+        wait_for_guest_additions_run_level 3 600
+    fi
+
+    # wait for 180 seconds while closing upcoming dialogs
+    send_keys 14 \
+        "<esc>" "<esc>" "<esc>" "<esc>" \
+        "<esc>" "<esc>" "<esc>" "<esc>" \
+        "<esc>" "<esc>" "<esc>" "<esc>"
+
+    vm_snapshot_save "Snapshot 1"
+
+else
+    vm_snapshot_restore "Snapshot 1"
+    vm_up
 fi
 
-# close restart dialog
-send_keys 14 "<esc>"
+if ! vm_snapshot_exists "Snapshot 2"; then
+    vm_run_provisioning
+    sleep 240
+    wait_for_vm_to_shutdown 1200
+    vm_snapshot_save "Snapshot 2"
+else
+    vm_snapshot_restore "Snapshot 2"
+    vm_up
+fi
 
-run_command "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat"
+if ! vm_snapshot_exists "Snapshot 3"; then
+    vagrant up "${BOX_NAME}" --provision
+    vagrant reload "${BOX_NAME}" --provision
+    vagrant halt "${BOX_NAME}"
+    vm_snapshot_save "Snapshot 3"
+else
+    vm_snapshot_restore "Snapshot 3"
+fi
 
-sleep 73
-
-case ${BOX_NAME} in
-    win7*)
-        # select Yes on question whether to run script
-        send_keys 14 "<left>" "<enter>"
-        sleep 60
-        ;;
-esac
-
-# select Yes on UAC
-send_keys 14 "<left>" "<enter>"
-
-sleep 240
-
-wait_for_vm_to_shutdown 1200
-
-vagrant up "${BOX_NAME}" --provision
-vagrant reload "${BOX_NAME}" --provision
-vagrant halt "${BOX_NAME}"
-
-package_vm "${BOX_NAME}"
+vm_package "${BOX_NAME}"

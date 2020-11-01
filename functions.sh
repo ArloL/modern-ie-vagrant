@@ -26,6 +26,10 @@ vm_import() {
     fi
 }
 
+vm_up() {
+    boot_timeout=15 vagrant up "${BOX_NAME}" || true
+}
+
 vm_snapshot_exists() {
     if [ "${VM}" != "" ] && \
         VBoxManage snapshot "${VM}" showvminfo "${1}" > /dev/null 2>&1;
@@ -40,6 +44,10 @@ vm_snapshot_restore() {
     VBoxManage modifyvm "${VM}" \
         --recordingfile \
         "recordings/${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").webm"
+}
+
+vm_snapshot_save() {
+    vagrant snapshot save "${BOX_NAME}" "${1}"
 }
 
 reset_storage_controller() {
@@ -75,7 +83,7 @@ reset_storage_controller() {
         --port 0 --device 1 --type dvddrive --medium additions
 }
 
-reset_vm_state() {
+vm_reset() {
     VBoxManage storageattach "${VM}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium emptydrive
@@ -90,14 +98,18 @@ reset_vm_state() {
     VBoxManage setextradata "${VM}" "GUI/StatusBar/IndicatorOrder"
 }
 
-package_vm() {
+vm_package() {
     VBoxManage modifyvm "${VM}" --recording off
-    reset_vm_state
+    vm_reset
     vagrant package "${BOX_NAME}" \
         --output "${BOX_NAME}.box" \
         --Vagrantfile Vagrantfile-package
     vagrant box add --name "okeeffe-${BOX_NAME}" --force "${BOX_NAME}.box"
     rm -f "${BOX_NAME}.box"
+}
+
+vm_info() {
+    VBoxManage showvminfo "${VM}" --machinereadable
 }
 
 get_guest_additions_run_level() {
@@ -275,3 +287,45 @@ send_keys() {
 
 # VM="\"\${VM}\""
 # send_keys 10 "shutdown /r /t 0" "<enter>"
+
+vm_run_provisioning() {
+    run_command "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat"
+    sleep 73
+    case ${BOX_NAME} in
+        win7*)
+            # select Yes on question whether to run script
+            send_keys 14 "<left>" "<enter>"
+            sleep 60
+            ;;
+    esac
+    # select Yes on UAC
+    send_keys 14 "<left>" "<enter>"
+}
+
+vm_run_guest_additions_install() {
+    case ${BOX_NAME} in
+    win7*)
+        run_command 'cmd /c "e:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
+        sleep 73
+        # select Yes on UAC
+        send_keys 14 "<left>" "<enter>"
+        sleep 15
+        # switch to driver window
+        send_keys 1 "<altPress>" "<tab>" "<tab>" "<altRelease>"
+        sleep 13
+        # select always trust and Yes to add driver
+        send_keys 14 "<left>" "<left>" "<space>" "<right>" "<enter>"
+        ;;
+    win10*)
+        run_command 'cmd /c "d:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
+        sleep 73
+        # select Yes on UAC
+        send_keys 14 "<left>" "<enter>"
+        sleep 15
+        # switch to driver window
+        send_keys 1 "<altPress>" "<tab>" "<altRelease>"
+        # select Yes to add driver
+        send_keys 14 "<left>" "<enter>"
+        ;;
+    esac
+}
