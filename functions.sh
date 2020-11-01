@@ -330,6 +330,15 @@ vm_run_guest_additions_install() {
         # select always trust and Yes to add driver
         send_keys 1 "<left>" "<left>" "<space>" "<right>" "<enter>"
         ;;
+    win81*)
+        run_command 'cmd /c "d:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
+        sleep 111
+        # select Yes on UAC
+        send_keys 1 "<left>" "<enter>"
+        sleep 30
+        # select always trust and Yes to add driver
+        send_keys 1 "<left>" "<enter>"
+        ;;
     win10*)
         run_command 'cmd /c "d:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
         sleep 111
