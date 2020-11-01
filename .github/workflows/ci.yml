@@ -44,7 +44,7 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh
-        ./automated-no-additions.sh ${{ matrix.os }}
+        ./automated-win.sh ${{ matrix.os }} manual
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
