@@ -46,5 +46,5 @@ jobs:
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
-        name: recordings from ${{ matrix.os }} build for ${{ github.sha }}
+        name: recordings from ${{ matrix.os }}-no-additions build for ${{ github.sha }}
         path: recordings
