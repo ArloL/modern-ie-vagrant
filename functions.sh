@@ -296,9 +296,6 @@ send_keys() {
     done
 }
 
-# VM="\"\${VM}\""
-# send_keys 10 "shutdown /r /t 0" "<enter>"
-
 vm_run_provisioning() {
     run_command "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat"
     sleep 73
