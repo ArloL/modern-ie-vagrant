@@ -67,7 +67,8 @@ if ! vm_snapshot_exists "Snapshot 1"; then
     fi
 
     if [ "$(get_guest_additions_run_level)" -eq "2" ]; then
-        send_keys 14 "<enter>"
+        # trigger password prompt
+        send_keys 14 "<esc>"
         send_keys 1 "Passw0rd!" "<enter>"
         wait_for_guest_additions_run_level 3 600
     fi
