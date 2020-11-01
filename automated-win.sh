@@ -18,17 +18,21 @@ else
     VM=""
 fi
 
-if vm_snapshot_exists "Snapshot 0"; then
-
-    vm_snapshot_restore "Snapshot 0"
-
-    boot_timeout=15 vagrant up "${BOX_NAME}" || true
-
-else
-
-    boot_timeout=15 vagrant up "${BOX_NAME}" || true
-
+if ! vm_snapshot_exists "Pre-Boot"; then
+    vagrant destroy "${BOX_NAME}" --force
+    boot_timeout=1 vagrant up "${BOX_NAME}" || true
+    vagrant halt "${BOX_NAME}" --force
+    # shellcheck disable=SC2034
     VM=$(cat ".vagrant/machines/${BOX_NAME}/virtualbox/id")
+fi
+
+if ! vm_snapshot_exists "Snapshot 0"; then
+
+    vm_snapshot_restore "Pre-Boot"
+
+    reset_storage_controller
+
+    boot_timeout=15 vagrant up "${BOX_NAME}" || true
 
     wait_for_guest_additions_run_level 2 600
 
@@ -36,6 +40,9 @@ else
 
     vagrant snapshot save "${BOX_NAME}" "Snapshot 0"
 
+else
+    vm_snapshot_restore "Snapshot 0"
+    boot_timeout=15 vagrant up "${BOX_NAME}" || true
 fi
 
 GuestAdditionsRunLevel=$(get_guest_additions_run_level)
