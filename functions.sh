@@ -43,6 +43,9 @@ vm_snapshot_restore() {
     if [ "${2:-}" != "" ] && vm_snapshot_exists "${2}"; then
         return 0
     fi
+    if [ "${3:-}" != "" ] && vm_snapshot_exists "${2}"; then
+        return 0
+    fi
     vagrant snapshot restore "${BOX_NAME}" "${1}"  --no-start
     VBoxManage modifyvm "${VM}" \
         --recordingfile \
@@ -51,6 +54,9 @@ vm_snapshot_restore() {
 
 vm_snapshot_restore_and_up() {
     if [ "${2:-}" != "" ] && vm_snapshot_exists "${2}"; then
+        return 0
+    fi
+    if [ "${3:-}" != "" ] && vm_snapshot_exists "${2}"; then
         return 0
     fi
     vm_snapshot_restore "${1}"
