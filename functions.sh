@@ -325,8 +325,8 @@ vm_run_guest_additions_install() {
         # select Yes on UAC
         send_keys 1 "<left>" "<enter>"
         sleep 30
-        # switch to driver window
-        send_keys 1 "<altPress>" "<tab>" "<tab>" "<altRelease>"
+        # ensure focus on driver window
+        send_keys 1 "<winPress>" "<down>" "<winRelease>"
         sleep 13
         # select always trust and Yes to add driver
         send_keys 1 "<left>" "<left>" "<space>" "<right>" "<enter>"
@@ -337,6 +337,9 @@ vm_run_guest_additions_install() {
         # select Yes on UAC
         send_keys 1 "<left>" "<enter>"
         sleep 30
+        # ensure focus on driver window
+        send_keys 1 "<winPress>" "<down>" "<winRelease>"
+        sleep 13
         # select always trust and Yes to add driver
         send_keys 1 "<left>" "<enter>"
         ;;
@@ -346,8 +349,8 @@ vm_run_guest_additions_install() {
         # select Yes on UAC
         send_keys 1 "<left>" "<enter>"
         sleep 30
-        # switch to driver window
-        send_keys 1 "<altPress>" "<tab>" "<altRelease>"
+        # ensure focus on driver window
+        send_keys 1 "<winPress>" "<down>" "<winRelease>"
         sleep 13
         # select Yes to add driver
         send_keys 1 "<left>" "<enter>"
