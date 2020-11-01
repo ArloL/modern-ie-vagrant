@@ -22,8 +22,7 @@ if ! vm_snapshot_exists "Snapshot 0"; then
     sleep 120
     vm_snapshot_save "Snapshot 0"
 else
-    vm_snapshot_restore "Snapshot 0"
-    vm_up
+    vm_snapshot_restore_and_up "Snapshot 0" "Snapshot 1"
 fi
 
 if ! vm_snapshot_exists "Snapshot 1"; then
@@ -42,8 +41,7 @@ if ! vm_snapshot_exists "Snapshot 1"; then
                 "<esc>" "<esc>" "<esc>" "<esc>"
             vm_snapshot_save "Snapshot 0-1"
         else
-            vm_snapshot_restore "Snapshot 0-1"
-            vm_up
+            vm_snapshot_restore_and_up "Snapshot 0-1" "Snapshot 0-2"
         fi
 
         if ! vm_snapshot_exists "Snapshot 0-2"; then
@@ -51,7 +49,7 @@ if ! vm_snapshot_exists "Snapshot 1"; then
             wait_for_vm_to_shutdown 1200
             vm_snapshot_save "Snapshot 0-2"
         else
-            vm_snapshot_restore "Snapshot 0-2"
+            vm_snapshot_restore "Snapshot 0-2" "Snapshot 0-3"
         fi
 
         if ! vm_snapshot_exists "Snapshot 0-3"; then
@@ -60,8 +58,7 @@ if ! vm_snapshot_exists "Snapshot 1"; then
             sleep 120
             vm_snapshot_save "Snapshot 0-3"
         else
-            vm_snapshot_restore "Snapshot 0-3"
-            vm_up
+            vm_snapshot_restore_and_up "Snapshot 0-3"
         fi
 
     fi
@@ -82,8 +79,7 @@ if ! vm_snapshot_exists "Snapshot 1"; then
     vm_snapshot_save "Snapshot 1"
 
 else
-    vm_snapshot_restore "Snapshot 1"
-    vm_up
+    vm_snapshot_restore_and_up "Snapshot 1" "Snapshot 2"
 fi
 
 if ! vm_snapshot_exists "Snapshot 2"; then
@@ -92,8 +88,7 @@ if ! vm_snapshot_exists "Snapshot 2"; then
     wait_for_vm_to_shutdown 1200
     vm_snapshot_save "Snapshot 2"
 else
-    vm_snapshot_restore "Snapshot 2"
-    vm_up
+    vm_snapshot_restore "Snapshot 2" "Snapshot 3"
 fi
 
 if ! vm_snapshot_exists "Snapshot 3"; then

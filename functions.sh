@@ -40,10 +40,21 @@ vm_snapshot_exists() {
 }
 
 vm_snapshot_restore() {
+    if [ "${2:-}" != "" ] && vm_snapshot_exists "${2}"; then
+        return 0
+    fi
     vagrant snapshot restore "${BOX_NAME}" "${1}"  --no-start
     VBoxManage modifyvm "${VM}" \
         --recordingfile \
         "recordings/${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").webm"
+}
+
+vm_snapshot_restore_and_up() {
+    if [ "${2:-}" != "" ] && vm_snapshot_exists "${2}"; then
+        return 0
+    fi
+    vm_snapshot_restore "${1}"
+    vm_up
 }
 
 vm_snapshot_save() {
