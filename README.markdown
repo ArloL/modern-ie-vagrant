@@ -11,15 +11,20 @@ Scripts for setting up [WinRM](https://msdn.microsoft.com/en-us/library/windows/
 
 # How do I use it?
 
-Execute `download-prerequisites.sh` on the host first.
+Make sure required software is installed with e.g.
+`brew cask install vagrant virtualbox`
 
-Download the Vagrant box from modern.ie and add it to Vagrant. Then execute the "automated" script for it.
+## All machines
+    
+    ./download-prerequisites.sh
+    ./download-vms.sh
+    ./automated.sh
 
-An example for Windows 10 with Edge:
+## A single machine
 
-    .\download-prerequisites.sh
-    vagrant box add modern.ie/win10-edge "MsEdge - Win10.box"
-    .\automated-win10-edge.sh
+    ./download-prerequisites.sh
+    ./download-vm.sh win10-edge
+    ./automated.sh win10-edge
 
 # Sources
 
