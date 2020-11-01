@@ -2,11 +2,14 @@
 
 set -o errexit
 set -o nounset
+set -o xtrace
 
 download() {
     local name=${1}
     local boxName=${2}
     local url=${3}
+    trap 'popd' EXIT
+    pushd vms
     boxListSearch=$(vagrant box list | grep "modern.ie/${name}" || true)
     if [ ! "${boxListSearch}" = "" ]
     then

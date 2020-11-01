@@ -16,7 +16,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Download
-      working-directory: ./vms
       run: |
         ./download-vm.sh ${{ matrix.os }}
     - name: Build
@@ -38,7 +37,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Download
-      working-directory: ./vms
       run: |
         ./download-vm.sh ${{ matrix.os }}
     - name: Build

@@ -2,6 +2,7 @@
 
 set -o errexit
 set -o nounset
+set -o xtrace
 
 ./download-vm.sh win7-ie8
 ./download-vm.sh win7-ie9
