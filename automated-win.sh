@@ -22,7 +22,7 @@ if ! vm_snapshot_exists "Snapshot 0"; then
     sleep 120
     vm_snapshot_save "Snapshot 0"
 else
-    vm_snapshot_restore_and_up "Snapshot 0" "Snapshot 1"
+    vm_snapshot_restore_and_up "Snapshot 0" "Snapshot 1" "Snapshot 0-1"
 fi
 
 if ! vm_snapshot_exists "Snapshot 1"; then
