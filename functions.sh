@@ -354,3 +354,15 @@ vm_run_guest_additions_install() {
         ;;
     esac
 }
+
+vm_close_dialogs() {
+    local timeout=${1}
+    while true ; do
+        send_keys 1 "<altPress>" "<tab>" "<altRelease>" "<esc>"
+        if [ "${timeout}" -le 0 ]; then
+            return 0
+        fi
+        timeout=$((timeout - 15))
+        sleep 7
+    done
+}

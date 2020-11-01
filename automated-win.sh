@@ -31,14 +31,8 @@ if ! vm_snapshot_exists "Snapshot 1"; then
         [ "$(get_guest_additions_run_level)" -eq "0" ]; then
 
         if ! vm_snapshot_exists "Snapshot 0-1"; then
-            # close dialog or trigger password prompt
-            send_keys 14 "<esc>"
-            send_keys 1 "Passw0rd!" "<enter>"
-            # wait for 180 seconds while closing upcoming dialogs
-            send_keys 14 \
-                "<esc>" "<esc>" "<esc>" "<esc>" \
-                "<esc>" "<esc>" "<esc>" "<esc>" \
-                "<esc>" "<esc>" "<esc>" "<esc>"
+            send_keys 1 "<esc>" "<esc>" "<win>" "Passw0rd!" "<esc>" "<enter>" "<esc>"
+            vm_close_dialogs 180
             vm_snapshot_save "Snapshot 0-1"
         else
             vm_snapshot_restore_and_up "Snapshot 0-1" "Snapshot 0-2"
@@ -70,11 +64,7 @@ if ! vm_snapshot_exists "Snapshot 1"; then
         wait_for_guest_additions_run_level 3 600
     fi
 
-    # wait for 180 seconds while closing upcoming dialogs
-    send_keys 14 \
-        "<esc>" "<esc>" "<esc>" "<esc>" \
-        "<esc>" "<esc>" "<esc>" "<esc>" \
-        "<esc>" "<esc>" "<esc>" "<esc>"
+    vm_close_dialogs 180
 
     vm_snapshot_save "Snapshot 1"
 
