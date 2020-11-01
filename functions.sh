@@ -133,9 +133,9 @@ get_guest_additions_run_level() {
 wait_for_vm_to_shutdown() {
     local timeout=${1}
     while true ; do
-        echo "Waiting for ${VM} to be in guest additions run level 0."
-        GuestAdditionsRunLevel=$(get_guest_additions_run_level)
-        if [ "${GuestAdditionsRunLevel}" -eq "0" ]; then
+        echo "Waiting for ${VM} to be in VMState poweroff."
+        VMState=$(vm_info "VMState=" 2)
+        if [ "${VMState}" = "poweroff" ]; then
             return 0;
         fi
         if [ "${timeout}" -le 0 ]; then
