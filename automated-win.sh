@@ -10,9 +10,7 @@ BOX_NAME="${1:-win7-ie8}"
 # shellcheck disable=SC2034
 VM=$(vm_id)
 
-# We want the variable to expand when setting the trap
-# shellcheck disable=SC2064
-trap "vagrant halt ${BOX_NAME} --force" EXIT
+trap 'vagrant halt "${BOX_NAME}" --force' EXIT
 
 vm_import
 
