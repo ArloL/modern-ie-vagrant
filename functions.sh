@@ -120,7 +120,7 @@ vm_package() {
 }
 
 vm_info() {
-    VBoxManage showvminfo "${VM}" --machinereadable
+    VBoxManage showvminfo "${VM}" --machinereadable | grep "${1}" | awk -F '"' '{ print $'"${2}"' }'
 }
 
 get_guest_additions_run_level() {
