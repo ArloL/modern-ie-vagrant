@@ -22,6 +22,7 @@ if ! vm_snapshot_exists "Pre-Boot"; then
     vagrant destroy "${BOX_NAME}" --force
     boot_timeout=1 vagrant up "${BOX_NAME}" || true
     vagrant halt "${BOX_NAME}" --force
+    # shellcheck disable=SC2034
     VM=$(cat ".vagrant/machines/${BOX_NAME}/virtualbox/id")
 fi
 
