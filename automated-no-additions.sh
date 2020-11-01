@@ -7,24 +7,14 @@ set -o xtrace
 . functions.sh
 
 BOX_NAME="${1:-win7-ie8}"
+# shellcheck disable=SC2034
+VM=$(vm_id)
 
 # We want the variable to expand when setting the trap
 # shellcheck disable=SC2064
 trap "vagrant halt ${BOX_NAME} --force" EXIT
 
-if [ -f ".vagrant/machines/${BOX_NAME}/virtualbox/id" ]; then
-    VM=$(cat ".vagrant/machines/${BOX_NAME}/virtualbox/id")
-else
-    VM=""
-fi
-
-if ! vm_snapshot_exists "Pre-Boot"; then
-    vagrant destroy "${BOX_NAME}" --force
-    boot_timeout=1 vagrant up "${BOX_NAME}" || true
-    vagrant halt "${BOX_NAME}" --force
-    # shellcheck disable=SC2034
-    VM=$(cat ".vagrant/machines/${BOX_NAME}/virtualbox/id")
-fi
+vm_import
 
 if ! vm_snapshot_exists "Snapshot 0"; then
 

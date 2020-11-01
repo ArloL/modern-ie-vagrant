@@ -9,6 +9,23 @@ run_command() {
     send_keys 1 "${1}" "<enter>"
 }
 
+vm_id() {
+    if [ -f ".vagrant/machines/${BOX_NAME}/virtualbox/id" ]; then
+        cat ".vagrant/machines/${BOX_NAME}/virtualbox/id"
+    else
+        echo ""
+    fi
+}
+
+vm_import() {
+    if ! vm_snapshot_exists "Pre-Boot"; then
+        vagrant destroy "${BOX_NAME}" --force
+        boot_timeout=1 vagrant up "${BOX_NAME}" || true
+        vagrant halt "${BOX_NAME}" --force
+        VM=$(vm_id)
+    fi
+}
+
 vm_snapshot_exists() {
     if [ "${VM}" != "" ] && \
         VBoxManage snapshot "${VM}" showvminfo "${1}" > /dev/null 2>&1;
