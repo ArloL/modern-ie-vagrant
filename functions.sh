@@ -298,42 +298,43 @@ send_keys() {
 
 vm_run_provisioning() {
     run_command "\\\\vboxsrv\\vagrant\\scripts\\elevate-provision.bat"
-    sleep 73
     case ${BOX_NAME} in
         win7*)
+            sleep 111
             # select Yes on question whether to run script
-            send_keys 14 "<left>" "<enter>"
-            sleep 60
+            send_keys 1 "<left>" "<enter>"
             ;;
     esac
+    sleep 111
     # select Yes on UAC
-    send_keys 14 "<left>" "<enter>"
+    send_keys 1 "<left>" "<enter>"
 }
 
 vm_run_guest_additions_install() {
     case ${BOX_NAME} in
     win7*)
         run_command 'cmd /c "e:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
-        sleep 73
+        sleep 111
         # select Yes on UAC
-        send_keys 14 "<left>" "<enter>"
-        sleep 15
+        send_keys 1 "<left>" "<enter>"
+        sleep 30
         # switch to driver window
         send_keys 1 "<altPress>" "<tab>" "<tab>" "<altRelease>"
         sleep 13
         # select always trust and Yes to add driver
-        send_keys 14 "<left>" "<left>" "<space>" "<right>" "<enter>"
+        send_keys 1 "<left>" "<left>" "<space>" "<right>" "<enter>"
         ;;
     win10*)
         run_command 'cmd /c "d:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
-        sleep 73
+        sleep 111
         # select Yes on UAC
-        send_keys 14 "<left>" "<enter>"
-        sleep 15
+        send_keys 1 "<left>" "<enter>"
+        sleep 30
         # switch to driver window
         send_keys 1 "<altPress>" "<tab>" "<altRelease>"
+        sleep 13
         # select Yes to add driver
-        send_keys 14 "<left>" "<enter>"
+        send_keys 1 "<left>" "<enter>"
         ;;
     esac
 }
