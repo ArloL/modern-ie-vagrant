@@ -76,13 +76,20 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
           "--ostype", attr['ostype'],
           "--recordingfile", "recordings/#{name}-#{recording_suffix}.webm"
         ]
-        vb.customize [
-          "snapshot", :id,
-          "take",
-          "Pre-Boot",
-          "--uniquename",
-          "Timestamp"
-        ]
+        takeSnapshot = true
+        if File.file?(".vagrant/machines/#{name}/virtualbox/id")
+          id = File.read(".vagrant/machines/#{name}/virtualbox/id")
+          if (system("VBoxManage snapshot #{id} showvminfo Pre-Boot >/dev/null 2>&1"))
+            takeSnapshot = false
+          end
+        end
+        if takeSnapshot
+          vb.customize [
+            "snapshot", :id,
+            "take",
+            "Pre-Boot"
+          ]
+        end
       end
 
       node.vm.network "forwarded_port",
