@@ -19,7 +19,7 @@ if ! vm_snapshot_exists "Snapshot 0"; then
     vm_snapshot_restore "Pre-Boot"
     reset_storage_controller
     vm_up
-    sleep 120
+    sleep 180
     vm_snapshot_save "Snapshot 0"
 else
     vm_snapshot_restore_and_up "Snapshot 0" "Snapshot 1" "Snapshot 0-1"
@@ -32,8 +32,8 @@ if ! vm_snapshot_exists "Snapshot 1"; then
 
         if ! vm_snapshot_exists "Snapshot 0-1"; then
             send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" "<enter>" "<esc>"
-            sleep 120
-            vm_close_dialogs 60
+            sleep 180
+            vm_close_dialogs 120
             vm_snapshot_save "Snapshot 0-1"
         else
             vm_snapshot_restore_and_up "Snapshot 0-1" "Snapshot 0-2"
@@ -50,7 +50,7 @@ if ! vm_snapshot_exists "Snapshot 1"; then
         if ! vm_snapshot_exists "Snapshot 0-3"; then
             vm_up
             wait_for_guest_additions_run_level 2 600
-            sleep 120
+            sleep 180
             vm_snapshot_save "Snapshot 0-3"
         else
             vm_snapshot_restore_and_up "Snapshot 0-3"
@@ -63,10 +63,10 @@ if ! vm_snapshot_exists "Snapshot 1"; then
         send_keys 14 "<esc>"
         send_keys 1 "Passw0rd!" "<enter>"
         wait_for_guest_additions_run_level 3 600
-        sleep 120
+        sleep 180
     fi
 
-    vm_close_dialogs 60
+    vm_close_dialogs 120
 
     vm_snapshot_save "Snapshot 1"
 
