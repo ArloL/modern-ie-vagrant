@@ -20,7 +20,7 @@ if ! vm_snapshot_exists "Snapshot 0"; then
     reset_storage_controller
     vm_up
     sleep 180
-    if [ "$(get_guest_additions_run_level)" -ge "0" ]; then
+    if [ "$(get_guest_additions_run_level)" -gt "0" ]; then
         wait_for_guest_additions_run_level 2 600
     fi
     vm_snapshot_save "Snapshot 0"
@@ -36,7 +36,7 @@ if ! vm_snapshot_exists "Snapshot 1"; then
         if ! vm_snapshot_exists "Snapshot 0-1"; then
             send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" "<enter>" "<esc>"
             sleep 180
-            if [ "$(get_guest_additions_run_level)" -ge "0" ]; then
+            if [ "$(get_guest_additions_run_level)" -gt "0" ]; then
                 wait_for_guest_additions_run_level 3 600
             fi
             vm_close_dialogs 120
