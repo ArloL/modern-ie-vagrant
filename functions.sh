@@ -131,6 +131,10 @@ vm_package() {
         --output "${BOX_NAME}.box" \
         --Vagrantfile Vagrantfile-package
     vagrant box add --name "okeeffe-${BOX_NAME}" --force "${BOX_NAME}.box"
+    if [ "${VAGRANT_CLOUD_ACCESS_TOKEN}" != "" ] && [ "${VERSION}" != "undefined" ]; then
+        upload_path=$(curl "https://vagrantcloud.com/api/v1/box/breeze/${BOX_NAME}/version/${VERSION}/provider/virtualbox/upload?access_token=${VAGRANT_CLOUD_ACCESS_TOKEN}" | jq -r ".upload_path")
+        curl -X PUT --upload-file "${BOX_NAME}.box" "${upload_path}"
+    fi
     rm -f "${BOX_NAME}.box"
 }
 
