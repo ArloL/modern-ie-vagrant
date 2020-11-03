@@ -67,6 +67,15 @@ vm_snapshot_save() {
     vagrant snapshot save "${BOX_NAME}" "${1}"
 }
 
+vm_snapshot_delete_all() {
+    mapfile -t snapshots < <(VBoxManage snapshot "${VM}" list --machinereadable | grep '^SnapshotName' | awk -F '"' '{ print $2 }')
+    for snapshot in "${snapshots[@]}"; do
+        if [ "${snapshot}" != "Pre-Boot" ]; then
+            VBoxManage snapshot "${VM}" delete "${snapshot}"
+        fi
+    done
+}
+
 reset_storage_controller() {
     local ImageUUID
     ImageUUID="$(VBoxManage showvminfo "${VM}" --machinereadable | grep 'ImageUUID' | awk -F '"' '{ print $4 }')"
