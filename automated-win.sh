@@ -75,7 +75,7 @@ else
 fi
 
 if ! vm_snapshot_exists "Snapshot 2"; then
-    vm_run_provisioning
+    vm_run_elevate provision
     wait_for_vm_to_shutdown 1200
     vm_snapshot_save "Snapshot 2"
 else

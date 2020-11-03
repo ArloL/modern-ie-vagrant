@@ -303,8 +303,8 @@ send_keys() {
     done
 }
 
-vm_run_provisioning() {
-    run_command '\\vboxsrv\vagrant\scripts\elevate.bat provision'
+vm_run_elevate() {
+    run_command '\\vboxsrv\vagrant\scripts\elevate.bat '"${1}"
     case ${BOX_NAME} in
         win7*)
             sleep 111
