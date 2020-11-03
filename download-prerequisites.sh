@@ -5,6 +5,8 @@ set -o xtrace
 
 cd scripts
 
-wget --quiet --continue --timestamping https://download.virtualbox.org/virtualbox/6.1.16/VBoxGuestAdditions_6.1.16.iso
+latest=$(curl -s https://download.virtualbox.org/virtualbox/LATEST-STABLE.TXT)
 
-7z x VBoxGuestAdditions_6.1.16.iso -y -o"$(pwd)/VBoxGuestAdditions"
+wget --quiet --continue --timestamping "https://download.virtualbox.org/virtualbox/${latest}/VBoxGuestAdditions_${latest}.iso"
+
+7z x "VBoxGuestAdditions_${latest}.iso" -y -o"$(pwd)/VBoxGuestAdditions"
