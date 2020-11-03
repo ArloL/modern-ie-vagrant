@@ -40,7 +40,7 @@ if ! vm_snapshot_exists "Snapshot 1"; then
         fi
 
         if ! vm_snapshot_exists "Snapshot 0-2"; then
-            vm_run_guest_additions_install
+            vm_run_elevate unprovision
             wait_for_vm_to_shutdown 1200
             vm_snapshot_save "Snapshot 0-2"
         else
@@ -49,11 +49,36 @@ if ! vm_snapshot_exists "Snapshot 1"; then
 
         if ! vm_snapshot_exists "Snapshot 0-3"; then
             vm_up
-            wait_for_guest_additions_run_level 2 600
             sleep 180
             vm_snapshot_save "Snapshot 0-3"
         else
-            vm_snapshot_restore_and_up "Snapshot 0-3"
+            vm_snapshot_restore_and_up "Snapshot 0-3" "Snapshot 0-4"
+        fi
+
+        if ! vm_snapshot_exists "Snapshot 0-4"; then
+            send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" "<enter>" "<esc>"
+            sleep 180
+            vm_close_dialogs 120
+            vm_snapshot_save "Snapshot 0-4"
+        else
+            vm_snapshot_restore_and_up "Snapshot 0-4" "Snapshot 0-5"
+        fi
+
+        if ! vm_snapshot_exists "Snapshot 0-5"; then
+            vm_run_guest_additions_install
+            wait_for_vm_to_shutdown 1200
+            vm_snapshot_save "Snapshot 0-5"
+        else
+            vm_snapshot_restore "Snapshot 0-5" "Snapshot 0-6"
+        fi
+
+        if ! vm_snapshot_exists "Snapshot 0-6"; then
+            vm_up
+            wait_for_guest_additions_run_level 2 600
+            sleep 180
+            vm_snapshot_save "Snapshot 0-6"
+        else
+            vm_snapshot_restore_and_up "Snapshot 0-6"
         fi
 
     fi
