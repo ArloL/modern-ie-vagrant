@@ -34,6 +34,8 @@ jobs:
       run: |
         ./download-vm.sh ${{ matrix.os }}
     - name: Build
+      env:
+        VAGRANT_CLOUD_ACCESS_TOKEN: ${{ secrets.VAGRANT_CLOUD_ACCESS_TOKEN }}
       run: |
         ./download-prerequisites.sh
         ./automated-win.sh ${{ matrix.os }} ${{ needs.tag.outputs.new_version }}
