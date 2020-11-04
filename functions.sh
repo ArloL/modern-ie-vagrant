@@ -132,8 +132,43 @@ vm_package() {
         --Vagrantfile Vagrantfile-package
     vagrant box add --name "okeeffe-${BOX_NAME}" --force "${BOX_NAME}.box"
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN}" != "" ] && [ "${VERSION}" != "undefined" ]; then
-        upload_path=$(curl "https://vagrantcloud.com/api/v1/box/breeze/${BOX_NAME}/version/${VERSION}/provider/virtualbox/upload?access_token=${VAGRANT_CLOUD_ACCESS_TOKEN}" | jq -r ".upload_path")
-        curl -X PUT --upload-file "${BOX_NAME}.box" "${upload_path}"
+
+        # create version
+        curl --silent --fail \
+            --header "Content-Type: application/json" \
+            --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
+            "https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}/versions" \
+            --data '
+                { "version": {
+                    "version": "'"${VERSION}"'",
+                    "description": ""
+                } }' > /dev/null
+
+        # create provider
+        curl --silent --fail \
+            --header "Content-Type: application/json" \
+            --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
+            "https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}/version/${VERSION}/providers" \
+            --data '{ "provider": { "name": "virtualbox" } }' > /dev/null
+
+        # prepare upload and get upload path
+        response=$(curl --silent --fail \
+            --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
+            "https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}/version/${VERSION}/provider/virtualbox/upload")
+
+        upload_path=$(echo "$response" | jq -r .upload_path)
+
+        # perform the upload
+        curl --silent --fail \
+            --request PUT \
+            --upload-file "${BOX_NAME}.box" "${upload_path}"
+
+        # release the version
+        curl --silent  --fail \
+            --request PUT \
+            --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
+            "https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}/version/${VERSION}/release"
+
     fi
     rm -f "${BOX_NAME}.box"
 }
