@@ -24,6 +24,8 @@ vm_import() {
         vagrant halt "${BOX_NAME}" --force
         VM=$(vm_id)
     fi
+    rm -f scripts.iso
+    hdiutil makehybrid -iso -joliet -o scripts.iso scripts
 }
 
 vm_up() {
@@ -106,7 +108,7 @@ reset_storage_controller() {
         --port 0 --device 1 --type dvddrive --medium emptydrive
     VBoxManage storageattach "${VM}" \
         --storagectl "IDE Controller" \
-        --port 0 --device 1 --type dvddrive --medium additions
+        --port 0 --device 1 --type dvddrive --medium scripts.iso
 }
 
 vm_reset() {
@@ -354,13 +356,9 @@ send_keys() {
 }
 
 vm_run_elevate() {
-    run_command '\\vboxsrv\vagrant\scripts\elevate.bat '"${1}"
     case ${BOX_NAME} in
-        win7*)
-            sleep 111
-            # select Yes on question whether to run script
-            send_keys 1 "<left>" "<enter>"
-            ;;
+        win7*) run_command 'e:\elevate.bat '"${1}";;
+        win*) run_command 'd:\elevate.bat '"${1}";;
     esac
     sleep 111
     # select Yes on UAC
