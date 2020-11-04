@@ -24,12 +24,22 @@ vm_import() {
         vagrant halt "${BOX_NAME}" --force
         VM=$(vm_id)
     fi
-    rm -f scripts.iso
-    hdiutil makehybrid -iso -joliet -o scripts.iso scripts
 }
 
 vm_up() {
+    scriptIso="scripts-$(date -u +"%Y%m%dT%H%M%S").iso"
+    hdiutil makehybrid -iso -joliet -o "${scriptIso}" scripts
+    scriptsIsoMd5="scripts-$(md5 -q "${scriptIso}").iso"
     boot_timeout=15 vagrant up "${BOX_NAME}" || true
+    if [ ! -f "${scriptsIsoMd5}" ]; then
+        mv "${scriptIso}" "${scriptsIsoMd5}"
+        VBoxManage storageattach "${VM}" \
+            --storagectl "IDE Controller" \
+            --port 0 --device 1 --type dvddrive --medium "${scriptsIsoMd5}"
+        vm_close_dialogs 15
+    else
+        rm -f "${scriptIso}"
+    fi
 }
 
 vm_snapshot_exists() {
@@ -106,9 +116,6 @@ reset_storage_controller() {
     VBoxManage storageattach "${VM}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium emptydrive
-    VBoxManage storageattach "${VM}" \
-        --storagectl "IDE Controller" \
-        --port 0 --device 1 --type dvddrive --medium scripts.iso
 }
 
 vm_reset() {
