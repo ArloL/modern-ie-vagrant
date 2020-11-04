@@ -23,13 +23,18 @@ if ! vm_snapshot_exists "Snapshot 0"; then
     fi
     vm_snapshot_save "Snapshot 0"
 else
-    vm_snapshot_restore_and_up "Snapshot 0" "Snapshot 1" "Snapshot 0-1"
+    if [ "${GUEST_ADDITIONS_INSTALL_MODE}" = "manual" ]; then
+        vm_snapshot_restore_and_up "Snapshot 0" "Snapshot 0-1"
+    else
+        vm_snapshot_restore_and_up "Snapshot 0" "Snapshot 1" "Snapshot 0-1"
+    fi
 fi
 
-if ! vm_snapshot_exists "Snapshot 1"; then
+if ! vm_snapshot_exists "Snapshot 1" ||
+    [ "${GUEST_ADDITIONS_INSTALL_MODE}" = "manual" ]; then
 
-    if [ "${GUEST_ADDITIONS_INSTALL_MODE}" = "manual" ] ||
-        [ "$(get_guest_additions_run_level)" -eq "0" ]; then
+    if [ "$(get_guest_additions_run_level)" -eq "0" ] ||
+        [ "${GUEST_ADDITIONS_INSTALL_MODE}" = "manual" ]; then
 
         if ! vm_snapshot_exists "Snapshot 0-1"; then
             send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" "<enter>" "<esc>"
