@@ -123,6 +123,8 @@ reset_storage_controller() {
 }
 
 vm_reset() {
+    vm_network_connection 1 on
+
     VBoxManage storageattach "${VM}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium emptydrive
@@ -364,6 +366,10 @@ send_keys() {
         esac
         sleep "${timeout}"
     done
+}
+
+vm_network_connection() {
+    VBoxManage modifyvm "${VM}" --cableconnected"${1}" "${2}"
 }
 
 vm_run_elevate() {
