@@ -16,15 +16,15 @@ Make sure required software is installed with e.g.
 
 ## All machines
     
-    ./download-prerequisites.sh
     ./download-vms.sh
+    ./download-prerequisites.sh
     ./automated.sh
 
 ## A single machine
 
-    ./download-prerequisites.sh
     ./download-vm.sh win10-edge
-    ./automated.sh win10-edge
+    ./download-prerequisites.sh win10-edge
+    ./automated-win.sh win10-edge
 
 # Sources
 
