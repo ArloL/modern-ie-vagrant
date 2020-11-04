@@ -36,9 +36,10 @@ jobs:
     - name: Build
       env:
         VAGRANT_CLOUD_ACCESS_TOKEN: ${{ secrets.VAGRANT_CLOUD_ACCESS_TOKEN }}
+        VERSION: ${{ needs.tag.outputs.new_version }}
       run: |
         ./download-prerequisites.sh
-        ./automated-win.sh ${{ matrix.os }} ${{ needs.tag.outputs.new_version }}
+        ./automated-win.sh ${{ matrix.os }}
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
