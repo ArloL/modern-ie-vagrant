@@ -364,8 +364,8 @@ send_keys() {
 
 vm_run_elevate() {
     case ${BOX_NAME} in
-        win7*) run_command 'e:\elevate.bat '"${1}";;
-        win*) run_command 'd:\elevate.bat '"${1}";;
+        win7*) run_command "e:\\elevate.bat e:\\ ${1}";;
+        win*) run_command "d:\\elevate.bat d:\\ ${1}";;
     esac
     sleep 110
     # select Yes on UAC
