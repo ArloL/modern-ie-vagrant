@@ -26,7 +26,11 @@ Vagrant.configure(2) do |config|
       "--vrde", "off",
       "--usb", "off",
       "--clipboard-mode", "disabled",
-      "--recording", "on"
+      "--recording", "on",
+      "--boot1", "disk",
+      "--boot2", "none",
+      "--boot3", "none",
+      "--boot4", "none"
     ]
   end
 
