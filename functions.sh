@@ -58,7 +58,7 @@ vm_snapshot_restore() {
     if [ "${3:-}" != "" ] && vm_snapshot_exists "${3}"; then
         return 0
     fi
-    vagrant snapshot restore "${BOX_NAME}" "${1}"  --no-start
+    vagrant snapshot restore "${BOX_NAME}" "${1}" --no-start
     VBoxManage modifyvm "${VM}" \
         --recordingfile \
         "recordings/${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").webm"
@@ -179,7 +179,7 @@ vm_package() {
             --upload-file "${BOX_NAME}.box" "${upload_path}"
 
         # release the version
-        curl --silent  --fail \
+        curl --silent --fail \
             --request PUT \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
             "${base_url}/version/${VERSION}/release"
