@@ -38,7 +38,7 @@ jobs:
         VAGRANT_CLOUD_ACCESS_TOKEN: ${{ secrets.VAGRANT_CLOUD_ACCESS_TOKEN }}
         VERSION: ${{ needs.tag.outputs.new_version }}
       run: |
-        ./download-prerequisites.sh
+        ./download-prerequisites.sh ${{ matrix.os }}
         ./automated-win.sh ${{ matrix.os }}
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
@@ -59,7 +59,7 @@ jobs:
         ./download-vm.sh ${{ matrix.os }}
     - name: Build
       run: |
-        ./download-prerequisites.sh
+        ./download-prerequisites.sh ${{ matrix.os }}
         ./automated-win.sh ${{ matrix.os }} manual
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
