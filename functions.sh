@@ -360,7 +360,7 @@ vm_run_elevate() {
         win7*) run_command 'e:\elevate.bat '"${1}";;
         win*) run_command 'd:\elevate.bat '"${1}";;
     esac
-    sleep 111
+    sleep 110
     # select Yes on UAC
     send_keys 1 "<left>" "<enter>"
 }
