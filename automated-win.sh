@@ -52,12 +52,10 @@ if ! vm_snapshot_exists "Snapshot 1" ||
             vm_run_elevate unprovision
             wait_for_vm_to_shutdown 1200
             vm_snapshot_save "Snapshot 0-2"
-        else
-            vm_snapshot_restore "Snapshot 0-2" "Snapshot 0-3"
         fi
 
         if ! vm_snapshot_exists "Snapshot 0-3"; then
-            vm_up
+            vm_snapshot_restore_and_up "Snapshot 0-2"
             sleep 180
             vm_snapshot_save "Snapshot 0-3"
         else
@@ -77,12 +75,10 @@ if ! vm_snapshot_exists "Snapshot 1" ||
             vm_run_guest_additions_install
             wait_for_vm_to_shutdown 1200
             vm_snapshot_save "Snapshot 0-5"
-        else
-            vm_snapshot_restore "Snapshot 0-5" "Snapshot 0-6"
         fi
 
         if ! vm_snapshot_exists "Snapshot 0-6"; then
-            vm_up
+            vm_snapshot_restore_and_up "Snapshot 0-5"
             wait_for_guest_additions_run_level 2 600
             sleep 180
             vm_snapshot_save "Snapshot 0-6"
