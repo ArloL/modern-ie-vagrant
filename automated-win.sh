@@ -16,9 +16,7 @@ trap 'vagrant halt "${BOX_NAME}" --force' EXIT
 vm_import
 
 if ! vm_snapshot_exists "Snapshot 0"; then
-    vm_snapshot_restore "Pre-Boot"
-    reset_storage_controller
-    vm_up
+    vm_snapshot_restore_and_up "Pre-Boot"
     sleep 180
     if [ "$(get_guest_additions_run_level)" -gt "0" ]; then
         wait_for_guest_additions_run_level 2 600

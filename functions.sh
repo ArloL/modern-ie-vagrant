@@ -62,6 +62,10 @@ vm_snapshot_restore() {
     VBoxManage modifyvm "${VM}" \
         --recordingfile \
         "recordings/${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").webm"
+    if [ "${1}" = "Pre-Boot" ]; then
+        reset_storage_controller
+        vm_network_connection 1 off
+    fi
 }
 
 vm_snapshot_restore_and_up() {
