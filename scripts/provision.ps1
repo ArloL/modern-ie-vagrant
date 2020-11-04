@@ -6,8 +6,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultU
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultPassword /t REG_SZ /d "Passw0rd!" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d "1" /f
 
-.\vagrant-onstart.ps1
-
 copy .\vagrant-onstart.ps1 C:\Users\IEUser\vagrant-onstart.ps1
 copy .\vagrant-onstart.cmd C:\Users\IEUser\vagrant-onstart.cmd
 
