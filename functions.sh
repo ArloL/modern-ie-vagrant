@@ -133,11 +133,13 @@ vm_package() {
     vagrant box add --name "okeeffe-${BOX_NAME}" --force "${BOX_NAME}.box"
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN}" != "" ] && [ "${VERSION}" != "undefined" ]; then
 
+        base_url="https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}"
+
         # create version
         curl --silent --fail \
             --header "Content-Type: application/json" \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-            "https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}/versions" \
+            "${base_url}/versions" \
             --data '
                 { "version": {
                     "version": "'"${VERSION}"'",
@@ -148,13 +150,13 @@ vm_package() {
         curl --silent --fail \
             --header "Content-Type: application/json" \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-            "https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}/version/${VERSION}/providers" \
+            "${base_url}/version/${VERSION}/providers" \
             --data '{ "provider": { "name": "virtualbox" } }' > /dev/null
 
         # prepare upload and get upload path
         response=$(curl --silent --fail \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-            "https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}/version/${VERSION}/provider/virtualbox/upload")
+            "${base_url}/version/${VERSION}/provider/virtualbox/upload")
 
         upload_path=$(echo "$response" | jq -r .upload_path)
 
@@ -167,7 +169,7 @@ vm_package() {
         curl --silent  --fail \
             --request PUT \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-            "https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}/version/${VERSION}/release"
+            "${base_url}/version/${VERSION}/release"
 
     fi
     rm -f "${BOX_NAME}.box"
