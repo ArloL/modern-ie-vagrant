@@ -18,6 +18,9 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Dependencies
+      run: |
+        brew install bash
     - name: Download
       run: |
         ./download-vm.sh ${{ matrix.os }}
