@@ -20,6 +20,7 @@ vm_id() {
 vm_import() {
     if ! vm_snapshot_exists "Pre-Boot"; then
         download_box "${BOX_NAME}"
+        download_prerequisites "${BOX_NAME}"
         vagrant destroy "${BOX_NAME}" --force
         boot_timeout=1 vagrant up "${BOX_NAME}" || true
         vagrant halt "${BOX_NAME}" --force
@@ -521,5 +522,22 @@ download() {
     rm -f "modern.ie-${name}.zip"
     vagrant box add --name="modern.ie/${name}" --force "modern.ie-${name}.box"
     rm -f "modern.ie-${name}.box"
+    popd
+}
+
+download_prerequisites() {
+    pushd scripts
+    latest=$(curl -s https://download.virtualbox.org/virtualbox/LATEST-STABLE.TXT)
+    wget --quiet --continue --timestamping "https://download.virtualbox.org/virtualbox/${latest}/VBoxGuestAdditions_${latest}.iso"
+    7z x "VBoxGuestAdditions_${latest}.iso" -y -o"$(pwd)/VBoxGuestAdditions"
+    case ${1:-} in
+        "win7"*)
+            ;&
+        "")
+            wget --quiet --continue --timestamping --output-document=Win7-KB3191566-x86.zip \
+                "https://go.microsoft.com/fwlink/?linkid=839522"
+            7z x "Win7-KB3191566-x86.zip" -y -o"$(pwd)/Win7-KB3191566-x86"
+            ;;
+    esac
     popd
 }
