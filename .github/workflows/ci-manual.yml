@@ -1,9 +1,7 @@
-name: CI
+name: CI Manual
 
 on:
   push:
-    branches-ignore:
-      - master
   schedule:
     - cron: '2 10 28 * *'
 
@@ -14,7 +12,6 @@ jobs:
       matrix:
         os: [win7-ie8, win7-ie9, win7-ie10, win7-ie11, win81-ie11, win10-edge]
     name: ${{ matrix.os }}
-    needs: tag
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
@@ -24,9 +21,9 @@ jobs:
     - name: Build
       run: |
         ./download-prerequisites.sh ${{ matrix.os }}
-        ./automated-win.sh ${{ matrix.os }}
+        ./automated-win.sh ${{ matrix.os }} manual
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
-        name: recordings from ${{ matrix.os }} build for ${{ github.sha }}
+        name: recordings from ${{ matrix.os }}-no-additions build for ${{ github.sha }}
         path: recordings
