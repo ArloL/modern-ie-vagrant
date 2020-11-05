@@ -11,7 +11,7 @@ GUEST_ADDITIONS_INSTALL_MODE="${2:-auto}"
 # shellcheck disable=SC2034
 VM=$(vm_id)
 
-trap 'vagrant halt "${BOX_NAME}" --force' EXIT
+trap 'vm_halt' EXIT
 
 vm_import
 
@@ -72,7 +72,7 @@ if ! vm_snapshot_exists "Snapshot 1" ||
         fi
 
         if ! vm_snapshot_exists "Snapshot 0-5"; then
-            vm_run_guest_additions_install
+            vm_run_elevate provision
             wait_for_vm_to_shutdown 1200
             vm_snapshot_save "Snapshot 0-5"
         fi

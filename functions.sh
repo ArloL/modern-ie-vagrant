@@ -27,18 +27,41 @@ vm_import() {
 }
 
 vm_up() {
+    VMState=$(vm_info "VMState=" 2)
+    if [ "${VMState}" = "saved" ]; then
+        boot_timeout=15 vagrant up "${BOX_NAME}" || true
+        vm_storage_attach
+    else
+        vm_storage_attach
+        boot_timeout=15 vagrant up "${BOX_NAME}" || true
+    fi
+}
+
+vm_halt() {
+    vagrant halt "${BOX_NAME}" --force
+    vm_storage_detach_and_close
+}
+
+vm_storage_detach_and_close() {
+    disk_path=$(vm_info '^"IDE Controller-0-1"=' 4)
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 0 --device 1 --type dvddrive --medium "emptydrive"
+    if [ "${disk_path}" != "emptydrive" ]; then
+        VBoxManage closemedium dvd "${disk_path}" --delete || true
+        rm -f "${disk_path}"
+    fi
+}
+
+vm_storage_attach() {
+    vm_storage_detach_and_close
     scriptIso="scripts-$(date -u +"%Y%m%dT%H%M%S").iso"
     hdiutil makehybrid -iso -joliet -o "${scriptIso}" scripts
-    scriptsIsoMd5="scripts-$(md5 -q "${scriptIso}").iso"
-    boot_timeout=15 vagrant up "${BOX_NAME}" || true
-    if [ ! -f "${scriptsIsoMd5}" ]; then
-        mv "${scriptIso}" "${scriptsIsoMd5}"
-        VBoxManage storageattach "${VM}" \
-            --storagectl "IDE Controller" \
-            --port 0 --device 1 --type dvddrive --medium "${scriptsIsoMd5}"
+    VBoxManage storageattach "${VM}" \
+        --storagectl "IDE Controller" \
+        --port 0 --device 1 --type dvddrive --medium "${scriptIso}"
+    if [ "$(vm_info "VMState=" 2)" = "running" ]; then
         vm_close_dialogs 15
-    else
-        rm -f "${scriptIso}"
     fi
 }
 
@@ -58,6 +81,7 @@ vm_snapshot_restore() {
     if [ "${3:-}" != "" ] && vm_snapshot_exists "${3}"; then
         return 0
     fi
+    vm_storage_detach_and_close
     vagrant snapshot restore "${BOX_NAME}" "${1}" --no-start
     VBoxManage modifyvm "${VM}" \
         --recordingfile \
@@ -80,7 +104,9 @@ vm_snapshot_restore_and_up() {
 }
 
 vm_snapshot_save() {
+    vm_storage_detach_and_close
     vagrant snapshot save "${BOX_NAME}" "${1}"
+    vm_storage_attach
 }
 
 vm_snapshot_delete_all() {
