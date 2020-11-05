@@ -15,15 +15,11 @@ Make sure required software is installed with e.g.
 `brew cask install vagrant virtualbox`
 
 ## All machines
-    
-    ./download-vms.sh
-    ./download-prerequisites.sh
+
     ./automated.sh
 
 ## A single machine
 
-    ./download-vm.sh win10-edge
-    ./download-prerequisites.sh win10-edge
     ./automated-win.sh win10-edge
 
 # Sources
