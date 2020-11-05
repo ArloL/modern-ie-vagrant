@@ -32,9 +32,6 @@ jobs:
     - name: Dependencies
       run: |
         brew install bash
-    - name: Download
-      run: |
-        ./download-vm.sh ${{ matrix.os }}
     - name: Build
       env:
         VAGRANT_CLOUD_ACCESS_TOKEN: ${{ secrets.VAGRANT_CLOUD_ACCESS_TOKEN }}

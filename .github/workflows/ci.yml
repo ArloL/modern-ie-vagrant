@@ -21,9 +21,6 @@ jobs:
     - name: Dependencies
       run: |
         brew install bash
-    - name: Download
-      run: |
-        ./download-vm.sh ${{ matrix.os }}
     - name: Build
       run: |
         ./automated-win.sh ${{ matrix.os }}
