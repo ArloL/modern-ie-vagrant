@@ -26,7 +26,6 @@ jobs:
         ./download-vm.sh ${{ matrix.os }}
     - name: Build
       run: |
-        ./download-prerequisites.sh ${{ matrix.os }}
         ./automated-win.sh ${{ matrix.os }}
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}

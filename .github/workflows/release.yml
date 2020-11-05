@@ -40,7 +40,6 @@ jobs:
         VAGRANT_CLOUD_ACCESS_TOKEN: ${{ secrets.VAGRANT_CLOUD_ACCESS_TOKEN }}
         VERSION: ${{ github.event.release.tag_name }}
       run: |
-        ./download-prerequisites.sh ${{ matrix.os }}
         ./automated-win.sh ${{ matrix.os }}
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
