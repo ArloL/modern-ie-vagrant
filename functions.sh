@@ -51,7 +51,7 @@ vm_storage_detach_and_close() {
         --port 0 --device 1 --type dvddrive --medium "emptydrive"
     if [ "${disk_path}" != "emptydrive" ]; then
         VBoxManage closemedium dvd "${disk_path}" --delete || true
-        rm -f "${disk_path}"
+        rm -f "${disk_path}" || true
     fi
 }
 
