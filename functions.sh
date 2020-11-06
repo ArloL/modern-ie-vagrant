@@ -57,7 +57,7 @@ vm_storage_detach_and_close() {
 
 vm_storage_attach() {
     vm_storage_detach_and_close
-    scriptIso="scripts-$(date -u +"%Y%m%dT%H%M%S").iso"
+    scriptIso="scripts-${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").iso"
     hdiutil makehybrid -iso -joliet -o "${scriptIso}" scripts
     VBoxManage storageattach "${VM}" \
         --storagectl "IDE Controller" \
