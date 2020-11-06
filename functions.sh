@@ -81,9 +81,6 @@ vm_snapshot_restore_and_up() {
     if [ "${2:-}" != "" ] && vm_snapshot_exists "${2}"; then
         return 0
     fi
-    if [ "${3:-}" != "" ] && vm_snapshot_exists "${3}"; then
-        return 0
-    fi
     vm_storage_detach
     vagrant snapshot restore "${box_name}" "${1}" --no-start
     VBoxManage modifyvm "${vm_uuid}" \
