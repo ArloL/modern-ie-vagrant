@@ -12,7 +12,10 @@ install_mode="${2:-auto}"
 trap 'vm_halt' EXIT
 
 vm_import
-vm_snapshot_delete_all
+
+if [ "${3:-}" = "reset" ]; then
+    vm_snapshot_delete_all
+fi
 
 step=1
 while true ; do
