@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-vm_id() {
+vm_uuid() {
     #shellcheck disable=SC2154
     if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
         vm_uuid=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
@@ -14,7 +14,7 @@ vm_id() {
 
 vm_import() {
     session_id=$(date -u +"%Y%m%dT%H%M%S")
-    vm_id
+    vm_uuid
     if ! vm_snapshot_exists "Pre-Boot"; then
         download_box
         download_prerequisites
@@ -23,7 +23,7 @@ vm_import() {
             X_VAGRANT_BOOT_TIMEOUT=1 \
             vagrant up "${box_name}" || true
         vagrant halt "${box_name}" --force
-        vm_id
+        vm_uuid
     fi
 }
 
