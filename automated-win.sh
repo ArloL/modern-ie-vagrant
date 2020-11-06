@@ -121,4 +121,4 @@ else
     vm_snapshot_restore "Snapshot 3"
 fi
 
-vm_package "${BOX_NAME}"
+vm_package
