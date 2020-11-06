@@ -55,7 +55,7 @@ vm_storage_detach() {
 
 vm_storage_attach() {
     vm_storage_detach
-    scriptIso="scripts-${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").iso"
+    scriptIso="scripts-${BOX_NAME}-${SESSION_ID}.iso"
     if [ ! -f "${scriptIso}" ]; then
         hdiutil makehybrid -iso -joliet -o "${scriptIso}" scripts
     fi
