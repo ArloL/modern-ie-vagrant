@@ -165,7 +165,8 @@ vm_package() {
         --output "${box_name}.box" \
         --Vagrantfile Vagrantfile-package
     vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
-    if [ "${VAGRANT_CLOUD_ACCESS_TOKEN:-}" != "" ] && [ "${VERSION:-}" != "undefined" ]; then
+    if [ "${VAGRANT_CLOUD_ACCESS_TOKEN:-}" != "" ] &&
+            [ "${VERSION:-}" != "undefined" ]; then
 
         local base_url="https://app.vagrantup.com/api/v1/box/breeze/${box_name}"
 
