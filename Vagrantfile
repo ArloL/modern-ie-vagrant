@@ -8,7 +8,7 @@ end
 
 take_pre_boot_snapshot = false
 if ENV["X_VAGRANT_TAKE_PRE_BOOT_SNAPSHOT"] != nil
-  boot_timeout = ENV["X_VAGRANT_TAKE_PRE_BOOT_SNAPSHOT"].strip.to_boolean
+  take_pre_boot_snapshot = ENV["X_VAGRANT_TAKE_PRE_BOOT_SNAPSHOT"] == "true"
 end
 
 recording_suffix = Time.now.utc.strftime("%Y%m%dT%H%M%S")
