@@ -489,7 +489,7 @@ download_prerequisites() {
     case ${box_name} in
     "win7"*)
         wget --quiet --continue \
-            --output-document=Win7-KB3191566-x86.zip \
+            --output-document=scripts/Win7-KB3191566-x86.zip \
             "https://go.microsoft.com/fwlink/?linkid=839522"
         7z x "scripts/Win7-KB3191566-x86.zip" -y -o"$(pwd)/scripts/Win7-KB3191566-x86"
         ;;
