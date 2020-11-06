@@ -10,22 +10,22 @@ run_command() {
 }
 
 vm_id() {
-    if [ -f ".vagrant/machines/${BOX_NAME}/virtualbox/id" ]; then
-        VM=$(cat ".vagrant/machines/${BOX_NAME}/virtualbox/id")
+    if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
+        vm_uuid=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
     else
-        VM=""
+        vm_uuid=""
     fi
 }
 
 vm_import() {
-    SESSION_ID=$(date -u +"%Y%m%dT%H%M%S")
+    session_id=$(date -u +"%Y%m%dT%H%M%S")
     vm_id
     if ! vm_snapshot_exists "Pre-Boot"; then
-        download_box "${BOX_NAME}"
-        download_prerequisites "${BOX_NAME}"
-        vagrant destroy "${BOX_NAME}" --force
-        boot_timeout=1 vagrant up "${BOX_NAME}" || true
-        vagrant halt "${BOX_NAME}" --force
+        download_box "${box_name}"
+        download_prerequisites "${box_name}"
+        vagrant destroy "${box_name}" --force
+        boot_timeout=1 vagrant up "${box_name}" || true
+        vagrant halt "${box_name}" --force
         vm_id
     fi
 }
@@ -33,43 +33,43 @@ vm_import() {
 vm_up() {
     VMState=$(vm_info "VMState=" 2)
     if [ "${VMState}" = "saved" ]; then
-        boot_timeout=15 vagrant up "${BOX_NAME}" || true
+        boot_timeout=15 vagrant up "${box_name}" || true
         vm_storage_attach
     else
         vm_storage_attach
-        boot_timeout=15 vagrant up "${BOX_NAME}" || true
+        boot_timeout=15 vagrant up "${box_name}" || true
     fi
 }
 
 vm_halt() {
-    vagrant halt "${BOX_NAME}" --force
+    vagrant halt "${box_name}" --force
     vm_storage_detach
-    find "$(pwd)" -maxdepth 1 -type f -name "scripts-${BOX_NAME}-*.iso" -exec VBoxManage closemedium dvd {} --delete \;
+    find "$(pwd)" -maxdepth 1 -type f -name "scripts-${box_name}-*.iso" -exec VBoxManage closemedium dvd {} --delete \;
 }
 
 vm_storage_detach() {
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium "emptydrive"
 }
 
 vm_storage_attach() {
     vm_storage_detach
-    scriptIso="scripts-${BOX_NAME}-${SESSION_ID}.iso"
-    if [ ! -f "${scriptIso}" ]; then
-        hdiutil makehybrid -iso -joliet -o "${scriptIso}" scripts
+    scripts_iso="scripts-${box_name}-${session_id}.iso"
+    if [ ! -f "${scripts_iso}" ]; then
+        hdiutil makehybrid -iso -joliet -o "${scripts_iso}" scripts
     fi
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
-        --port 0 --device 1 --type dvddrive --medium "${scriptIso}"
+        --port 0 --device 1 --type dvddrive --medium "${scripts_iso}"
     if [ "$(vm_info "VMState=" 2)" = "running" ]; then
         vm_close_dialogs 15
     fi
 }
 
 vm_snapshot_exists() {
-    if [ "${VM}" != "" ] && \
-        VBoxManage snapshot "${VM}" showvminfo "${1}" > /dev/null 2>&1;
+    if [ "${vm_uuid}" != "" ] && \
+        VBoxManage snapshot "${vm_uuid}" showvminfo "${1}" > /dev/null 2>&1;
     then
         return 0;
     fi
@@ -84,10 +84,10 @@ vm_snapshot_restore_and_up() {
         return 0
     fi
     vm_storage_detach
-    vagrant snapshot restore "${BOX_NAME}" "${1}" --no-start
-    VBoxManage modifyvm "${VM}" \
+    vagrant snapshot restore "${box_name}" "${1}" --no-start
+    VBoxManage modifyvm "${vm_uuid}" \
         --recordingfile \
-        "recordings/${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").webm"
+        "recordings/${box_name}-$(date -u +"%Y%m%dT%H%M%S").webm"
     if [ "${1}" = "Pre-Boot" ]; then
         reset_storage_controller
         vm_network_connection 1 off
@@ -100,45 +100,45 @@ vm_snapshot_restore_and_up() {
 
 vm_snapshot_save() {
     vm_storage_detach
-    vagrant snapshot save "${BOX_NAME}" "${1}"
+    vagrant snapshot save "${box_name}" "${1}"
     vm_storage_attach
 }
 
 vm_snapshot_delete_all() {
-    mapfile -t snapshots < <(VBoxManage snapshot "${VM}" list --machinereadable | grep '^SnapshotName' | awk -F '"' '{ print $2 }')
+    mapfile -t snapshots < <(VBoxManage snapshot "${vm_uuid}" list --machinereadable | grep '^SnapshotName' | awk -F '"' '{ print $2 }')
     for snapshot in "${snapshots[@]}"; do
         if [ "${snapshot}" != "Pre-Boot" ]; then
-            VBoxManage snapshot "${VM}" delete "${snapshot}"
+            VBoxManage snapshot "${vm_uuid}" delete "${snapshot}"
         fi
     done
 }
 
 reset_storage_controller() {
     local ImageUUID
-    ImageUUID="$(VBoxManage showvminfo "${VM}" --machinereadable | grep 'ImageUUID' | awk -F '"' '{ print $4 }')"
+    ImageUUID="$(VBoxManage showvminfo "${vm_uuid}" --machinereadable | grep 'ImageUUID' | awk -F '"' '{ print $4 }')"
 
     if [ "${ImageUUID}" = "" ]; then
         echo "Could not find ImageUUID"
         return 1
     fi
 
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 0 --device 0 --medium none || true
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --medium none || true
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 1 --device 0 --medium none || true
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 1 --device 1 --medium none || true
 
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 0 --device 0 --type hdd --medium "${ImageUUID}"
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium emptydrive
 }
@@ -146,30 +146,30 @@ reset_storage_controller() {
 vm_reset() {
     vm_network_connection 1 on
 
-    VBoxManage storageattach "${VM}" \
+    VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium emptydrive
 
-    VBoxManage setextradata "${VM}" "GUI/Fullscreen"
-    VBoxManage setextradata "${VM}" "GUI/LastCloseAction"
-    VBoxManage setextradata "${VM}" "GUI/LastGuestSizeHint"
-    VBoxManage setextradata "${VM}" "GUI/LastNormalWindowPosition"
-    VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeDevicesMenuActions"
-    VBoxManage setextradata "${VM}" "GUI/RestrictedRuntimeMachineMenuActions"
-    VBoxManage setextradata "${VM}" "GUI/ScaleFactor"
-    VBoxManage setextradata "${VM}" "GUI/StatusBar/IndicatorOrder"
+    VBoxManage setextradata "${vm_uuid}" "GUI/Fullscreen"
+    VBoxManage setextradata "${vm_uuid}" "GUI/LastCloseAction"
+    VBoxManage setextradata "${vm_uuid}" "GUI/LastGuestSizeHint"
+    VBoxManage setextradata "${vm_uuid}" "GUI/LastNormalWindowPosition"
+    VBoxManage setextradata "${vm_uuid}" "GUI/RestrictedRuntimeDevicesMenuActions"
+    VBoxManage setextradata "${vm_uuid}" "GUI/RestrictedRuntimeMachineMenuActions"
+    VBoxManage setextradata "${vm_uuid}" "GUI/ScaleFactor"
+    VBoxManage setextradata "${vm_uuid}" "GUI/StatusBar/IndicatorOrder"
 }
 
 vm_package() {
-    VBoxManage modifyvm "${VM}" --recording off
+    VBoxManage modifyvm "${vm_uuid}" --recording off
     vm_reset
-    vagrant package "${BOX_NAME}" \
-        --output "${BOX_NAME}.box" \
+    vagrant package "${box_name}" \
+        --output "${box_name}.box" \
         --Vagrantfile Vagrantfile-package
-    vagrant box add --name "okeeffe-${BOX_NAME}" --force "${BOX_NAME}.box"
+    vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN}" != "" ] && [ "${VERSION}" != "undefined" ]; then
 
-        base_url="https://app.vagrantup.com/api/v1/box/breeze/${BOX_NAME}"
+        base_url="https://app.vagrantup.com/api/v1/box/breeze/${box_name}"
 
         # create version
         curl --silent --fail \
@@ -199,7 +199,7 @@ vm_package() {
         # perform the upload
         curl --silent --fail \
             --request PUT \
-            --upload-file "${BOX_NAME}.box" "${upload_path}"
+            --upload-file "${box_name}.box" "${upload_path}"
 
         # release the version
         curl --silent --fail \
@@ -208,16 +208,16 @@ vm_package() {
             "${base_url}/version/${VERSION}/release"
 
     fi
-    rm -f "${BOX_NAME}.box"
+    rm -f "${box_name}.box"
 }
 
 vm_info() {
-    VBoxManage showvminfo "${VM}" --machinereadable | grep "${1}" | awk -F '"' '{ print $'"${2}"' }'
+    VBoxManage showvminfo "${vm_uuid}" --machinereadable | grep "${1}" | awk -F '"' '{ print $'"${2}"' }'
 }
 
 get_guest_additions_run_level() {
     local GuestAdditionsRunLevel=0
-    eval "$(VBoxManage showvminfo "${VM}" \
+    eval "$(VBoxManage showvminfo "${vm_uuid}" \
         --machinereadable | grep 'GuestAdditionsRunLevel')"
     echo ${GuestAdditionsRunLevel}
 }
@@ -225,7 +225,7 @@ get_guest_additions_run_level() {
 wait_for_vm_to_shutdown() {
     local timeout=${1}
     while true ; do
-        echo "Waiting for ${VM} to be in VMState poweroff."
+        echo "Waiting for ${vm_uuid} to be in VMState poweroff."
         VMState=$(vm_info "VMState=" 2)
         if [ "${VMState}" = "poweroff" ]; then
             return 0;
@@ -241,7 +241,7 @@ wait_for_vm_to_shutdown() {
 wait_for_guest_additions_run_level() {
     local timeout=${2}
     while true ; do
-        echo "Waiting for ${VM} to be in guest additions run level ${1}."
+        echo "Waiting for ${vm_uuid} to be in guest additions run level ${1}."
         GuestAdditionsRunLevel=$(get_guest_additions_run_level)
         if [ "${GuestAdditionsRunLevel}" -ge "${1}" ]; then
             return 0;
@@ -255,7 +255,7 @@ wait_for_guest_additions_run_level() {
 }
 
 send_keys_as_hex() {
-    VBoxManage controlvm "${VM}" keyboardputscancode "$@"
+    VBoxManage controlvm "${vm_uuid}" keyboardputscancode "$@"
     sleep 1
 }
 
@@ -390,11 +390,11 @@ send_keys() {
 }
 
 vm_network_connection() {
-    VBoxManage modifyvm "${VM}" --cableconnected"${1}" "${2}"
+    VBoxManage modifyvm "${vm_uuid}" --cableconnected"${1}" "${2}"
 }
 
 vm_run_elevate() {
-    case ${BOX_NAME} in
+    case ${box_name} in
         win7*) run_command "e:\\elevate.bat e:\\ ${1}";;
         win*) run_command "d:\\elevate.bat d:\\ ${1}";;
     esac
@@ -404,7 +404,7 @@ vm_run_elevate() {
 }
 
 vm_run_guest_additions_install() {
-    case ${BOX_NAME} in
+    case ${box_name} in
     win7*)
         run_command 'cmd /c "e:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
         sleep 111

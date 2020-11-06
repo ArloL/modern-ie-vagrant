@@ -6,8 +6,8 @@ set -o xtrace
 
 . functions.sh
 
-BOX_NAME="${1:-win7-ie8}"
-GUEST_ADDITIONS_INSTALL_MODE="${2:-auto}"
+box_name="${1:-win7-ie8}"
+install_mode="${2:-auto}"
 
 trap 'vm_halt' EXIT
 
@@ -17,7 +17,7 @@ vm_snapshot_delete_all
 step=1
 while true ; do
     nextStep=$((step + 1))
-    if [ "${GUEST_ADDITIONS_INSTALL_MODE}" = "auto" ] &&
+    if [ "${install_mode}" = "auto" ] &&
             [ "${step}" = 2 ]; then
         nextStep=6
     fi
@@ -55,11 +55,11 @@ while true ; do
             vm_run_elevate provision
             wait_for_vm_to_shutdown 1200
             vm_network_connection 1 on
-            vagrant up "${BOX_NAME}" --provision
+            vagrant up "${box_name}" --provision
             ;;
         7)
-            vagrant reload "${BOX_NAME}" --provision
-            vagrant halt "${BOX_NAME}"
+            vagrant reload "${box_name}" --provision
+            vagrant halt "${box_name}"
             ;;
         8)
             vm_package

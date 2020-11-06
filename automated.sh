@@ -2,11 +2,11 @@
 
 set -o nounset
 
-GUEST_ADDITIONS_INSTALL_MODE="${1:-auto}"
+install_mode="${1:-auto}"
 
-./automated-win.sh win7-ie8 "${GUEST_ADDITIONS_INSTALL_MODE}"
-./automated-win.sh win7-ie9 "${GUEST_ADDITIONS_INSTALL_MODE}"
-./automated-win.sh win7-ie10 "${GUEST_ADDITIONS_INSTALL_MODE}"
-./automated-win.sh win7-ie11 "${GUEST_ADDITIONS_INSTALL_MODE}"
-./automated-win.sh win81-ie11 "${GUEST_ADDITIONS_INSTALL_MODE}"
-./automated-win.sh win10-edge "${GUEST_ADDITIONS_INSTALL_MODE}"
+./automated-win.sh win7-ie8 "${install_mode}"
+./automated-win.sh win7-ie9 "${install_mode}"
+./automated-win.sh win7-ie10 "${install_mode}"
+./automated-win.sh win7-ie11 "${install_mode}"
+./automated-win.sh win81-ie11 "${install_mode}"
+./automated-win.sh win10-edge "${install_mode}"
