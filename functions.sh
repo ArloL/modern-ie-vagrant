@@ -405,47 +405,6 @@ vm_run_elevate() {
     send_keys 1 "<left>" "<enter>"
 }
 
-vm_run_guest_additions_install() {
-    case ${box_name} in
-    win7*)
-        run_command 'cmd /c "e:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
-        sleep 111
-        # select Yes on UAC
-        send_keys 1 "<left>" "<enter>"
-        sleep 30
-        # ensure focus on driver window
-        send_keys 1 "<winPress>" "<down>" "<winRelease>"
-        sleep 13
-        # select always trust and Yes to add driver
-        send_keys 1 "<left>" "<left>" "<space>" "<right>" "<enter>"
-        ;;
-    win81*)
-        run_command 'cmd /c "d:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
-        sleep 111
-        # select Yes on UAC
-        send_keys 1 "<left>" "<enter>"
-        sleep 30
-        # ensure focus on driver window
-        send_keys 1 "<winPress>" "<down>" "<winRelease>"
-        sleep 13
-        # select Yes to add driver
-        send_keys 1 "<left>" "<enter>"
-        ;;
-    win10*)
-        run_command 'cmd /c "d:\vboxwindowsadditions /S && shutdown /s /t 0 /f"'
-        sleep 111
-        # select Yes on UAC
-        send_keys 1 "<left>" "<enter>"
-        sleep 30
-        # ensure focus on driver window
-        send_keys 1 "<winPress>" "<down>" "<winRelease>"
-        sleep 13
-        # select Yes to add driver
-        send_keys 1 "<left>" "<enter>"
-        ;;
-    esac
-}
-
 vm_close_dialogs() {
     local timeout=${1}
     while true ; do
