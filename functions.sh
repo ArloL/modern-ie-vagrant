@@ -21,8 +21,8 @@ vm_import() {
     session_id=$(date -u +"%Y%m%dT%H%M%S")
     vm_id
     if ! vm_snapshot_exists "Pre-Boot"; then
-        download_box "${box_name}"
-        download_prerequisites "${box_name}"
+        download_box
+        download_prerequisites
         vagrant destroy "${box_name}" --force
         boot_timeout=1 vagrant up "${box_name}" || true
         vagrant halt "${box_name}" --force
@@ -457,24 +457,24 @@ vm_close_dialogs() {
 }
 
 download_box() {
-    case ${1} in
+    case ${box_name} in
     "win7-ie8")
-        download "win7-ie8" "IE8 - Win7.box" \
+        download "IE8 - Win7.box" \
             "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE8/IE8.Win7.Vagrant.zip";;
     "win7-ie9")
-        download "win7-ie9" "IE9 - Win7.box" \
+        download "IE9 - Win7.box" \
             "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE9/IE9.Win7.Vagrant.zip";;
     "win7-ie10")
-        download "win7-ie10" "IE10 - Win7.box" \
+        download "IE10 - Win7.box" \
             "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE10/IE10.Win7.Vagrant.zip";;
     "win7-ie11")
-        download "win7-ie11" "IE11 - Win7.box" \
+        download "IE11 - Win7.box" \
             "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE11/IE11.Win7.Vagrant.zip";;
     "win81-ie11")
-        download "win81-ie11" "IE11 - Win81.box" \
+        download "IE11 - Win81.box" \
             "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE11/IE11.Win81.Vagrant.zip";;
     "win10-edge")
-        download "win10-edge" "MSEdge - Win10.box" \
+        download "MSEdge - Win10.box" \
             "https://az792536.vo.msecnd.net/vms/VMBuild_20190311/Vagrant/MSEdge/MSEdge.Win10.Vagrant.zip";;
     *)
         echo "Sorry, I can not get a VM for you!"
@@ -483,54 +483,53 @@ download_box() {
 }
 
 download() {
-    local name=${1}
-    local boxName=${2}
-    local url=${3}
+    local unzipped_name=${1}
+    local url=${2}
     pushd vms
-    boxListSearch=$(vagrant box list | grep "modern.ie/${name}" || true)
-    if [ ! "${boxListSearch}" = "" ]
+    filtered_box_list=$(vagrant box list | grep "modern.ie/${box_name}" || true)
+    if [ ! "${filtered_box_list}" = "" ]
     then
-        echo "${name} exists"
+        echo "${box_name} exists"
         return
     fi
-    if [ -f "modern.ie-${name}.box" ]
+    if [ -f "modern.ie-${box_name}.box" ]
     then
-        shasum --check "modern.ie-${name}.box.sha1"
-        vagrant box add --name="modern.ie/${name}" --force "modern.ie-${name}.box"
-        rm -f "modern.ie-${name}.box"
+        shasum --check "modern.ie-${box_name}.box.sha1"
+        vagrant box add --name="modern.ie/${box_name}" --force "modern.ie-${box_name}.box"
+        rm -f "modern.ie-${box_name}.box"
         return
     fi
-    if ! shasum --check "modern.ie-${name}.zip.sha1"
+    if ! shasum --check "modern.ie-${box_name}.zip.sha1"
     then
-        rm -f "modern.ie-${name}.zip"
-        wget --quiet  --continue --output-document="modern.ie-${name}.zip" "${url}"
-        shasum --check "modern.ie-${name}.zip.sha1"
+        rm -f "modern.ie-${box_name}.zip"
+        wget --quiet  --continue --output-document="modern.ie-${box_name}.zip" "${url}"
+        shasum --check "modern.ie-${box_name}.zip.sha1"
     fi
-    if [ ! -f "${boxName}" ]
+    if [ ! -f "${unzipped_name}" ]
     then
-        unzip "modern.ie-${name}.zip"
+        unzip "modern.ie-${box_name}.zip"
     fi
-    mv "${boxName}" "modern.ie-${name}.box"
-    shasum --check "modern.ie-${name}.box.sha1"
-    rm -f "modern.ie-${name}.zip"
-    vagrant box add --name="modern.ie/${name}" --force "modern.ie-${name}.box"
-    rm -f "modern.ie-${name}.box"
+    mv "${unzipped_name}" "modern.ie-${box_name}.box"
+    shasum --check "modern.ie-${box_name}.box.sha1"
+    rm -f "modern.ie-${box_name}.zip"
+    vagrant box add --name="modern.ie/${box_name}" --force "modern.ie-${box_name}.box"
+    rm -f "modern.ie-${box_name}.box"
     popd
 }
 
 download_prerequisites() {
-    pushd scripts
-    latest=$(curl -s https://download.virtualbox.org/virtualbox/LATEST-STABLE.TXT)
-    wget --quiet --continue --timestamping "https://download.virtualbox.org/virtualbox/${latest}/VBoxGuestAdditions_${latest}.iso"
-    7z x "VBoxGuestAdditions_${latest}.iso" -y -o"$(pwd)/VBoxGuestAdditions"
-    case ${1:-} in
-        "win7"*)
-            ;&
-        "")
-            wget --quiet --continue --timestamping --output-document=Win7-KB3191566-x86.zip \
-                "https://go.microsoft.com/fwlink/?linkid=839522"
-            7z x "Win7-KB3191566-x86.zip" -y -o"$(pwd)/Win7-KB3191566-x86"
-            ;;
+    base_url="https://download.virtualbox.org/virtualbox"
+    latest=$(curl -s "${base_url}/LATEST-STABLE.TXT")
+    wget --quiet --continue \
+        --output-document="scripts/VBoxGuestAdditions_${latest}.iso" \
+        "${base_url}/${latest}/VBoxGuestAdditions_${latest}.iso"
+    7z x "scripts/VBoxGuestAdditions_${latest}.iso" -y -o"$(pwd)/scripts/VBoxGuestAdditions"
+    case ${box_name} in
+    "win7"*)
+        wget --quiet --continue \
+            --output-document=Win7-KB3191566-x86.zip \
+            "https://go.microsoft.com/fwlink/?linkid=839522"
+        7z x "scripts/Win7-KB3191566-x86.zip" -y -o"$(pwd)/scripts/Win7-KB3191566-x86"
+        ;;
     esac
-    popd
 }
