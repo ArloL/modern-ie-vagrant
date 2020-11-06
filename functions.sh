@@ -33,8 +33,7 @@ vm_import() {
 }
 
 vm_up() {
-    VMState=$(vm_info "VMState=" 2)
-    if [ "${VMState}" = "saved" ]; then
+    if [ "$(vm_state)" = "saved" ]; then
         X_VAGRANT_BOOT_TIMEOUT=15 vagrant up "${box_name}" || true
         vm_storage_attach
     else
@@ -64,7 +63,7 @@ vm_storage_attach() {
     VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium "${scripts_iso}"
-    if [ "$(vm_info "VMState=" 2)" = "running" ]; then
+    if [ "$(vm_state)" = "running" ]; then
         vm_close_dialogs 15
     fi
 }
@@ -95,7 +94,7 @@ vm_snapshot_restore_and_up() {
         vm_network_connection 1 off
         vm_up
     fi
-    if [ "$(vm_info "VMState=" 2)" = "saved" ]; then
+    if [ "$(vm_state)" = "saved" ]; then
         vm_up
     fi
 }
@@ -217,6 +216,10 @@ vm_info() {
     VBoxManage showvminfo "${vm_uuid}" --machinereadable | grep "${1}" | awk -F '"' '{ print $'"${2}"' }'
 }
 
+vm_state() {
+    vm_info "VMState=" 2
+}
+
 get_guest_additions_run_level() {
     local GuestAdditionsRunLevel=0
     eval "$(VBoxManage showvminfo "${vm_uuid}" \
@@ -228,8 +231,7 @@ wait_for_vm_to_shutdown() {
     local timeout=${1}
     while true ; do
         echo "Waiting for ${vm_uuid} to be in VMState poweroff."
-        VMState=$(vm_info "VMState=" 2)
-        if [ "${VMState}" = "poweroff" ]; then
+        if [ "$(vm_state)" = "poweroff" ]; then
             return 0;
         fi
         if [ "${timeout}" -le 0 ]; then
