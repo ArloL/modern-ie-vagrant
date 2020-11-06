@@ -76,7 +76,7 @@ vm_snapshot_exists() {
     return 1
 }
 
-vm_snapshot_restore() {
+vm_snapshot_restore_and_up() {
     if [ "${2:-}" != "" ] && vm_snapshot_exists "${2}"; then
         return 0
     fi
@@ -91,18 +91,11 @@ vm_snapshot_restore() {
     if [ "${1}" = "Pre-Boot" ]; then
         reset_storage_controller
         vm_network_connection 1 off
+        vm_up
     fi
-}
-
-vm_snapshot_restore_and_up() {
-    if [ "${2:-}" != "" ] && vm_snapshot_exists "${2}"; then
-        return 0
+    if [ "$(vm_info "VMState=" 2)" = "saved" ]; then
+        vm_up
     fi
-    if [ "${3:-}" != "" ] && vm_snapshot_exists "${3}"; then
-        return 0
-    fi
-    vm_snapshot_restore "${1}"
-    vm_up
 }
 
 vm_snapshot_save() {
