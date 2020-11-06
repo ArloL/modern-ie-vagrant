@@ -24,7 +24,7 @@ vm_import() {
         download_box
         download_prerequisites
         vagrant destroy "${box_name}" --force
-        boot_timeout=1 vagrant up "${box_name}" || true
+        X_VAGRANT_BOOT_TIMEOUT=1 vagrant up "${box_name}" || true
         vagrant halt "${box_name}" --force
         vm_id
     fi
@@ -33,11 +33,11 @@ vm_import() {
 vm_up() {
     VMState=$(vm_info "VMState=" 2)
     if [ "${VMState}" = "saved" ]; then
-        boot_timeout=15 vagrant up "${box_name}" || true
+        X_VAGRANT_BOOT_TIMEOUT=15 vagrant up "${box_name}" || true
         vm_storage_attach
     else
         vm_storage_attach
-        boot_timeout=15 vagrant up "${box_name}" || true
+        X_VAGRANT_BOOT_TIMEOUT=15 vagrant up "${box_name}" || true
     fi
 }
 

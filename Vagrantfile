@@ -1,9 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-boot_timeout = ENV["boot_timeout"] != nil ?
-  ENV["boot_timeout"].strip.to_i :
-  1200
+boot_timeout = 1200
+if ENV["X_VAGRANT_BOOT_TIMEOUT"] != nil
+  boot_timeout = ENV["X_VAGRANT_BOOT_TIMEOUT"].strip.to_i
+end
 
 recording_suffix = Time.now.utc.strftime("%Y%m%dT%H%M%S")
 
