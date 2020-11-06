@@ -56,7 +56,7 @@ vm_storage_detach() {
 
 vm_storage_attach() {
     vm_storage_detach
-    scripts_iso="scripts-${box_name}-${session_id}.iso"
+    local scripts_iso="scripts-${box_name}-${session_id}.iso"
     if [ ! -f "${scripts_iso}" ]; then
         hdiutil makehybrid -iso -joliet -o "${scripts_iso}" scripts
     fi
@@ -170,7 +170,7 @@ vm_package() {
     vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN}" != "" ] && [ "${VERSION}" != "undefined" ]; then
 
-        base_url="https://app.vagrantup.com/api/v1/box/breeze/${box_name}"
+        local base_url="https://app.vagrantup.com/api/v1/box/breeze/${box_name}"
 
         # create version
         curl --silent --fail \
@@ -195,6 +195,7 @@ vm_package() {
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
             "${base_url}/version/${VERSION}/provider/virtualbox/upload")
 
+        local upload_path
         upload_path=$(echo "$response" | jq -r .upload_path)
 
         # perform the upload
@@ -481,7 +482,8 @@ download() {
 }
 
 download_prerequisites() {
-    base_url="https://download.virtualbox.org/virtualbox"
+    local base_url="https://download.virtualbox.org/virtualbox"
+    local latest
     latest=$(curl -s "${base_url}/LATEST-STABLE.TXT")
     wget --quiet --continue \
         --output-document="scripts/VBoxGuestAdditions_${latest}.iso" \
