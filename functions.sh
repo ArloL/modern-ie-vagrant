@@ -3,6 +3,13 @@
 set -o errexit
 set -o nounset
 
+xtrace_enabled() {
+    case $- in
+        (*x*) return 0;;
+        (*) return 1;;
+    esac
+}
+
 vm_uuid() {
     #shellcheck disable=SC2154
     if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
@@ -162,6 +169,10 @@ vm_package() {
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN:-}" != "" ] &&
             [ "${VERSION:-}" != "undefined" ]; then
 
+        local xtrace_enabled
+        xtrace_enabled=$(xtrace_enabled || true)
+        ${xtrace_enabled} && set +o xtrace
+
         local base_url="https://app.vagrantup.com/api/v1/box/breeze/${box_name}"
 
         # create version
@@ -200,6 +211,8 @@ vm_package() {
             --request PUT \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
             "${base_url}/version/${VERSION}/release"
+
+        ${xtrace_enabled} && set -o xtrace
 
     fi
     rm -f "${box_name}.box"
