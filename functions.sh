@@ -167,7 +167,7 @@ vm_package() {
         --Vagrantfile Vagrantfile-package
     vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN:-}" != "" ] &&
-            [ "${VERSION:-}" != "undefined" ]; then
+            [ "${X_MIE_VERSION:-}" != "undefined" ]; then
 
         local xtrace_enabled
         xtrace_enabled=$(xtrace_enabled || true)
@@ -182,7 +182,7 @@ vm_package() {
             "${base_url}/versions" \
             --data '
                 { "version": {
-                    "version": "'"${VERSION}"'",
+                    "version": "'"${X_MIE_VERSION}"'",
                     "description": ""
                 } }' > /dev/null
 
@@ -190,13 +190,13 @@ vm_package() {
         curl --silent --fail \
             --header "Content-Type: application/json" \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-            "${base_url}/version/${VERSION}/providers" \
+            "${base_url}/version/${X_MIE_VERSION}/providers" \
             --data '{ "provider": { "name": "virtualbox" } }' > /dev/null
 
         # prepare upload and get upload path
         response=$(curl --silent --fail \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-            "${base_url}/version/${VERSION}/provider/virtualbox/upload")
+            "${base_url}/version/${X_MIE_VERSION}/provider/virtualbox/upload")
 
         local upload_path
         upload_path=$(echo "$response" | jq -r .upload_path)
@@ -210,7 +210,7 @@ vm_package() {
         curl --silent --fail \
             --request PUT \
             --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-            "${base_url}/version/${VERSION}/release"
+            "${base_url}/version/${X_MIE_VERSION}/release"
 
         ${xtrace_enabled} && set -o xtrace
 
