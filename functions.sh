@@ -460,7 +460,6 @@ download_box() {
 download() {
     local unzipped_name=${1}
     local url=${2}
-    pushd vms
     filtered_box_list=$(vagrant box list | grep "modern.ie/${box_name}" || true)
     if [ ! "${filtered_box_list}" = "" ]
     then
@@ -469,30 +468,29 @@ download() {
     fi
     if [ -f "modern.ie-${box_name}.box" ]
     then
-        shasum --check "modern.ie-${box_name}.box.sha1"
+        shasum --check "vms/modern.ie-${box_name}.box.sha1"
         vagrant box add --force \
             --name="modern.ie/${box_name}" "modern.ie-${box_name}.box"
         rm -f "modern.ie-${box_name}.box"
         return
     fi
-    if ! shasum --check "modern.ie-${box_name}.zip.sha1"
+    if ! shasum --check "vms/modern.ie-${box_name}.zip.sha1"
     then
         rm -f "modern.ie-${box_name}.zip"
         wget --quiet  --continue \
             --output-document="modern.ie-${box_name}.zip" "${url}"
-        shasum --check "modern.ie-${box_name}.zip.sha1"
+        shasum --check "vms/modern.ie-${box_name}.zip.sha1"
     fi
     if [ ! -f "${unzipped_name}" ]
     then
         unzip "modern.ie-${box_name}.zip"
     fi
     mv "${unzipped_name}" "modern.ie-${box_name}.box"
-    shasum --check "modern.ie-${box_name}.box.sha1"
+    shasum --check "vms/modern.ie-${box_name}.box.sha1"
     rm -f "modern.ie-${box_name}.zip"
     vagrant box add --force \
         --name="modern.ie/${box_name}" "modern.ie-${box_name}.box"
     rm -f "modern.ie-${box_name}.box"
-    popd
 }
 
 download_prerequisites() {
