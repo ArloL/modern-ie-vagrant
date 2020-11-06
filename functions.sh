@@ -18,6 +18,7 @@ vm_id() {
 }
 
 vm_import() {
+    SESSION_ID=$(date -u +"%Y%m%dT%H%M%S")
     vm_id
     if ! vm_snapshot_exists "Pre-Boot"; then
         download_box "${BOX_NAME}"
