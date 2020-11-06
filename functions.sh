@@ -56,7 +56,9 @@ vm_storage_detach() {
 vm_storage_attach() {
     vm_storage_detach
     scriptIso="scripts-${BOX_NAME}-$(date -u +"%Y%m%dT%H%M%S").iso"
-    hdiutil makehybrid -iso -joliet -o "${scriptIso}" scripts
+    if [ ! -f "${scriptIso}" ]; then
+        hdiutil makehybrid -iso -joliet -o "${scriptIso}" scripts
+    fi
     VBoxManage storageattach "${VM}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium "${scriptIso}"
