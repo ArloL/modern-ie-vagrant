@@ -11,20 +11,21 @@ run_command() {
 
 vm_id() {
     if [ -f ".vagrant/machines/${BOX_NAME}/virtualbox/id" ]; then
-        cat ".vagrant/machines/${BOX_NAME}/virtualbox/id"
+        VM=$(cat ".vagrant/machines/${BOX_NAME}/virtualbox/id")
     else
-        echo ""
+        VM=""
     fi
 }
 
 vm_import() {
+    vm_id
     if ! vm_snapshot_exists "Pre-Boot"; then
         download_box "${BOX_NAME}"
         download_prerequisites "${BOX_NAME}"
         vagrant destroy "${BOX_NAME}" --force
         boot_timeout=1 vagrant up "${BOX_NAME}" || true
         vagrant halt "${BOX_NAME}" --force
-        VM=$(vm_id)
+        vm_id
     fi
 }
 

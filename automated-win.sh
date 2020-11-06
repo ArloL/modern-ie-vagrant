@@ -8,8 +8,6 @@ set -o xtrace
 
 BOX_NAME="${1:-win7-ie8}"
 GUEST_ADDITIONS_INSTALL_MODE="${2:-auto}"
-# shellcheck disable=SC2034
-VM=$(vm_id)
 
 trap 'vm_halt' EXIT
 
