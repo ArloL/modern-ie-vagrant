@@ -83,22 +83,24 @@ if ! vm_snapshot_exists "Snapshot 1" ||
             sleep 180
             vm_snapshot_save "Snapshot 0-6"
         else
-            vm_snapshot_restore_and_up "Snapshot 0-6"
+            vm_snapshot_restore_and_up "Snapshot 0-6" "Snapshot 1"
         fi
 
     fi
 
-    if [ "$(get_guest_additions_run_level)" -eq "2" ]; then
-        # trigger password prompt
-        send_keys 14 "<esc>"
-        send_keys 1 "Passw0rd!" "<enter>"
-        wait_for_guest_additions_run_level 3 600
-        sleep 180
+    if ! vm_snapshot_exists "Snapshot 1"; then
+        if [ "$(get_guest_additions_run_level)" -eq "2" ]; then
+            # trigger password prompt
+            send_keys 14 "<esc>"
+            send_keys 1 "Passw0rd!" "<enter>"
+            wait_for_guest_additions_run_level 3 600
+            sleep 180
+        fi
+        vm_close_dialogs 120
+        vm_snapshot_save "Snapshot 1"
+    else
+        vm_snapshot_restore_and_up "Snapshot 1" "Snapshot 2"
     fi
-
-    vm_close_dialogs 120
-
-    vm_snapshot_save "Snapshot 1"
 
 else
     vm_snapshot_restore_and_up "Snapshot 1" "Snapshot 2"
