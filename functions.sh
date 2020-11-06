@@ -391,17 +391,14 @@ vm_network_connection() {
     VBoxManage modifyvm "${vm_uuid}" --cableconnected"${1}" "${2}"
 }
 
-vm_run() {
+vm_run_elevate() {
     send_keys 1 "<winPress>" r "<winRelease>"
     sleep 13
-    send_keys 1 "${1}" "<enter>"
-}
-
-vm_run_elevate() {
     case ${box_name} in
-        win7*) vm_run "e:\\elevate.bat e:\\ ${1}";;
-        win*) vm_run "d:\\elevate.bat d:\\ ${1}";;
+        win7*) send_keys 1 "e:\\elevate.bat e:\\ ${1}";;
+        win*) send_keys 1 "d:\\elevate.bat d:\\ ${1}";;
     esac
+    send_keys 1 "<enter>"
     sleep 110
     # select Yes on UAC
     send_keys 1 "<left>" "<enter>"
