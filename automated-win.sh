@@ -34,7 +34,8 @@ while true ; do
             fi
             ;;
         2)
-            send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" "<enter>" "<esc>"
+            send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" \
+                "<enter>" "<esc>"
             sleep 180
             if [ "$(get_guest_additions_run_level)" -gt "0" ]; then
                 wait_for_guest_additions_run_level 3 600
@@ -50,7 +51,8 @@ while true ; do
             sleep 180
             ;;
         5)
-            send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" "<enter>" "<esc>"
+            send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" \
+                "<enter>" "<esc>"
             sleep 180
             vm_close_dialogs 120
             ;;

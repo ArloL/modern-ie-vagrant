@@ -45,7 +45,8 @@ vm_up() {
 vm_halt() {
     vagrant halt "${box_name}" --force
     vm_storage_detach
-    find "$(pwd)" -maxdepth 1 -type f -name "scripts-${box_name}-*.iso" -exec VBoxManage closemedium dvd {} --delete \;
+    find "$(pwd)" -maxdepth 1 -type f -name "scripts-${box_name}-*.iso" \
+        -exec VBoxManage closemedium dvd {} --delete \;
 }
 
 vm_storage_detach() {
@@ -113,7 +114,8 @@ vm_snapshot_delete_all() {
 
 reset_storage_controller() {
     local ImageUUID
-    ImageUUID="$(VBoxManage showvminfo "${vm_uuid}" --machinereadable | grep 'ImageUUID' | awk -F '"' '{ print $4 }')"
+    ImageUUID="$(VBoxManage showvminfo "${vm_uuid}" --machinereadable \
+        | grep 'ImageUUID' | awk -F '"' '{ print $4 }')"
 
     if [ "${ImageUUID}" = "" ]; then
         echo "Could not find ImageUUID"
@@ -152,8 +154,10 @@ vm_reset() {
     VBoxManage setextradata "${vm_uuid}" "GUI/LastCloseAction"
     VBoxManage setextradata "${vm_uuid}" "GUI/LastGuestSizeHint"
     VBoxManage setextradata "${vm_uuid}" "GUI/LastNormalWindowPosition"
-    VBoxManage setextradata "${vm_uuid}" "GUI/RestrictedRuntimeDevicesMenuActions"
-    VBoxManage setextradata "${vm_uuid}" "GUI/RestrictedRuntimeMachineMenuActions"
+    VBoxManage setextradata "${vm_uuid}" \
+        "GUI/RestrictedRuntimeDevicesMenuActions"
+    VBoxManage setextradata "${vm_uuid}" \
+        "GUI/RestrictedRuntimeMachineMenuActions"
     VBoxManage setextradata "${vm_uuid}" "GUI/ScaleFactor"
     VBoxManage setextradata "${vm_uuid}" "GUI/StatusBar/IndicatorOrder"
 }
@@ -212,7 +216,8 @@ vm_package() {
 }
 
 vm_info() {
-    VBoxManage showvminfo "${vm_uuid}" --machinereadable | grep "${1}" | awk -F '"' '{ print $'"${2}"' }'
+    VBoxManage showvminfo "${vm_uuid}" --machinereadable \
+        | grep "${1}" | awk -F '"' '{ print $'"${2}"' }'
 }
 
 vm_state() {
@@ -419,25 +424,27 @@ vm_close_dialogs() {
 }
 
 download_box() {
+    local base_url_2015="https://az792536.vo.msecnd.net/vms/VMBuild_20150916"
+    local base_url_2019="https://az792536.vo.msecnd.net/vms/VMBuild_20190311"
     case ${box_name} in
     "win7-ie8")
         download "IE8 - Win7.box" \
-            "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE8/IE8.Win7.Vagrant.zip";;
+            "${base_url_2015}/Vagrant/IE8/IE8.Win7.Vagrant.zip";;
     "win7-ie9")
         download "IE9 - Win7.box" \
-            "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE9/IE9.Win7.Vagrant.zip";;
+            "${base_url_2015}/Vagrant/IE9/IE9.Win7.Vagrant.zip";;
     "win7-ie10")
         download "IE10 - Win7.box" \
-            "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE10/IE10.Win7.Vagrant.zip";;
+            "${base_url_2015}/Vagrant/IE10/IE10.Win7.Vagrant.zip";;
     "win7-ie11")
         download "IE11 - Win7.box" \
-            "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE11/IE11.Win7.Vagrant.zip";;
+            "${base_url_2015}/Vagrant/IE11/IE11.Win7.Vagrant.zip";;
     "win81-ie11")
         download "IE11 - Win81.box" \
-            "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE11/IE11.Win81.Vagrant.zip";;
+            "${base_url_2015}/Vagrant/IE11/IE11.Win81.Vagrant.zip";;
     "win10-edge")
         download "MSEdge - Win10.box" \
-            "https://az792536.vo.msecnd.net/vms/VMBuild_20190311/Vagrant/MSEdge/MSEdge.Win10.Vagrant.zip";;
+            "${base_url_2019}/Vagrant/MSEdge/MSEdge.Win10.Vagrant.zip";;
     *)
         echo "Sorry, I can not get a VM for you!"
         exit 1;;
@@ -457,14 +464,16 @@ download() {
     if [ -f "modern.ie-${box_name}.box" ]
     then
         shasum --check "modern.ie-${box_name}.box.sha1"
-        vagrant box add --name="modern.ie/${box_name}" --force "modern.ie-${box_name}.box"
+        vagrant box add --force \
+            --name="modern.ie/${box_name}" "modern.ie-${box_name}.box"
         rm -f "modern.ie-${box_name}.box"
         return
     fi
     if ! shasum --check "modern.ie-${box_name}.zip.sha1"
     then
         rm -f "modern.ie-${box_name}.zip"
-        wget --quiet  --continue --output-document="modern.ie-${box_name}.zip" "${url}"
+        wget --quiet  --continue \
+            --output-document="modern.ie-${box_name}.zip" "${url}"
         shasum --check "modern.ie-${box_name}.zip.sha1"
     fi
     if [ ! -f "${unzipped_name}" ]
@@ -474,7 +483,8 @@ download() {
     mv "${unzipped_name}" "modern.ie-${box_name}.box"
     shasum --check "modern.ie-${box_name}.box.sha1"
     rm -f "modern.ie-${box_name}.zip"
-    vagrant box add --name="modern.ie/${box_name}" --force "modern.ie-${box_name}.box"
+    vagrant box add --force \
+        --name="modern.ie/${box_name}" "modern.ie-${box_name}.box"
     rm -f "modern.ie-${box_name}.box"
     popd
 }
@@ -486,13 +496,15 @@ download_prerequisites() {
     wget --quiet --continue \
         --output-document="scripts/VBoxGuestAdditions_${latest}.iso" \
         "${base_url}/${latest}/VBoxGuestAdditions_${latest}.iso"
-    7z x "scripts/VBoxGuestAdditions_${latest}.iso" -y -o"$(pwd)/scripts/VBoxGuestAdditions"
+    7z x "scripts/VBoxGuestAdditions_${latest}.iso" -y \
+        -o"$(pwd)/scripts/VBoxGuestAdditions"
     case ${box_name} in
     "win7"*)
         wget --quiet --continue \
             --output-document=scripts/Win7-KB3191566-x86.zip \
             "https://go.microsoft.com/fwlink/?linkid=839522"
-        7z x "scripts/Win7-KB3191566-x86.zip" -y -o"$(pwd)/scripts/Win7-KB3191566-x86"
+        7z x "scripts/Win7-KB3191566-x86.zip" -y \
+            -o"$(pwd)/scripts/Win7-KB3191566-x86"
         ;;
     esac
 }
