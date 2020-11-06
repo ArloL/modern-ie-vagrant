@@ -19,10 +19,10 @@ fi
 
 step=1
 while true ; do
-    nextStep=$((step + 1))
+    next_step=$((step + 1))
     if [ "${install_mode}" = "auto" ] &&
             [ "${step}" = 2 ]; then
-        nextStep=6
+        next_step=6
     fi
     if ! vm_snapshot_exists "Snapshot ${step}"; then
         case $step in
@@ -71,7 +71,7 @@ while true ; do
         esac
         vm_snapshot_save "Snapshot ${step}"
     else
-        vm_snapshot_restore_and_up "Snapshot ${step}" "Snapshot ${nextStep}"
+        vm_snapshot_restore_and_up "Snapshot ${step}" "Snapshot ${next_step}"
     fi
-    step=${nextStep}
+    step=${next_step}
 done
