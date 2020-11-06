@@ -10,6 +10,7 @@ run_command() {
 }
 
 vm_id() {
+    #shellcheck disable=SC2154
     if [ -f ".vagrant/machines/${box_name}/virtualbox/id" ]; then
         vm_uuid=$(cat ".vagrant/machines/${box_name}/virtualbox/id")
     else
