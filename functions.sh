@@ -24,7 +24,9 @@ vm_import() {
         download_box
         download_prerequisites
         vagrant destroy "${box_name}" --force
-        X_VAGRANT_BOOT_TIMEOUT=1 vagrant up "${box_name}" || true
+        X_VAGRANT_TAKE_PRE_BOOT_SNAPSHOT=true \
+            X_VAGRANT_BOOT_TIMEOUT=1 \
+            vagrant up "${box_name}" || true
         vagrant halt "${box_name}" --force
         vm_id
     fi

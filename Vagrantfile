@@ -6,6 +6,11 @@ if ENV["X_VAGRANT_BOOT_TIMEOUT"] != nil
   boot_timeout = ENV["X_VAGRANT_BOOT_TIMEOUT"].strip.to_i
 end
 
+take_pre_boot_snapshot = false
+if ENV["X_VAGRANT_TAKE_PRE_BOOT_SNAPSHOT"] != nil
+  boot_timeout = ENV["X_VAGRANT_TAKE_PRE_BOOT_SNAPSHOT"].strip.to_boolean
+end
+
 recording_suffix = Time.now.utc.strftime("%Y%m%dT%H%M%S")
 
 Vagrant.configure(2) do |config|
@@ -81,14 +86,7 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
           "--ostype", attr['ostype'],
           "--recordingfile", "recordings/#{name}-#{recording_suffix}.webm"
         ]
-        takeSnapshot = true
-        if File.file?(".vagrant/machines/#{name}/virtualbox/id")
-          id = File.read(".vagrant/machines/#{name}/virtualbox/id")
-          if (system("VBoxManage snapshot #{id} showvminfo Pre-Boot >/dev/null 2>&1"))
-            takeSnapshot = false
-          end
-        end
-        if takeSnapshot
+        if take_pre_boot_snapshot
           vb.customize [
             "snapshot", :id,
             "take",
