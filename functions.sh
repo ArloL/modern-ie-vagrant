@@ -65,12 +65,7 @@ vm_storage_attach() {
 }
 
 vm_snapshot_exists() {
-    if [ "${vm_uuid}" != "" ] && \
-        VBoxManage snapshot "${vm_uuid}" showvminfo "${1}" > /dev/null 2>&1;
-    then
-        return 0;
-    fi
-    return 1
+    VBoxManage snapshot "${vm_uuid}" showvminfo "${1}" > /dev/null 2>&1;
 }
 
 vm_snapshot_restore_and_up() {
