@@ -114,6 +114,12 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
         host: attr['port'] + 2,
         host_ip: "127.0.0.1",
         auto_correct: true
+      node.vm.network "forwarded_port",
+        id: "rdp",
+        guest: 3389,
+        host: attr['port'] + 3,
+        host_ip: "127.0.0.1",
+        auto_correct: true
 
       node.vm.usable_port_range = attr['port'] + 10..attr['port'] + 100
 
