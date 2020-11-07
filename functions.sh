@@ -167,6 +167,7 @@ vm_package() {
         --Vagrantfile Vagrantfile-package
     vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN:-}" != "" ] &&
+            [ "${X_MIE_VERSION:-}" != "" ] &&
             [ "${X_MIE_VERSION:-}" != "undefined" ]; then
         vm_publish
     fi
