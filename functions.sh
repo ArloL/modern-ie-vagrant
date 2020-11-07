@@ -211,10 +211,14 @@ vm_publish() {
     upload_path=$(echo "$response" | jq -r .upload_path)
 
     # perform the upload
-    wget --method=PUT --body-file "${box_name}.box" "${upload_path}"
-    # curl --verbose --fail \
-    #     --request PUT \
-    #     --upload-file "${box_name}.box" "${upload_path}"
+    curl --verbose --fail \
+        --request PUT \
+        --upload-file "${box_name}.box" "${upload_path}" && rc=$? || rc=$?
+    case ${rc} in
+    0)  ;;
+    52) ;;
+    *)  exit ${rc};;
+    esac
 
     # release the version
     curl --verbose --fail \
