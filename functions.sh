@@ -175,6 +175,7 @@ vm_package() {
 }
 
 vm_publish() {
+    which curl
     curl --version
 
     #local xtrace_enabled
