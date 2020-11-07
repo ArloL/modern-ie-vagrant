@@ -33,6 +33,7 @@ jobs:
     - name: Dependencies
       run: |
         brew install bash curl-openssl
+        echo "/usr/local/opt/curl-openssl/bin" >> $GITHUB_PATH
     - name: Build
       env:
         VAGRANT_CLOUD_ACCESS_TOKEN: ${{ secrets.VAGRANT_CLOUD_ACCESS_TOKEN }}
