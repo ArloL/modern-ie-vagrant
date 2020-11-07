@@ -17,6 +17,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.boot_timeout = boot_timeout
 
+  config.vm.guest = :windows
   config.vm.communicator = "winrm"
   config.winrm.username = "IEUser"
   config.winrm.password = "Passw0rd!"
