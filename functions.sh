@@ -175,6 +175,8 @@ vm_package() {
 }
 
 vm_publish() {
+    curl --version
+
     #local xtrace_enabled
     #xtrace_enabled=$(xtrace_enabled || true)
     #${xtrace_enabled} && set +o xtrace
