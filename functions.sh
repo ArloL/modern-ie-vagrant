@@ -111,11 +111,11 @@ vm_snapshot_delete_all() {
 }
 
 reset_storage_controller() {
-    local ImageUUID
-    ImageUUID="$(VBoxManage showvminfo "${vm_uuid}" --machinereadable \
+    local image_uuid
+    image_uuid="$(VBoxManage showvminfo "${vm_uuid}" --machinereadable \
         | grep 'ImageUUID' | awk -F '"' '{ print $4 }')"
 
-    if [ "${ImageUUID}" = "" ]; then
+    if [ "${image_uuid}" = "" ]; then
         echo "Could not find ImageUUID"
         return 1
     fi
@@ -135,7 +135,7 @@ reset_storage_controller() {
 
     VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
-        --port 0 --device 0 --type hdd --medium "${ImageUUID}"
+        --port 0 --device 0 --type hdd --medium "${image_uuid}"
     VBoxManage storageattach "${vm_uuid}" \
         --storagectl "IDE Controller" \
         --port 0 --device 1 --type dvddrive --medium emptydrive
