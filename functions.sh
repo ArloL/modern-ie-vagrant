@@ -165,7 +165,6 @@ vm_package() {
     vagrant package "${box_name}" \
         --output "${box_name}.box" \
         --Vagrantfile Vagrantfile-package
-    vagrant box add --name "okeeffe-${box_name}" --force "${box_name}.box"
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN:-}" != "" ] &&
             [ "${X_MIE_VERSION:-}" != "" ] &&
             [ "${X_MIE_VERSION:-}" != "undefined" ]; then
