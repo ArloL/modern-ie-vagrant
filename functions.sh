@@ -174,12 +174,9 @@ vm_package() {
 }
 
 vm_publish() {
-    which curl
-    curl --version
-
-    #local xtrace_enabled
-    #xtrace_enabled=$(xtrace_enabled || true)
-    #${xtrace_enabled} && set +o xtrace
+    local xtrace_enabled
+    xtrace_enabled=$(xtrace_enabled || true)
+    ${xtrace_enabled} && set +o xtrace
 
     local base_url="https://app.vagrantup.com/api/v1/box/breeze/${box_name}"
 
@@ -225,7 +222,7 @@ vm_publish() {
         --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
         "${base_url}/version/${X_MIE_VERSION}/release"
 
-    #${xtrace_enabled} && set -o xtrace
+    ${xtrace_enabled} && set -o xtrace
 }
 
 vm_info() {
