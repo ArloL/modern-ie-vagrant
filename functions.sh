@@ -112,8 +112,7 @@ vm_snapshot_delete_all() {
 
 reset_storage_controller() {
     local image_uuid
-    image_uuid="$(VBoxManage showvminfo "${vm_uuid}" --machinereadable \
-        | grep 'ImageUUID' | awk -F '"' '{ print $4 }')"
+    image_uuid=$(vm_info '^"IDE Controller-ImageUUID' 4)
 
     if [ "${image_uuid}" = "" ]; then
         echo "Could not find ImageUUID"
