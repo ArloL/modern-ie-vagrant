@@ -66,5 +66,4 @@ GitHub.sublime-settings
 *.iso
 *.webm
 
-scripts/VBoxGuestAdditions/
-scripts/Win7-KB3191566-x86/
+scripts/*/
