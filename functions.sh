@@ -199,6 +199,7 @@ vm_publish() {
         --data '{ "provider": { "name": "virtualbox" } }' > /dev/null
 
     # prepare upload and get upload path
+    local response
     response=$(curl --verbose --fail \
         --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
         "${base_url}/version/${X_MIE_VERSION}/provider/virtualbox/upload")
@@ -207,6 +208,7 @@ vm_publish() {
     upload_path=$(echo "$response" | jq -r .upload_path)
 
     # perform the upload
+    local rc
     curl --verbose --fail \
         --request PUT \
         --upload-file "${box_name}.box" "${upload_path}" && rc=$? || rc=$?
@@ -467,6 +469,7 @@ download_box() {
 download() {
     local unzipped_name=${1}
     local url=${2}
+    local filtered_box_list
     filtered_box_list=$(vagrant box list | grep "modern.ie/${box_name}" || true)
     if [ ! "${filtered_box_list}" = "" ]
     then
