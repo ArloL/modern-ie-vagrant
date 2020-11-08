@@ -509,14 +509,13 @@ download_prerequisites() {
         --output-document="scripts/VBoxGuestAdditions_${latest}.iso" \
         "${base_url}/${latest}/VBoxGuestAdditions_${latest}.iso"
     7z x "scripts/VBoxGuestAdditions_${latest}.iso" -y \
-        -o"$(pwd)/scripts/VBoxGuestAdditions"
-    case ${box_name} in
-    "win7"*)
-        wget --quiet --continue \
-            --output-document=scripts/Win7-KB3191566-x86.zip \
-            "https://go.microsoft.com/fwlink/?linkid=839522"
-        7z x "scripts/Win7-KB3191566-x86.zip" -y \
-            -o"$(pwd)/scripts/Win7-KB3191566-x86"
-        ;;
-    esac
+        -o"scripts/VBoxGuestAdditions"
+    rm -f "scripts/VBoxGuestAdditions_${latest}.iso"
+
+    wget --quiet --continue \
+        --output-document=scripts/Win7-KB3191566-x86.zip \
+        "https://go.microsoft.com/fwlink/?linkid=839522"
+    7z x "scripts/Win7-KB3191566-x86.zip" -y \
+        -o"$(pwd)/scripts/Win7-KB3191566-x86"
+    rm -f "scripts/Win7-KB3191566-x86.zip"
 }
