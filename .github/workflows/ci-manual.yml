@@ -21,7 +21,8 @@ jobs:
         echo "/usr/local/opt/curl-openssl/bin" >> $GITHUB_PATH
     - name: Build
       run: |
-        ./automated-win.sh ${{ matrix.os }} manual
+        ./automated-win.sh ${{ matrix.os }} manual || \
+          ./automated-win.sh ${{ matrix.os }} manual
     - uses: actions/upload-artifact@v1
       if: ${{ always() }}
       with:
