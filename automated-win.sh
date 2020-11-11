@@ -32,6 +32,7 @@ while true ; do
             if [ "$(get_guest_additions_run_level)" -gt "0" ]; then
                 wait_for_guest_additions_run_level 2 600
             fi
+            sleep 180
             ;;
         2)
             send_keys 1 "<esc>" "<win>" "Passw0rd!" "<esc>" "<win>" \
