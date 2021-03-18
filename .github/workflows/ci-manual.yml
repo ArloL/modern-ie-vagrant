@@ -23,7 +23,7 @@ jobs:
       run: |
         ./automated-win.sh ${{ matrix.os }} manual || \
           ./automated-win.sh ${{ matrix.os }} manual
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v2
       if: ${{ always() }}
       with:
         name: recordings from ${{ matrix.os }}-no-additions build for ${{ github.sha }}
