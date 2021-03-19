@@ -9,10 +9,9 @@ git fetch --prune --prune-tags --tags --force
 
 for MICRO in $(seq 0 999); do
     VERSION=${MAJOR_MINOR}.${MICRO}
-    if git tag "v${VERSION}"; then
+    if git tag "v${VERSION}" && git push origin "v${VERSION}"; then
         break
     fi
 done
 
-git push origin "v${VERSION}"
 echo "::set-output name=version::${VERSION}"
