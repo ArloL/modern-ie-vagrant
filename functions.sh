@@ -187,7 +187,7 @@ vm_publish() {
         "${base_url}/versions" \
         --data '
             { "version": {
-                "version": "'"${X_MIE_VERSION#v}"'",
+                "version": "'"${X_MIE_VERSION}"'",
                 "description": ""
             } }' > /dev/null
 
@@ -195,14 +195,14 @@ vm_publish() {
     curl --verbose --fail \
         --header "Content-Type: application/json" \
         --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-        "${base_url}/version/${X_MIE_VERSION#v}/providers" \
+        "${base_url}/version/${X_MIE_VERSION}/providers" \
         --data '{ "provider": { "name": "virtualbox" } }' > /dev/null
 
     # prepare upload and get upload path
     local response
     response=$(curl --verbose --fail \
         --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-        "${base_url}/version/${X_MIE_VERSION#v}/provider/virtualbox/upload")
+        "${base_url}/version/${X_MIE_VERSION}/provider/virtualbox/upload")
 
     local upload_path
     upload_path=$(echo "$response" | jq -r .upload_path)
@@ -222,7 +222,7 @@ vm_publish() {
     curl --verbose --fail \
         --request PUT \
         --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-        "${base_url}/version/${X_MIE_VERSION#v}/release"
+        "${base_url}/version/${X_MIE_VERSION}/release"
 
     ${xtrace_enabled} && set -o xtrace
 }
