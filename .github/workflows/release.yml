@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2.3.4
     - id: tag
-      run: release.sh
+      run: ./release.sh
   release:
     strategy:
       fail-fast: false
