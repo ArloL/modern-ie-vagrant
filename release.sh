@@ -14,5 +14,5 @@ for MICRO in $(seq 0 999); do
     fi
 done
 
-git push origin "${VERSION}"
+git push origin "v${VERSION}"
 echo "::set-output name=version::${VERSION}"
