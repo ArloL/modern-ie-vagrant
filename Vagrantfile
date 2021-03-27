@@ -42,16 +42,6 @@ Vagrant.configure(2) do |config|
     ]
   end
 
-  config.vm.provision "default", type: "shell" do |s|
-      s.powershell_elevated_interactive = true
-      s.inline = %{
-if ($PSVersionTable.PSVersion.Major -lt 3) {
-    echo "Wrong PowerShell version"
-    exit 1
-}
-}
-  end
-
   {
     "win7-ie8" => {
       "port" => 60600,
@@ -123,6 +113,16 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
         auto_correct: true
 
       node.vm.usable_port_range = attr['port'] + 10..attr['port'] + 100
+
+      node.vm.provision "default", type: "shell" do |s|
+        s.powershell_elevated_interactive = true
+        s.inline = %{
+$ErrorActionPreference = "Stop"
+if ($PSVersionTable.PSVersion.Major -lt 3) {
+  throw "Wrong PowerShell version"
+}
+}
+      end
 
     end
   end
