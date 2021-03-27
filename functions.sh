@@ -4,6 +4,10 @@ set -o errexit
 set -o nounset
 set -o xtrace
 
+prerequisites() {
+    vagrant --version
+}
+
 xtrace_enabled() {
     case $- in
         (*x*) return 0;;
@@ -21,6 +25,7 @@ vm_uuid() {
 }
 
 vm_import() {
+    prerequisites
     session_id=$(date -u +"%Y%m%dT%H%M%S")
     vm_uuid
     if ! vm_snapshot_exists "Pre-Boot"; then
