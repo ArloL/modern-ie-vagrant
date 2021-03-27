@@ -4,7 +4,7 @@ $connections | % {$_.GetNetwork().SetCategory(1)}
 
 Enable-PSRemoting -Force
 
-Set-Item wsman:\localhost\Shell\MaxMemoryPerShellMB 1024
+Set-Item wsman:\localhost\Shell\MaxMemoryPerShellMB 4096
 Set-Item wsman:\localhost\MaxTimeoutms 1800000
 Set-Item wsman:\localhost\Client\Auth\Basic true
 Set-Item wsman:\localhost\Service\AllowUnencrypted true
