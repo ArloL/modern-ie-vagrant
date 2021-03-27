@@ -124,6 +124,39 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
 }
       end
 
+      node.vm.provision "chocolatey", type: "shell", run: "never" do |s|
+        s.powershell_elevated_interactive = true
+        s.inline = %{
+$ErrorActionPreference = "Stop"
+cd C:\\vagrant\\in-action
+.\\provision-check.ps1
+.\\provision-profile.ps1
+.\\provision-performance.ps1
+.\\provision-timezone.ps1
+.\\provision-powersettings.ps1
+.\\provision-chocolatey.ps1
+.\\provision-chocolatey-packages.ps1
+.\\provision-shutdown-choco-reboot-pending.ps1
+.\\provision-shutdown-PSWindowsUpdate-reboot-pending.ps1
+shutdown /s /t 30 /f
+}
+      end
+
+      node.vm.provision "updates", type: "shell", run: "never" do |s|
+        s.powershell_elevated_interactive = true
+        s.env = {
+          "BOX_NAME" => name
+        }
+        s.inline = %{
+$ErrorActionPreference = "Stop"
+cd C:\\vagrant\\in-action
+.\\provision-PSWindowsUpdate.ps1
+.\\provision-shutdown-choco-reboot-pending.ps1
+.\\provision-shutdown-PSWindowsUpdate-reboot-pending.ps1
+shutdown /s /t 30 /f
+}
+      end
+
     end
   end
 

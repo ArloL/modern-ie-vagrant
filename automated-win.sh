@@ -64,10 +64,27 @@ while true ; do
             vagrant up "${box_name}" --provision
             ;;
         7)
+            vagrant provision "${box_name}" --provision-with "chocolatey"
+            wait_for_vm_to_shutdown 1200
+            vagrant up "${box_name}"
+            ;;
+        8)
+            while true ; do
+                vagrant provision "${box_name}" --provision-with "updates"
+                state=$(cat "update-state-${box_name}.log")
+                rm -f "update-state-${box_name}.log"
+                wait_for_vm_to_shutdown 1200
+                vagrant up "${box_name}"
+                if [ "${state}" = "done" ]; then
+                    break
+                fi
+            done
+            ;;
+        9)
             vagrant reload "${box_name}" --provision
             vagrant halt "${box_name}"
             ;;
-        8)
+        10)
             vm_package
             exit 0
             ;;
