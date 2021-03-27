@@ -26,6 +26,7 @@ vm_uuid() {
 
 vm_import() {
     prerequisites
+    export VAGRANT_LOG=info
     session_id=$(date -u +"%Y%m%dT%H%M%S")
     vm_uuid
     if ! vm_snapshot_exists "Pre-Boot"; then
