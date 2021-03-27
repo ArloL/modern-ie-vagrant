@@ -43,11 +43,13 @@ vm_import() {
 
 vm_up() {
     if [ "$(vm_state)" = "saved" ]; then
-        X_VAGRANT_BOOT_TIMEOUT=15 vagrant up "${box_name}" || true
+        X_VAGRANT_BOOT_TIMEOUT=15 \
+            vagrant up "${box_name}" || true
         vm_storage_attach
     else
         vm_storage_attach
-        X_VAGRANT_BOOT_TIMEOUT=15 vagrant up "${box_name}" || true
+        X_VAGRANT_BOOT_TIMEOUT=15 \
+            vagrant up "${box_name}" || true
     fi
 }
 
