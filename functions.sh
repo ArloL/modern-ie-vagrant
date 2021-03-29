@@ -226,11 +226,6 @@ vm_publish() {
     *)  exit ${rc};;
     esac
 
-    # make sure the download works
-    curl --verbose --fail \
-        --head --location \
-        "https://app.vagrantup.com/breeze/boxes/${box_name}/versions/${X_MIE_VERSION}/providers/virtualbox.box"
-
     # release the version
     curl --verbose --fail \
         --request PUT \
