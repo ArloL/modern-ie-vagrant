@@ -5,7 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: '25 7 2 * *'
+    - cron: '16 19 2 * *'
 
 jobs:
   tag:

@@ -3,7 +3,7 @@ name: CI Manual
 on:
   push:
   schedule:
-    - cron: '2 10 28 * *'
+    - cron: '35 21 28 * *'
 
 jobs:
   ci:
