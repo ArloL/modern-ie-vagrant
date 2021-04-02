@@ -182,57 +182,7 @@ vm_package() {
 }
 
 vm_publish() {
-    local xtrace_enabled
-    xtrace_enabled=$(xtrace_enabled || true)
-    ${xtrace_enabled} && set +o xtrace
-
-    local base_url="https://app.vagrantup.com/api/v1/box/breeze/${box_name}"
-
-    # create version
-    curl --verbose --fail \
-        --header "Content-Type: application/json" \
-        --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-        "${base_url}/versions" \
-        --data '
-            { "version": {
-                "version": "'"${X_MIE_VERSION}"'",
-                "description": ""
-            } }' > /dev/null
-
-    # create provider
-    curl --verbose --fail \
-        --header "Content-Type: application/json" \
-        --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-        "${base_url}/version/${X_MIE_VERSION}/providers" \
-        --data '{ "provider": { "name": "virtualbox" } }' > /dev/null
-
-    # prepare upload and get upload path
-    local response
-    response=$(curl --verbose --fail \
-        --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-        "${base_url}/version/${X_MIE_VERSION}/provider/virtualbox/upload")
-
-    local upload_path
-    upload_path=$(echo "$response" | jq -r .upload_path)
-
-    # perform the upload
-    local rc
-    curl --verbose --fail \
-        --request PUT \
-        --upload-file "${box_name}.box" "${upload_path}" && rc=$? || rc=$?
-    case ${rc} in
-    0)  ;;
-    52) ;;
-    *)  exit ${rc};;
-    esac
-
-    # release the version
-    curl --verbose --fail \
-        --request PUT \
-        --header "Authorization: Bearer ${VAGRANT_CLOUD_ACCESS_TOKEN}" \
-        "${base_url}/version/${X_MIE_VERSION}/release"
-
-    ${xtrace_enabled} && set -o xtrace
+    ruby ./scripts/vagrant-cloud-upload.rb "${box_name}"
 }
 
 vm_info() {
