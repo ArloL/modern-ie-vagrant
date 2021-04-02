@@ -69,6 +69,21 @@ while true ; do
             vagrant up "${box_name}"
             ;;
         8)
+            vagrant provision "${box_name}" --provision-with "updates"
+            wait_for_vm_to_shutdown 1200
+            vagrant up "${box_name}"
+            ;;
+        9)
+            vagrant provision "${box_name}" --provision-with "updates"
+            wait_for_vm_to_shutdown 1200
+            vagrant up "${box_name}"
+            ;;
+        10)
+            vagrant provision "${box_name}" --provision-with "updates"
+            wait_for_vm_to_shutdown 1200
+            vagrant up "${box_name}"
+            ;;
+        11)
             while true ; do
                 vagrant provision "${box_name}" --provision-with "updates"
                 state=$(cat "update-state-${box_name}.log")
@@ -80,11 +95,11 @@ while true ; do
                 fi
             done
             ;;
-        9)
+        12)
             vagrant reload "${box_name}" --provision
             vagrant halt "${box_name}"
             ;;
-        10)
+        13)
             vm_package
             exit 0
             ;;
