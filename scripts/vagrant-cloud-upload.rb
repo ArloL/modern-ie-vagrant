@@ -9,25 +9,32 @@ base_url="https://app.vagrantup.com/api/v1/box/breeze/#{box_name}"
 http = HTTP.use(logging: {logger: Logger.new(STDOUT, level: :info)})
 api = http.auth("Bearer #{ENV['VAGRANT_CLOUD_ACCESS_TOKEN']}")
 
-response = api.post("#{base_url}/versions", json: {
-    version: {
-        version: version,
-        description: ""
-    }
-})
+response = api.get("#{base_url}/version/#{version}")
 
 if ! response.status.success?
-    raise "Could not create version. code: #{response.code}."
+    response = api.post("#{base_url}/versions", json: {
+        version: {
+            version: version,
+            description: ""
+        }
+    })
+
+    if ! response.status.success?
+        raise "Could not create version. code: #{response.code}."
+    end
 end
 
-response = api.post("#{base_url}/version/#{version}/providers", json: {
-  provider: {
-    name: "virtualbox"
-  }
-})
-
+response = api.get("#{base_url}/version/#{version}/provider/virtualbox")
 if ! response.status.success?
-    raise "Could not create provider. code: #{response.code}."
+    response = api.post("#{base_url}/version/#{version}/providers", json: {
+        provider: {
+            name: "virtualbox"
+        }
+    })
+
+    if ! response.status.success?
+        raise "Could not create provider. code: #{response.code}."
+    end
 end
 
 response = api.get("#{base_url}/version/#{version}/provider/virtualbox/upload")
