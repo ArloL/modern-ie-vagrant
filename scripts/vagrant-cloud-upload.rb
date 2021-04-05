@@ -38,17 +38,23 @@ if ! response.status.success?
     end
 end
 
-response = api.get("#{base_url}/version/#{version}/provider/virtualbox/upload")
+response = http.follow.get(response.parse["download_url"])
 
 if ! response.status.success?
-    raise "Could not initiate upload. code: #{response.code}."
-end
 
-upload_path = response.parse["upload_path"]
-response = http.put upload_path, body: File.open("#{box_name}.box")
+    response = api.get("#{base_url}/version/#{version}/provider/virtualbox/upload")
 
-if ! response.status.success?
-    raise "Could not upload file. code: #{response.code}."
+    if ! response.status.success?
+        raise "Could not initiate upload. code: #{response.code}."
+    end
+
+    upload_path = response.parse["upload_path"]
+    response = http.put upload_path, body: File.open("#{box_name}.box")
+
+    if ! response.status.success?
+        raise "Could not upload file. code: #{response.code}."
+    end
+
 end
 
 response = api.put("#{base_url}/version/#{version}/release")
