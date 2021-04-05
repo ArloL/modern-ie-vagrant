@@ -170,9 +170,11 @@ vm_reset() {
 vm_package() {
     VBoxManage modifyvm "${vm_uuid}" --recording off
     vm_reset
-    vagrant package "${box_name}" \
-        --output "${box_name}.box" \
-        --Vagrantfile Vagrantfile-package
+    if [ ! -f "${box_name}.box" ]; then
+        vagrant package "${box_name}" \
+            --output "${box_name}.box" \
+            --Vagrantfile Vagrantfile-package
+    fi
     if [ "${VAGRANT_CLOUD_ACCESS_TOKEN:-}" != "" ] &&
             [ "${X_MIE_VERSION:-}" != "" ] &&
             [ "${X_MIE_VERSION:-}" != "undefined" ]; then
