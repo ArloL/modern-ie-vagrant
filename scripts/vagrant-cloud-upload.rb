@@ -7,7 +7,7 @@ version=ENV["X_MIE_VERSION"]
 base_url="https://app.vagrantup.com/api/v1/box/breeze/#{box_name}"
 
 http = HTTP.use(logging: {logger: Logger.new(STDOUT, level: :info)})
-    .timeout(connect: 60, write: 60, read: 60)
+    .timeout(connect: 360, write: 360, read: 360)
 api = http.auth("Bearer #{ENV['VAGRANT_CLOUD_ACCESS_TOKEN']}")
 
 response = api.get("#{base_url}/version/#{version}")
