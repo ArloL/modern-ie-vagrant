@@ -7,7 +7,7 @@ version=ENV["X_MIE_VERSION"]
 base_url="https://app.vagrantup.com/api/v1/box/breeze/#{box_name}"
 
 http = HTTP.use(logging: {logger: Logger.new(STDOUT, level: :info)})
-    .timeout(connect: 360, write: 360, read: 360)
+    .timeout(connect: 60, write: 60, read: 60)
 api = http.auth("Bearer #{ENV['VAGRANT_CLOUD_ACCESS_TOKEN']}")
 
 response = api.get("#{base_url}/version/#{version}")
@@ -49,7 +49,8 @@ if ! response.status.success?
     end
 
     upload_path = response.parse["upload_path"]
-    response = http.put upload_path, body: File.open("#{box_name}.box")
+    response = http.timeout(connect: 1200, write: 1200, read: 1200)
+        .put upload_path, body: File.open("#{box_name}.box")
 
     if ! response.status.success?
         raise "Could not upload file. code: #{response.code}."
