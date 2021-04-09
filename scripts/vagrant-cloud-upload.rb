@@ -1,3 +1,4 @@
+require "net/http"
 require "http"
 require "logger"
 
@@ -49,10 +50,20 @@ if ! response.status.success?
     end
 
     upload_path = response.parse["upload_path"]
-    response = http.timeout(connect: 1200, write: 1200, read: 1200)
-        .put upload_path, body: File.open("#{box_name}.box")
+    uri = URI(upload_path)
+    file = File.open("#{box_name}.box")
+    nethttp = Net::HTTP.new(uri.host, uri.port)
+    nethttp.use_ssl = true
+    nethttp.open_timeout = 1200
+    nethttp.read_timeout = 1200
+    nethttp.ssl_timeout = 1200
+    nethttp.write_timeout = 1200
+    request = Net::HTTP::Put.new(uri)
+    request["Content-Length"] = "#{file.size}"
+    request.body_stream = file
+    response = nethttp.request(request)
 
-    if ! response.status.success?
+    if response.code != "200"
         raise "Could not upload file. code: #{response.code}."
     end
 
