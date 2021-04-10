@@ -1,9 +1,7 @@
-name: Release
+name: Main
 
 on:
   push:
-    branches:
-      - master
   schedule:
     - cron: '16 19 2 * *'
 
@@ -15,12 +13,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2.3.4
     - id: tag
+      if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
       run: ./release.sh
   release:
     strategy:
       fail-fast: false
       matrix:
         os: [win7-ie8, win7-ie9, win7-ie10, win7-ie11, win81-ie11, win10-edge]
+        mode: [auto, manual]
     name: ${{ matrix.os }}
     needs: tag
     runs-on: macos-latest
@@ -32,12 +32,19 @@ jobs:
         echo "/usr/local/opt/curl-openssl/bin" >> $GITHUB_PATH
         gem install http
     - name: Build
+      run: |
+        ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }} || \
+          ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }} || \
+          ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }}
+    - name: Release
+      if: ${{ matrix.mode == 'auto' }}
       env:
         VAGRANT_CLOUD_ACCESS_TOKEN: ${{ secrets.VAGRANT_CLOUD_ACCESS_TOKEN }}
         X_MIE_VERSION: ${{ needs.tag.outputs.new_version }}
       run: |
-        ./automated-win.sh ${{ matrix.os }} || \
-          ./automated-win.sh ${{ matrix.os }}
+        ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }} || \
+          ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }} || \
+          ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }}
     - uses: actions/upload-artifact@v2
       if: ${{ always() }}
       with:
