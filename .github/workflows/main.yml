@@ -50,3 +50,5 @@ jobs:
       with:
         name: recordings from ${{ matrix.os }} build for ${{ github.sha }}
         path: recordings
+    - if: ${{ always() }}
+      run: rm -f "${{ matrix.os }}.box"
