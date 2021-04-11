@@ -180,7 +180,6 @@ vm_package() {
             [ "${X_MIE_VERSION:-}" != "undefined" ]; then
         vm_publish
     fi
-    rm -f "${box_name}.box"
 }
 
 vm_publish() {
