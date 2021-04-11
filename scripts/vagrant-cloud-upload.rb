@@ -39,29 +39,46 @@ if ! response.status.success?
     end
 end
 
-response = http.follow.get(response.parse["download_url"])
+download_url = response.parse["download_url"]
+response = http.follow.get(download_url)
 
 if ! response.status.success?
 
-    response = api.get("#{base_url}/version/#{version}/provider/virtualbox/upload")
+    for i in 0..5
+        response = api.get("#{base_url}/version/#{version}/provider/virtualbox/upload")
 
-    if ! response.status.success?
-        raise "Could not initiate upload. code: #{response.code}."
+        if ! response.status.success?
+            raise "Could not initiate upload. code: #{response.code}."
+        end
+
+        upload_path = response.parse["upload_path"]
+        uri = URI(upload_path)
+        file = File.open("#{box_name}.box")
+        nethttp = Net::HTTP.new(uri.host, uri.port)
+        nethttp.use_ssl = true
+        nethttp.open_timeout = 1200
+        nethttp.read_timeout = 1200
+        nethttp.ssl_timeout = 1200
+        nethttp.write_timeout = 1200
+        request = Net::HTTP::Put.new(uri)
+        request["Content-Length"] = "#{file.size}"
+        request.body_stream = file
+        response = nethttp.request(request)
+
+        if response.code == "499"
+            for i in 0..5
+                sleep 60
+                response = http.follow.get(download_url)
+                if response.status.success?
+                    break
+                end
+            end
+        end
+
+        if response.code == "200"
+            break
+        end
     end
-
-    upload_path = response.parse["upload_path"]
-    uri = URI(upload_path)
-    file = File.open("#{box_name}.box")
-    nethttp = Net::HTTP.new(uri.host, uri.port)
-    nethttp.use_ssl = true
-    nethttp.open_timeout = 1200
-    nethttp.read_timeout = 1200
-    nethttp.ssl_timeout = 1200
-    nethttp.write_timeout = 1200
-    request = Net::HTTP::Put.new(uri)
-    request["Content-Length"] = "#{file.size}"
-    request.body_stream = file
-    response = nethttp.request(request)
 
     if response.code != "200"
         raise "Could not upload file. code: #{response.code}."
