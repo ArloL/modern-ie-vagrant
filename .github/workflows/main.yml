@@ -21,7 +21,7 @@ jobs:
       matrix:
         os: [win7-ie8, win7-ie9, win7-ie10, win7-ie11, win81-ie11, win10-edge]
         mode: [auto, manual]
-    name: ${{ matrix.os }}
+    name: ${{ matrix.os }} ${{ matrix.mode }}
     needs: tag
     runs-on: macos-latest
     steps:
