@@ -65,7 +65,7 @@ if ! response.status.success?
         request.body_stream = file
         response = nethttp.request(request)
 
-        if response.code == "499"
+        if "#{response.code}" == "499"
             for i in 0..5
                 sleep 60
                 response = http.follow.get(download_url)
@@ -75,12 +75,12 @@ if ! response.status.success?
             end
         end
 
-        if response.code == "200"
+        if "#{response.code}" == "200"
             break
         end
     end
 
-    if response.code != "200"
+    if "#{response.code}" != "200"
         raise "Could not upload file. code: #{response.code}."
     end
 
