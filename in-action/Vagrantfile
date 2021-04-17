@@ -19,15 +19,8 @@ Vagrant.configure(2) do |config|
     s.inline = %{
 $ErrorActionPreference = "Stop"
 cd C:\\vagrant
-.\\provision-check.ps1
-.\\provision-profile.ps1
-.\\provision-performance.ps1
 .\\provision-bginfo.ps1
-.\\provision-timezone.ps1
-.\\provision-powersettings.ps1
 .\\provision-locale.ps1
-.\\provision-chocolatey.ps1
-.\\provision-chocolatey-packages.ps1
 }
   end
 
