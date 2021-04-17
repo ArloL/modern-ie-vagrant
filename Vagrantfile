@@ -136,8 +136,6 @@ cd C:\\vagrant\\in-action
 .\\provision-powersettings.ps1
 .\\provision-chocolatey.ps1
 .\\provision-chocolatey-packages.ps1
-.\\provision-shutdown-choco-reboot-pending.ps1
-.\\provision-shutdown-PSWindowsUpdate-reboot-pending.ps1
 shutdown /s /t 30 /f
 }
       end
@@ -151,8 +149,6 @@ shutdown /s /t 30 /f
 $ErrorActionPreference = "Stop"
 cd C:\\vagrant\\in-action
 .\\provision-PSWindowsUpdate.ps1
-.\\provision-shutdown-choco-reboot-pending.ps1
-.\\provision-shutdown-PSWindowsUpdate-reboot-pending.ps1
 shutdown /s /t 30 /f
 }
       end
