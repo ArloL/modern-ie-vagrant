@@ -39,7 +39,7 @@ if ! response.status.success?
     end
 end
 
-download_url = response.parse["download_url"]
+download_url = response.parse(response.mime_type)["download_url"]
 response = http.follow.get(download_url)
 
 if ! response.status.success?
@@ -51,7 +51,7 @@ if ! response.status.success?
             raise "Could not initiate upload. code: #{response.code}."
         end
 
-        upload_path = response.parse["upload_path"]
+        upload_path = response.parse(response.mime_type)["upload_path"]
         uri = URI(upload_path)
         file = File.open("#{box_name}.box")
         nethttp = Net::HTTP.new(uri.host, uri.port)
