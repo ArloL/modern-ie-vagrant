@@ -38,6 +38,7 @@ vm_import() {
             vagrant up "${box_name}" || true
         vagrant halt "${box_name}" --force
         vm_uuid
+        vagrant box remove --force "modern.ie/${box_name}"
     fi
 }
 
