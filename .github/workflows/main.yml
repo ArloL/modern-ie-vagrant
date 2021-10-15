@@ -23,7 +23,7 @@ jobs:
         mode: [auto, manual]
     name: ${{ matrix.os }} ${{ matrix.mode }}
     needs: tag
-    runs-on: macos-latest
+    runs-on: macos-10.15
     steps:
     - uses: actions/checkout@v2.3.4
     - name: Dependencies
