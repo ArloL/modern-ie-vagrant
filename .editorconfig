@@ -9,6 +9,6 @@ insert_final_newline = true
 [*.{bat,cmd,ps1}]
 end_of_line = crlf
 
-[*.{sh}]
+[*.sh]
 end_of_line = lf
 
