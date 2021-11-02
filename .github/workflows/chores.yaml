@@ -1,10 +1,10 @@
 name: Chores
 
 on:
-  push:
-    branches: main
-  pull_request:
-    branches: main
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+    - chores
   schedule:
   - cron: '26 15 * * 5'
 
