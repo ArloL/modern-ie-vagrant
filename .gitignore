@@ -67,3 +67,4 @@ GitHub.sublime-settings
 *.webm
 
 scripts/*/
+.project
