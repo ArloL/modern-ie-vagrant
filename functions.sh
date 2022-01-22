@@ -467,7 +467,6 @@ download_prerequisites() {
     local base_url="https://download.virtualbox.org/virtualbox"
     local latest
     latest=$(curl -s "${base_url}/LATEST-STABLE.TXT")
-    latest=6.1.26
     wget --quiet --continue \
         --output-document="scripts/VBoxGuestAdditions_${latest}.iso" \
         "${base_url}/${latest}/VBoxGuestAdditions_${latest}.iso"
