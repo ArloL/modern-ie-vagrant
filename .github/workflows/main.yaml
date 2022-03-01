@@ -11,7 +11,7 @@ jobs:
     outputs:
       new_version: ${{ steps.tag.outputs.version }}
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3
     - id: tag
       if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
       run: ./release.sh
@@ -25,7 +25,7 @@ jobs:
     needs: tag
     runs-on: macos-10.15
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3
     - name: Dependencies
       run: |
         brew install bash curl-openssl
