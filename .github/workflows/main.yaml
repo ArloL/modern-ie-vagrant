@@ -11,7 +11,7 @@ jobs:
     outputs:
       new_version: ${{ steps.tag.outputs.version }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3.1.0
     - id: tag
       if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
       run: ./release.sh
@@ -25,7 +25,7 @@ jobs:
     needs: tag
     runs-on: macos-12
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3.1.0
     - name: Dependencies
       run: |
         brew install bash curl-openssl
@@ -45,7 +45,7 @@ jobs:
         ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }} || \
           ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }} || \
           ./automated-win.sh ${{ matrix.os }} ${{ matrix.mode }}
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v3.1.0
       if: ${{ always() }}
       with:
         name: recordings from ${{ matrix.os }} ${{ matrix.mode }} build for ${{ github.sha }}
