@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <gs:GlobalizationServices xmlns:gs="urn:longhornGlobalizationUnattend">
     <gs:UserList>
-        <gs:User UserID="Current"/>
+        <gs:User UserID="Current" />
     </gs:UserList>
     <gs:MUILanguagePreferences>
         <gs:MUILanguage Value="de-DE" />
