@@ -6,7 +6,7 @@ on:
     types:
     - chores
   schedule:
-  - cron: '26 15 * * 5'
+  - cron: '35 19 12 * *'
 
 jobs:
   debug:
@@ -36,6 +36,8 @@ jobs:
       env:
         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
       run: echo "$MATRIX_CONTEXT"
+    - name: Dump environment variables
+      run: set
   chores:
     name: Chores
     runs-on: ubuntu-latest
