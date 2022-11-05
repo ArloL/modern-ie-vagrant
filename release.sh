@@ -14,4 +14,4 @@ for MICRO in $(seq 1 999); do
     fi
 done
 
-echo "::set-output name=version::${VERSION}"
+echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
